@@ -1,0 +1,300 @@
+@import './partials/mixins';
+@import './partials/reset';
+@import './partials/utilities';
+@import './partials/variables';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//Scroll-bar
+::-webkit-scrollbar{
+  background: transparent;
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background: var(--bg-gradient);
+  border-radius: 3px;
+}
+
+html{
+  color: var(--font-color);
+  background:var(--bg-color);
+  
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+  
+  scrollbar-color: var(--theme-color) transparent;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+
+  @include responsive(phone){
+
+  }
+
+  //Tablet mini - min 768
+  @include responsive(tablet-mini){
+
+  }
+
+  //Tablet mini - min 1000
+  @include responsive(tablet){
+
+  }
+
+  //Laptop - min 1380
+  @include responsive(laptop){
+
+  }
+
+}
+
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-family: Inter-Regular;
+
+ 
+  @include responsive(phone){
+    // cursor: auto;
+
+  }
+
+  //Tablet mini - min 768
+  @include responsive(tablet-mini){
+
+  }
+
+  //Tablet mini - min 1000
+  @include responsive(tablet){
+
+  }
+
+  //Laptop - min 1380
+  @include responsive(laptop){
+    // cursor: none;
+  }
+
+}
+
+html, body{
+  scroll-behavior: smooth !important;
+}
+
+
+@font-face {
+  font-family: Inter-Regular;
+  src: local('Inter'),
+  url("../assets/fonts/Inter-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: Inter-Medium;
+  src: local('Inter'),
+  url("../assets/fonts/Inter-Medium.ttf") format("truetype");
+
+}
+@font-face {
+  font-family: Inter-SemiBold;
+  src: local('Inter'),
+  url("../assets/fonts/Inter-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: Inter-Bold;
+  src: local('Inter'),
+  url("../assets/fonts/Inter-Bold.ttf") format("truetype");
+  
+}
+@font-face {
+  font-family: Inter-ExtraBold;
+  src: local('Inter'),
+  url("../assets/fonts/Inter-ExtraBold.ttf") format("truetype");
+  
+}
+@font-face {
+  font-family: Inter-Black;
+  src: local('Inter'),
+  url("../assets/fonts/Inter-Black.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: L3-Soft;
+  src: local('L3'),
+  url("../assets/fonts/library-3am-soft.otf") format("opentype");
+}
+
+@font-face {
+  font-family: L3;
+  src: local('L3'),
+  url("../assets/fonts/library-3am.otf") format("opentype");
+}
+
+@font-face {
+  font-family: PPTelegraf-Ultrabold;
+  src: local('PPTelegraf'),
+  url("../assets/fonts/PPTelegraf-Ultrabold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: PPTelegraf-Regular;
+  src: local('PPTelegraf'),
+  url("../assets/fonts/PPTelegraf-Regular.otf") format("opentype");
+}
+.font-l3{
+  font-family: L3;
+}
+.font-l3-soft{
+  font-family: L3-Soft;
+}
+.font-cyberpunk{
+  font-family: Cyber;
+}
+.font-rg{
+  font-family: Inter-Regular;
+}
+.font-md{
+  font-family: Inter-Medium;
+}
+.font-semib{
+  font-family: Inter-SemiBold;
+}
+.font-b{
+  font-family: Inter-Bold;
+}
+.font-extrab{
+  font-family: Inter-ExtraBold;
+}
+.font-blk{
+  font-family: Inter-Black;
+}
+.font-telegraf-rg{
+  font-family: PPTelegraf-Regular;
+}
+.font-telegraf-ultrab{
+  font-family: PPTelegraf-UltraBold;
+}
+.cursor-none{
+  cursor: none;
+}
+
+
+  //Overlay Background
+  .overlay-background{
+    display: inline-block;
+    pointer-events: none;
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vH;
+    width: 100vW;
+    z-index: -1;
+    -webkit-opacity: var(--bg-opacity); /* WebKit browser e.g. Safari */
+    -moz-opacity: var(--bg-opacity); /* Firefox and Mozilla browsers */
+    opacity: var(--bg-opacity);
+
+    @include responsive(phone){
+      background-attachment: scroll;
+   }
+    @include responsive(tablet){
+       background-attachment: fixed;
+    }
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+
+    animation: opaup 300ms forwards;
+    @keyframes opaup {
+      0% {opacity: 0}
+      100% {
+        opacity: var(--bg-opacity);
+        -webkit-opacity: var(--bg-opacity); /* WebKit browser e.g. Safari */
+        -moz-opacity: var(--bg-opacity); /* Firefox and Mozilla browsers */
+      }  
+    }
+
+  }
+  
+  @include color-scheme(dark){
+    .overlay-background{
+      background-image: url("../assets/images/background/blockchain-shubham_dhage.jpg");
+      background-color: black;
+
+    }
+  }
+
+  @include color-scheme(light){
+    .overlay-background{
+      background-image: url("../assets/images/background/white-pattern.jpg");
+      background-color: white;
+
+    }
+  }
+  
+
+.glassmorphism{
+  background-color: var(--glassmorphism-bg);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  box-shadow: 0 0 3px var(--marque-default-bg);
+}
+
+//Logo
+.logo{
+  display: inline-block;
+  color: var(--theme-color);
+  font-weight: normal;
+  background: transparent;
+  border-radius: 10px;
+  transform-origin: center;
+  transition: 300ms ease-out;
+  letter-spacing: 1px;
+
+  @include responsive (laptop){
+    &:hover{
+      transform: scale(1.05);
+      letter-spacing: 4px;
+      text-shadow: 0 0 5px var(--theme-color);
+      ;
+    }
+  }
+}
+
+  
+.text-gradient{
+  background: var(--bg-gradient);
+  background-size: 200%;
+  background-position: left top;
+  background-clip: text;
+  --webkit-background-clip : text;
+  color: transparent;
+  animation: animate-gradient 5000ms linear infinite alternate-reverse;
+  
+  @keyframes animate-gradient {
+    35% {background-position: right top;}
+    65%{background-position: right bottom;}
+    100%{background-position: left bottom;}
+  }
+}
+
+.trans-bg{
+  border: none;
+  box-shadow: none;
+  background-size: 100%;
+  background-clip: text;
+  --webkit-background-clip : text;
+  color: transparent;
+  transition: 300ms;
+}
+
+.float-bg-gradient{
+  background: var(--bg-gradient);
+  background-size: 100%;
+  background-position: center;
+  filter: blur(100px);
+}

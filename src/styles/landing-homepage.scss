@@ -1,0 +1,52 @@
+@import './partials/mixins';
+
+
+.home-intro{
+    @include responsive(phone){
+        height: 85vH;
+    }
+    @include responsive(tablet){
+        height: calc(100vH - var(--header-height));
+    }
+} 
+
+.fullname{
+    &:hover{
+        text-shadow: 1px 3px 2px var(--theme-color);
+    }
+}
+
+.something{
+    --s: 25px; /* the size on the corner */
+    --t: 2px;  /* the thickness of the border */
+    --g: 1px; /* the gap between the border and image */
+    
+    
+    padding: calc(var(--g) + var(--t));
+    outline: var(--t) solid var(--theme-color); /* the color here */
+    outline-offset: calc(-1*var(--t));
+    -webkit-mask:
+      conic-gradient(at var(--s) var(--s),#0000 75%,#000 0)
+      0 0/calc(100% - var(--s)) calc(100% - var(--s)),
+      linear-gradient(#000 0 0) content-box;
+}
+
+.mask{
+    -webkit-mask-image: url('../assets/images/background/octagon.svg');
+    mask-image: url('../assets/images/background/octagon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 0px;
+    mask-size: 0px;
+
+    background: transparent;
+        
+    .mask-text{
+        background: var(--gradient-colorful);
+        background-size: 100%;
+        background-position: center;
+        --webkit-background-clip : text;
+        background-clip: text;
+        color: transparent;
+    }
+}

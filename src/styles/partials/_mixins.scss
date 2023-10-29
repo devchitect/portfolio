@@ -1,0 +1,48 @@
+@mixin color-scheme($mode){
+
+    @if $mode == dark {
+          html[class = 'dark']{
+               @content;
+          }
+    }
+
+    @if $mode == light {
+          html[class = 'light']{
+             @content;
+          }
+     }
+
+     @if $mode == all {
+          html{
+             @content;
+          }
+     }
+}
+
+@mixin responsive($breakpoint){
+     @if $breakpoint == laptop {
+          @media only screen and (min-width: 1380px) {
+              @content;
+          };
+      }
+ 
+     @if $breakpoint == tablet {
+         @media only screen and (min-width: 1000px){
+             @content;
+         };
+     }
+ 
+     @if $breakpoint == tablet-mini {
+         @media only screen and (min-width: 640px){
+             @content;
+         };
+     }
+ 
+   
+     @if $breakpoint == phone {
+          @media only screen and (min-width: 280px) {
+              @content;
+          };
+      }
+ }
+ 

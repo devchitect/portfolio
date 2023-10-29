@@ -1,0 +1,140 @@
+@import './mixins';
+
+:root {
+    scroll-behavior: smooth;
+    --screen-pad: 10%;
+    --nav-resHeightOff: 0;
+    --nav-resHeightOn: calc(100vH - var(--header-height));
+    --cube-aura: linear-gradient(90deg, #4A00E0ee, #8E2DE2ee,  #ff00ccee,#e63200, #e65c00, #F9D423, #92FE9Dee, #00ffffee);
+    --gradient-colorful:  linear-gradient(90deg,#00ffb7, #00ffdd, #2f75ff,  #8E2DE2ee,#ff395c, #ff8000, #ffa982, #e65c00);
+    --header-scroll-transform: translateY(calc(-1 * (var(--header-height))));
+
+    --marquee-start: -100% ;
+    --marquee-end: 0;
+
+    //Responsive must go in correct order
+    //Phone - min 320
+    @include responsive(phone){
+      --header-height: 65px;
+      --footer-height: 200px;
+      --blur: 30px;
+      --logo-size: 1.5rem;
+      --font-size: initial;
+
+      --dropdown-hover-outline: none;
+    }
+    //Tablet mini - min 768
+    @include responsive(tablet-mini){
+      --navlinkPadding: 3;
+      --footer-height: 150px;
+
+
+    }
+
+    //Tablet mini - min 1000
+    @include responsive(tablet){
+      --header-height: 110px;
+      --font-size: 0.93rem;
+      --logo-size: 1.65rem;
+      --nav-resHeightOff: auto;
+      --nav-resHeightOn: auto;
+      --blur: 5px;
+
+      --dropdown-hover-outline: 2px solid var(--theme-color);
+
+    }
+
+        //Laptop - min 1380
+    @include responsive(laptop){
+
+    }
+
+}
+  
+//Root Dark-Theme
+@include color-scheme(dark){
+  --bg-opacity: 0.1;
+  --font-color: white;
+  --bg-color: #000000;
+  --bg-gradient: linear-gradient(45deg, #1fa2ffee,#00ffffee, #92FE9Dee);
+  --theme-color: rgba(0,255,255);
+  --cursor-color: rgba(0,255,255);
+  --cursor-blend: exclusion;
+  --cursor-outline: rgba(255, 255, 255, 0.69);
+  --glassmorphism-bg:rgba(255, 255, 255, 0.05);
+  --header-bg: rgba(0, 0, 0, 0.5);
+  --mask-bg: rgba(16, 16, 16,0.65);
+
+  //Responsive must go in correct order
+    //Phone - min 320
+    @include responsive(phone){
+      --nav-bg:rgba(0,0,0,0.65);
+      --marque-default-bg: rgba(255, 255, 255, 0.5);
+
+    }
+    //Tablet mini - min 768
+    @include responsive(tablet-mini){
+
+    }
+
+    //Tablet mini - min 1000
+    @include responsive(tablet){
+      --nav-bg: transparent;
+      --dropdown-bg:rgba(0, 0, 0, 0.5);
+      --marque-default-bg: rgba(255, 255, 255, 0.3);
+
+
+    }
+
+        //Laptop - min 1380
+    @include responsive(laptop){
+      
+
+    }
+
+  }
+
+  //Root Light-Theme
+@include color-scheme(light){
+  --bg-opacity: 0.4;
+  --font-color: #000000;
+  --bg-color: rgb(250, 250, 250);
+  --bg-gradient: linear-gradient(45deg,#0033ffee, #8E2DE2ee, #4A00E0ee);
+  --theme-color: rgb(111, 0, 255);
+  --cursor-blend: normal;
+  --cursor-outline: rgba(0, 0, 0, 0.69);
+  --glassmorphism-bg:rgba(0, 0, 0, 0.02);
+  --header-bg: rgba(255, 255, 255, 0.6);
+  --mask-bg: rgba(255, 255, 255, 0.65);
+
+  //Responsive must go in correct order
+    //Phone - min 320
+    @include responsive(phone){
+      --nav-bg:rgba(255, 255, 255, 0.65);
+      --marque-default-bg: rgba(0, 0, 0, 0.5);
+
+    }
+    //Tablet mini - min 768
+    @include responsive(tablet-mini){
+     
+    }
+
+    //Tablet mini - min 1000
+    @include responsive(tablet){
+      --nav-bg: transparent;
+      --dropdown-bg:rgba(255, 255, 255, 0.5);
+      --marque-default-bg: rgba(0, 0, 0, 0.3);
+
+    }
+
+        //Laptop - min 1380
+    @include responsive(laptop){
+
+    }
+
+    
+
+  }
+  
+
+
