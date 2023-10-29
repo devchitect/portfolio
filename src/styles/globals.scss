@@ -27,7 +27,6 @@ html{
   
   scrollbar-color: var(--theme-color) transparent;
   scrollbar-width: thin;
-  scrollbar-gutter: stable;
 
   @include responsive(phone){
 
@@ -79,6 +78,10 @@ body {
 
 }
 
+html, body{
+  scrollbar-gutter: stable;
+
+}
 
 @font-face {
   font-family: Inter-Regular;

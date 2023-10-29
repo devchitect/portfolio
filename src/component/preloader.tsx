@@ -28,9 +28,9 @@ function Content(){
 
                 <div className="font-l3">
                     <span className='loader-text inline-block relative
-                    xl:text-[6.5rem]
-                    lg:text-[4.4rem]
-                    sm:text-[2.2rem]
+                    xl:text-[110px]
+                    lg:text-[5.5rem]
+                    sm:text-[4.4rem]
                     '>{endpath}</span>
                 </div>
             </div>

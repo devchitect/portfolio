@@ -31,7 +31,7 @@ export default function Footer(){
   const GITInView = useInView(getInTouchRef, {once: true, margin: '0px 0px -30% 0px'})
 
   const y = useTransform(scrollYProgress, [0, 1], [`${100}%`, `${-100}%`]);
-
+  const opacity = useTransform(scrollYProgress, [0.2, 0.5], [0,1]);
 
   return(
       <>
@@ -57,10 +57,11 @@ export default function Footer(){
 
           <motion.div 
           ref={article}
-          style={{y: y}}
+          style={{y: y, opacity: opacity}}
+
           className=' 
           lg:px-per10 
-          sm:px-per5 sm:mt-8
+          sm:px-per5 sm:mt-8 will-change-[transform,opacity]
           '>
             <div className='font-l3-soft tracking-[-0.1rem] leading-[1.1] opacity-90
             lg:text-[95px]
@@ -81,10 +82,12 @@ export default function Footer(){
             className='absolute w-full overflow-hidden'
             >
               <motion.div 
-              initial={{x: '100%'}}
-              animate={GITInView ? {x: '0%'} : {}}
+              initial={{x: '100%', opacity: 0}}
+              animate={GITInView ? {x: '0%',  opacity: 1} : {}}
               transition={{duration: 1.5, delay: 0, ease: 'easeOut'}}
-              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-4 border-b-0 border-x-0 border-themeColor opacity-60'/>
+              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-4 border-b-0 border-x-0 border-themeColor opacity-60
+              will-change-[transform,opacity]
+              '/>
             </div>
 
 
@@ -99,7 +102,7 @@ export default function Footer(){
             animate={GITInView ? {opacity: 1, rotate: '0deg'} : {}}
             transition={{duration: 1.3, delay: 0, ease: 'easeOut'}}
             className={` 
-            lg:mx-auto lg:py-0 origin-center
+            lg:mx-auto lg:py-0 origin-center will-change-[transform,opacity]
             sm:ml-auto sm:mx-per10 sm:py-10 
             
             `}>
@@ -165,7 +168,7 @@ function Socials(){
                     onMouseEnter={() => {dispatch(hoverOn(s.title))}}
                     onMouseLeave={() => {dispatch(hoverOff())}}
                     >
-                        <Icon icon={s.icon} className='block hover:scale-150 duration-150 text-2xl'/>
+                        <Icon icon={s.icon} className='block hover:scale-150 duration-150 text-xl'/>
                     </a>     
                 ))}
             </div>
@@ -185,7 +188,7 @@ function Marquee({text1, text2, text3, marqueedirec = 'forward'}){
         className='relative flex select-none font-telegraf-ultrab
         lg:text-[3.3rem] 
         md:text-2xl
-        sm:text-lg sm:my-2 sm:tracking-normal
+        sm:text-lg sm:my-2 sm:tracking-normal will-change-[opacity]
         '>
           <div
           className={`flex shrink-0 min-w-full leading-normal border-y-[5px] border-[#11111155] border-double dark:border-[#ffffff55]

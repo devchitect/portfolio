@@ -131,7 +131,7 @@ function FirstSection(){
         style={{y: y, opacity: opacity}} 
         className={`something relative leading-[1] text-center select-none h-full
         lg:ml-[10%] lg:mr-[10.2%] lg:mt-[7rem] 
-        sm:mt-[2rem] sm:mb-[var(--header-height)] sm:mx-per5 ease-out
+        sm:mt-[2rem] sm:mb-[var(--header-height)] sm:mx-per5 ease-out will-change-[transform] 
         `}>
           <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
             <div 
@@ -240,14 +240,14 @@ function SecondSection(){
     lg:grid lg:grid-cols-[75%,25%] items-start
     lg:px-[10%]
     md:mt-20
-    sm:px-[5%] sm:pt-36 sm:mt-5 sm:flex sm:flex-col 
+    sm:px-[5%] sm:pt-36 sm:mt-5 sm:flex sm:flex-col will-change-[opacity]
     '>
 
       <motion.div 
       initial={{x: '-100%'}}
       animate={articleInView ? {x: '0%'} : {}}
       transition={{duration: 1.5, delay: 0, ease: 'easeOut'}}
-      className='absolute h-[2px] left-0 w-full top-0 border border-dotted border-t-2 border-b-0 border-x-0 border-themeColor'/>
+      className='absolute h-[2px] left-0 w-full top-0 border border-dotted border-t-2 border-b-0 border-x-0 border-themeColor will-change-transform'/>
 
       <article
       ref={article}
@@ -360,11 +360,13 @@ function ThirdSection(){
     <>
     <div className='
     relative w-screen overflow-hidden 
-    lg:px-[10%] lg:grid lg:grid-cols-[37.5%,62.5%] lg:mt-10 items-start
+    lg:px-[10%] lg:grid lg:grid-cols-[37.5%,62.5%] lg:mt-10
     sm:px-[10%] sm:py-5 sm:mt-5
     '>
-      <div>
-
+      <div className='flex items-center justify-center '>  
+        <span className={`text-6xl sm:hidden xl:block hover:scale-150 duration-300
+        ${articleInView ? 'opacity-100' : 'opacity-0'}
+        `}>&#128640;</span>
       </div>
 
       <article 
