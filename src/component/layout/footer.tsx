@@ -112,7 +112,7 @@ export default function Footer(){
               text-themeColor
               xl:w-[250px] xl:h-[250px] xl:text-[1.3rem] 
               lg:w-[180px] lg:h-[180px] lg:text-[1.1rem] 
-              sm:w-[130px] sm:h-[130px] sm:text-md 
+              sm:w-[130px] sm:h-[130px] sm:text-sm
               hover:text-white hover:border-solid hover:shadow-2xl  hover:tracking-[0.05rem]
               before:content-[""] before:absolute before:right-0 before:top-0 before:h-full before:w-0 before:duration-[500ms] before:z-2 before:rounded-full
               before:bg-themeColor before:opacity-80

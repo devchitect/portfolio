@@ -58,7 +58,7 @@ body {
 
  
   @include responsive(phone){
-    // cursor: auto;
+    cursor: auto;
 
   }
 
@@ -74,13 +74,9 @@ body {
 
   //Laptop - min 1380
   @include responsive(laptop){
-    // cursor: none;
+    cursor: none;
   }
 
-}
-
-html, body{
-  scroll-behavior: smooth !important;
 }
 
 
@@ -146,9 +142,6 @@ html, body{
 }
 .font-l3-soft{
   font-family: L3-Soft;
-}
-.font-cyberpunk{
-  font-family: Cyber;
 }
 .font-rg{
   font-family: Inter-Regular;

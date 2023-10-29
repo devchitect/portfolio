@@ -15,10 +15,10 @@ import Footer from '@/component/layout/footer';
 export const navigateDelay = 1500;
 
 //Code Splitting & Lazy Loading
-// const DynamicParticles = dynamic(() => import('../component/particles-container'), {
-//   loading: () => null,
-//   ssr: false 
-// })
+const DynamicParticles = dynamic(() => import('../component/particles-container'), {
+  loading: () => null,
+  ssr: false 
+})
 
 const DynamicCursor = dynamic(() => import('../component/cursor'), {
   loading: () => null,
@@ -48,7 +48,7 @@ export default function RootLayoutClientComponent({children}: {children: React.R
         </div>
 
         <DynamicCursor/>
-        {/* <DynamicParticles/> */} 
+        <DynamicParticles/> 
 
       </Provider>
 

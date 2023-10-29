@@ -71,7 +71,7 @@ function Header(){
     <>
         <header 
         ref = {header}
-        className="header sticky top-0 flex items-center justify-between z-20 duration-500 border-none transition-transform 
+        className="header sticky top-0 flex items-center justify-between z-20 duration-500 border-none transition-transform w-full
         xl:px-per10
         sm:px-per5 xm:py-3
         ">

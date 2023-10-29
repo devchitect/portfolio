@@ -1,17 +1,13 @@
 "use client"
 
-// import { RootState } from "@/app/store/store";
 import Link from 'next/link';
 import {Icon} from '@iconify/react' ;
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
-import { transition } from '@/app/store/slices/pageTransitionSlice';
 import { switchMode } from '@/app/store/slices/themeSlice';
-import { usePathname, useRouter } from "next/navigation";
-import { motion, AnimatePresence} from "framer-motion";
+import { usePathname } from "next/navigation";
 import Magnetic from "./magnetic";
-import { navigateDelay } from '@/app/layout-client';
 import { usePageNavigate } from './custom-hook/use-page_navigate';
 
 export function clickSound(){
@@ -68,18 +64,17 @@ export default function Nav({toggleNav, setToggleNav}){
     function toggleDropdown(e : React.MouseEvent<Element, MouseEvent>){
 
         if(window.innerWidth < 1000){
-        const target = e.currentTarget as HTMLElement;
-        if(toggleDDState){
-            target.style.color = 'inherit';
-            stuffs.current.style.height = '0';
-            stuffs.current.style.borderColor = 'transparent';
-            setToggleDD(!toggleDDState);
-        }else{
-            target.style.color = 'var(--theme-color)';
-            stuffs.current.style.height = '100%';
-            stuffs.current.style.borderColor = 'var(--theme-color)';
-            setToggleDD(!toggleDDState);
-        }
+            setStuffState(!stuffState)
+            const target = e.currentTarget as HTMLElement;
+            if(toggleDDState){
+                target.style.color = 'inherit';
+                stuffs.current.style.height = '0';
+                setToggleDD(!toggleDDState);
+            }else{
+                target.style.color = 'var(--theme-color)';
+                stuffs.current.style.height = '100%';
+                setToggleDD(!toggleDDState);
+            }
         }    
     }
     function dropdownActive(e: React.MouseEvent<Element, MouseEvent>, str: string){
@@ -89,7 +84,6 @@ export default function Nav({toggleNav, setToggleNav}){
             target.style.outline = 'var(--dropdown-hover-outline)';
 
             stuffs.current.style.height = '100%';
-            stuffs.current.style.borderColor = 'var(--theme-color)';
         };
     }
 
@@ -168,7 +162,7 @@ export default function Nav({toggleNav, setToggleNav}){
                             ${`after:content-[''] after:absolute after:bg-bgColor after:inset-1 after:rounded-md after:animate-opacity-up`}
                         `}
                         `}>
-                        <div className={`
+                        <div className={` pointer-events-none
                         sm:px-3 sm:py-3  
                         relative z-30`}>{l.label.toUpperCase()}</div>
 
@@ -184,7 +178,7 @@ export default function Nav({toggleNav, setToggleNav}){
                     <div
                     onMouseOver={(e) => {dropdownActive(e, l.label)}}
                     onMouseOut={(e) => {dropdownDeactive(e, l.label)}}
-                    className={`flex flex-col items-center justify-center rounded-md duration-150 hover:text-themeColor
+                    className={`flex flex-col items-center xl:justify-center rounded-md duration-150 hover:text-themeColor
                     `}
                     >
                         <span
@@ -197,23 +191,23 @@ export default function Nav({toggleNav, setToggleNav}){
 
                         {/* Dropdown content */}
                         <div
+                        ref = {stuffs}
                         className={`z-20 text-black dark:text-white tracking-wide
-                        lg:w-auto lg:grid lg:grid-flow-row lg:justify-start lg:absolute lg:top-per100 lg:-right-1 lg:pt-3 lg:border-0 lg:overflow-visible
-                        ${stuffState ? 'opacity-100 translate-x-0 duration-500' : 'opacity-0 -translate-x-1/3 select-none pointer-events-none'}
-                        sm:w-screen sm:grid sm:grid-flow-row sm:justify-center sm:overflow-hidden
+                        lg:w-auto lg:grid lg:grid-flow-row lg:justify-start lg:absolute lg:top-per100 lg:pt-3 lg:border-0 lg:overflow-visible lg:h-auto 
+                        ${stuffState ? 'opacity-100 translate-0  duration-500' : 'opacity-0 xl:-translate-x-1/3 select-none pointer-events-none'}
+                        sm:w-screen sm:grid sm:grid-flow-row sm:justify-center sm:overflow-hidden sm:h-0
                     
                         `}>
-                            <ul
-                            ref = {stuffs}
+                            <ul           
                             className={`nav-dropdown lg:rounded-md px-3 z-20 justifity-self-start
-                            lg:border-themeColor lg:border-2 lg:border-solid  lg:divide-y-2 lg:w-auto lg:h-auto 
+                            lg:border-themeColor lg:border-2 lg:border-solid lg:divide-y-2 lg:w-auto lg:h-auto 
                             sm:border-transparent sm:border sm:border-double 
-                            sm:divide-y-2 sm:divide-dashed sm:dark:divide-neutral-700 sm:divide-neutral-300 sm:w-screen sm:h-0
+                            sm:divide-y-2 sm:divide-dashed sm:dark:divide-neutral-700 sm:divide-neutral-300 sm:w-screen
                             `}
                             >
                                 {stuffsLinks.map((sl) => (
                                     <li key={sl.href}
-                                    className="text-sm hover:text-themeColor text-right"
+                                    className="text-sm hover:text-themeColor xl:text-right sm:text-center"
                                     >
                                         <Link
                                         onMouseEnter={() => dispatch(hoverOn(''))}
