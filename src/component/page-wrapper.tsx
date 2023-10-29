@@ -88,7 +88,7 @@ function EnterAnimation(){
                         key={x}
                         style={{left: `${x*10}%`,  width: index === 9 ? '10%' :gridWidth}}
                         className='fixed top-full right-0 select-none pointer-events-none
-                        z-40 h-screen bg-[#111111] border border-white border-opacity-10'
+                        z-40 h-screen bg-[#111111] border border-white border-opacity-10 will-change-[transform,opacity]'
                         variants={slidedown}
                         initial='initial'
                         animate='animate'
@@ -125,7 +125,7 @@ function ExitAnimation(){
                             key={x}
                             style={{left: `${x*10}%`, width:gridWidth}}
                             className='fixed bottom-full right-0 select-none pointer-events-none
-                            z-40 h-screen bg-[#111111] border border-white border-opacity-10'
+                            z-40 h-screen bg-[#111111] border border-white border-opacity-10 will-change-transform'
                             variants={slideup}
                             initial='initial'
                             animate='animate'

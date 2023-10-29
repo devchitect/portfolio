@@ -30,7 +30,7 @@ function Content(){
                     <span className='loader-text inline-block relative
                     xl:text-[110px]
                     lg:text-[5.5rem]
-                    sm:text-[4.4rem]
+                    sm:text-[3.5rem]
                     '>{endpath}</span>
                 </div>
             </div>

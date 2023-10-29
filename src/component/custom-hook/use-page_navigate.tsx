@@ -15,7 +15,7 @@ export function usePageNavigate(){
         const label = path.split('/')[1].toUpperCase() ;
         const endpath = label  === '' ? 'Home' : label;
         dispatch(transition({type: 'enter', endpath: endpath}));
-        document.body.style.overflowY = 'scroll';
+        //document.body.style.overflowY = 'scroll';
 
     },[dispatch, path])
 
@@ -24,7 +24,7 @@ export function usePageNavigate(){
         const endpath = label  === '' ? 'Home' : label;
 
         dispatch(transition({type: 'exit', endpath: endpath}))
-        document.body.style.overflowY = 'hidden';
+        //document.body.style.overflowY = 'hidden';
         setTimeout(()=>{
             router.push(path, { scroll: false });    
         }, navigateDelay)

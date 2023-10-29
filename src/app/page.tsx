@@ -6,11 +6,11 @@ import '../styles/landing-homepage.scss'
 
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
-import { use, useCallback, useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useInView, useAnimationFrame, useSpring, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { useSelector } from 'react-redux';
-import { RootState } from './store/store';
+// import { useSelector } from 'react-redux';
+// import { RootState } from './store/store';
 import Magnetic from '@/component/magnetic'
 import EncryptText from '@/component/encrypt-text'
 
@@ -51,7 +51,6 @@ const LandingHomepage = () => {
 export default LandingHomepage;
 
 function FirstSection(){
-  const dispatch = useDispatch();
   const landingSection = useRef<HTMLElement>(null);
   const landingSectionInView = useInView(landingSection, { once: true });
   const [maskPosition, setMaskPosition] = useState({x:0, y:0}); 
@@ -130,8 +129,8 @@ function FirstSection(){
         ref={targetRef}
         style={{y: y, opacity: opacity}} 
         className={`something relative leading-[1] text-center select-none h-full
-        lg:ml-[10%] lg:mr-[10.2%] lg:mt-[7rem] 
-        sm:mt-[2rem] sm:mb-[var(--header-height)] sm:mx-per5 ease-out will-change-[transform] 
+        lg:ml-[10%] lg:mr-[10%] lg:mt-[7rem] 
+        sm:mt-[3rem] sm:mb-[var(--header-height)] sm:mx-per5 ease-out will-change-transform
         `}>
           <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
             <div 
@@ -200,12 +199,6 @@ function FirstSection(){
             lg:text-[100px]
             `}>
             <span className='mask-text font-l3'>DIGITAL</span><span>&nbsp;PRODUCTS</span>
-            <span className='absolute -right-[25px] top-[100%] rotate-[-0deg] rounded-md p-3 tracking-tight
-            bg-[#0fff0f] text-black border-4 border-double border-black
-             lg:text-[39px]
-             md:text-[3rem]
-             sm:text-[1.5rem]
-            '>For Real &#x1F609;!</span>
             </div>
           </motion.div>
 
@@ -321,7 +314,7 @@ function SecondSection(){
       transition={{duration: 1, delay: 0, ease: 'easeOut'}}
       className={` 
       lg:mx-auto lg:mt-10 lg:py-0 origin-center
-      sm:ml-auto sm:mx-per10 sm:py-10 
+      sm:ml-auto sm:mx-per10 sm:py-10 will-change-transform
       ${articleInView ? 'opacity-1 ' : {}}
       `}>
         <Magnetic>
@@ -402,7 +395,7 @@ function FourthSection(){
 
   const main = useRef<HTMLDivElement>(null);
   const section = useRef<any>();
-  const sectionInView = useInView(section, {once: false, margin: '0px 0px -20% 0px'})
+  const sectionInView = useInView(section, {once: false, margin: '0px 0px -10% 0px'})
 
   useIsomorphicLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -479,7 +472,7 @@ function FourthSection(){
       '
       >
         <h3 className='overflow-hidden tracking-[-0.09rem] mt-5 mb-16
-        lg:px-[10.05%]
+        sm:px-[10.05%]
         '>
             <motion.p
             variants={textAnimate}
