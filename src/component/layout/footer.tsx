@@ -39,7 +39,7 @@ export default function Footer(){
         
         ">
           <div
-          className='relative overflow-hidden mt-5 '>
+          className='relative overflow-hidden mt-3'>
             <Marquee marqueedirec={'forward'}
             text1={{label:'PASSIONATE', color:'linear-gradient(90deg, #fc4a1a, #f7b733)'}} 
             text2={{label:'INNOVATIVE',color:'linear-gradient(90deg, #1A2980, #26D0CE)'}} 
@@ -47,7 +47,7 @@ export default function Footer(){
             /> 
           </div>
           <div
-          className='relative overflow-hidden mt-2 '>
+          className='relative overflow-hidden mt-6 '>
             <Marquee  marqueedirec={'backward'}
             text1={{label:'MULTIDISCIPLINARY', color:'var(--gradient-colorful)'}} 
             text2={{label:'INTEGRITY', color:'linear-gradient(90deg, #FF416C, #FF4B2B)'}} 
@@ -60,14 +60,15 @@ export default function Footer(){
           style={{y: y, opacity: opacity}}
 
           className=' 
-          lg:px-per10 
-          sm:px-per5 sm:mt-8 will-change-[transform,opacity]
+          lg
+          sm:px-per10 sm:mt-20 will-change-[transform,opacity]
           '>
             <div className='font-l3-soft tracking-[-0.1rem] leading-[1.1] opacity-90
             lg:text-[95px]
+            sm:text-[2rem]
             '>
               <div className=''>Let&apos;s</div>
-              <div className='mt-2 '><span className='text-gradient'>collaborate</span> !</div>
+              <div className='mt-2 '><span className='text-gradient'>collaborate</span> <span>!</span></div>
               </div>
           </motion.div>
 
@@ -83,9 +84,9 @@ export default function Footer(){
             >
               <motion.div 
               initial={{x: '100%', opacity: 0}}
-              animate={GITInView ? {x: '0%',  opacity: 1} : {}}
+              animate={GITInView ? {x: '0%',  opacity: 0.5} : {}}
               transition={{duration: 1.5, delay: 0, ease: 'easeOut'}}
-              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-4 border-b-0 border-x-0 border-themeColor opacity-60
+              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-4 border-b-0 border-x-0 border-themeColor 
               will-change-[transform,opacity]
               '/>
             </div>
@@ -188,12 +189,12 @@ function Marquee({text1, text2, text3, marqueedirec = 'forward'}){
         className='relative flex select-none font-telegraf-ultrab
         lg:text-[3.3rem] 
         md:text-2xl
-        sm:text-lg sm:my-2 sm:tracking-normal will-change-[opacity]
+        sm:text-lg sm:tracking-normal will-change-[opacity]
         '>
           <div
           className={`flex shrink-0 min-w-full leading-normal border-y-[5px] border-[#11111155] border-double dark:border-[#ffffff55]
 
-          sm:py-5 sm:mt-1 sm:mb-3
+          sm:pt-5 sm:pb-4  
           ${marqueedirec === 'forward' ? 'animate-text-loop' : 'animate-text-loop-reverse'}`}>
             <MarqueeText text1={text1} text2={text2} text3={text3}/>
             <MarqueeText text1={text1} text2={text2} text3={text3}/>
@@ -202,7 +203,7 @@ function Marquee({text1, text2, text3, marqueedirec = 'forward'}){
           <div
           className={`flex shrink-0 min-w-full leading-normal border-y-[5px] border-[#11111155] border-double dark:border-[#ffffff55] 
 
-          sm:py-5 sm:mt-1 sm:mb-3
+          sm:pt-5 sm:pb-4 
           ${marqueedirec === 'forward' ? 'animate-text-loop' : 'animate-text-loop-reverse'}`}>
             <MarqueeText text1={text1} text2={text2} text3={text3}/>
             <MarqueeText text1={text1} text2={text2} text3={text3}/>

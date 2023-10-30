@@ -42,8 +42,8 @@ export function ScrollTrigger(){
         onClick={() => {scrollNow()}}
         className='fixed opacity-40 hover:opacity-100 z-2 
         text-white bg-black rounded-full dark:text-black dark:bg-white dark:hover:bg-darkTheme
-        md:right-10 md:bottom-24  md:text-3xl
-        sm:right-5 sm:bottom-16 sm:text-2xl
+        md:right-10 md:bottom-32  md:text-3xl
+        sm:right-5 sm:bottom-28 sm:text-2xl
         '>
           <Icon icon='line-md:chevron-up-circle'
           className="duration-200 ease-out "

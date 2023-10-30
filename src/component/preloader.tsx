@@ -21,16 +21,16 @@ function Content(){
         className='fixed top-0 left-0 w-screen h-screen z-50 flex justify-center items-center pointer-events-none'
         >
             <div className='relative text-center'>
-                <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none opacity-80 -z-1'>
+                <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
                     <div 
-                    className='float-bg-gradient h-[50%] w-[100%] rounded-[50%]'/>
+                    className='float-bg-gradient h-[50%] w-[100%] rounded-[60%] opacity-80'/>
                 </div>
 
                 <div className="font-l3">
                     <span className='loader-text inline-block relative
                     xl:text-[110px]
                     lg:text-[5.5rem]
-                    sm:text-[3.5rem]
+                    sm:text-[3.3rem]
                     '>{endpath}</span>
                 </div>
             </div>

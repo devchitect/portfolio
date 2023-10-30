@@ -129,8 +129,8 @@ function FirstSection(){
         ref={targetRef}
         style={{y: y, opacity: opacity}} 
         className={`something relative leading-[1] text-center select-none h-full
-        lg:ml-[10%] lg:mr-[10%] lg:mt-[7rem] 
-        sm:mt-[3rem] sm:mb-[var(--header-height)] sm:mx-per5 ease-out will-change-transform
+        lg:mx-[10%] lg:mt-[7rem] 
+        sm:mx-[10%] sm:mt-[3rem] sm:mb-[var(--header-height)] ease-out will-change-transform
         `}>
           <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
             <div 
@@ -150,27 +150,36 @@ function FirstSection(){
             className={`font-b lg:tracking-[-0.15rem] sm:leading-normal md:leading-none opacity-70
             lg:text-[100px]
             md:text-[3rem]
-            sm:text-[1.5rem]
+            sm:text-[1.7rem]
             `}>CRAFTING</div>
 
-            <div className={` font-telegraf-ultrab sm:py-5 sm:px-5 opacity-90 
+            <div className={`relative font-telegraf-ultrab sm:py-5 sm:px-5 opacity-90 xl:z-1 pointer-events-none select-none
             lg:text-[120px] 
             md:text-[4.2rem]
-            sm:text-[2rem]
-            `}>EXCEPTIONAL</div>
+            sm:text-[2.2rem]
+            `}>
+              <div>EXCEPTIONAL</div>
+              <span className='absolute xl:-right-[35px] sm:right-3 top-[60%] rotate-[-15deg] opacity-60 rounded-md border-4 border-double border-black
+              bg-[#ffe600] text-black font-telegraf-ultrab
+              lg:text-[33px] lg:px-4 lg:pt-3 lg:pb-2
+              md:text-[1.8rem]
+              sm:text-[1rem] sm:p-2 sm:pb-1
+              '>No Bullsh!t</span>
+            </div>
 
-            <div className={`relative font-b lg:tracking-[-0.15rem] sm:leading-normal md:leading-none opacity-70  lg:-mt-3
+            <div className={`relative font-b lg:tracking-[-0.15rem] sm:leading-normal md:leading-none opacity-70  lg:-mt-3 flex
             lg:text-[100px]
             md:text-[3rem]
-            sm:text-[1.5rem]
+            sm:text-[1.7rem]
             `}>
-            <span className='font-l3'>DIGITAL</span><span>&nbsp;PRODUCTS</span>
-            <span className='absolute -right-[35px] top-[95%] rotate-[-15deg] rounded-md opacity-90 border-4 border-double border-black
-            bg-[#ffff00] text-black
-             lg:text-[44px] lg:px-5 lg:py-3 
-             md:text-[1.8rem]
-             sm:text-[1.2rem] sm:p-1
-            '>No Bullsh!t</span>
+            <div className='relative font-l3'>
+              <span>DIGITAL</span>
+              <ul className='absolute w-full font-telegraf-rg font-semibold lg:text-[1.5rem] sm:text-[0.8rem] text-left leading-[1.5] tracking-normal top-full left-1/3 mt-4'>
+                <li>+ Website</li>
+                <li>+ Web Application</li>
+              </ul>
+              </div>
+            <div>&nbsp;PRODUCTS</div>
             </div>
           </div>
 
@@ -183,7 +192,7 @@ function FirstSection(){
             WebkitMaskSize: `${size.current}px`, 
           }}
           transition={{type:'tween', ease:'backOut'}}
-          className={`mask px-6 py-[3.8rem] flex-col items-center absolute h-full w-full justify-center top-0 left-0 select-none
+          className={`mask px-6 py-[3.8rem] flex-col items-center absolute h-full w-full justify-center top-0 left-0 select-none z-2
           xl:flex
           sm:hidden
           `}>
@@ -191,14 +200,22 @@ function FirstSection(){
             lg:text-[100px]
             `}>CRAFTING</div>
 
-            <div className={`text-gradient font-telegraf-ultrab sm:py-5 rounded-md  
+            <div className={`relative font-telegraf-ultrab sm:px-5 sm:py-5 rounded-md 
             lg:text-[120px]
-            `}>EXCEPTIONAL</div>
+            `}>
+              <div className='z-3 text-gradient opacity-80'>EXCEPTIONAL</div>
+              <span className='absolute -right-[35px] top-[60%] rotate-[-15deg] rounded-md border-4 border-double border-black -z-1
+              bg-[#ffe600] text-black font-telegraf-ultrab
+              lg:text-[33px] lg:px-4 lg:pt-3 lg:pb-2
+              md:text-[1.8rem]
+              sm:text-[1.2rem] sm:p-2 sm:pb-1
+              '>No Bullsh!t</span>
+            </div>
 
-            <div className={`relative font-b tracking-[-0.15rem] lg:-mt-3
+            <div className={`relative font-b tracking-[-0.15rem] lg:-mt-3 flex -translate-y-[1px] z-2
             lg:text-[100px]
             `}>
-            <span className='mask-text font-l3'>DIGITAL</span><span>&nbsp;PRODUCTS</span>
+            <div className='mask-text font-l3'>DIGITAL</div><div>&nbsp;PRODUCTS</div>
             </div>
           </motion.div>
 
@@ -249,17 +266,16 @@ function SecondSection(){
       sm:px-per5'
       >
         <div
-          className='font-blk tracking-[-0.05rem] overflow-hidden 
-
+          className='overflow-hidden
           '> 
           <motion.p
           variants={textAnimate}
           initial='initial'
           animate={articleInView ? 'animate' : ''}
           transition={{duration: 0.6, delay: 0.1, ease: 'easeOut'}}
-          className='
-          xl:text-[6.8rem]
-          lg:text-7xl lg:py-5
+          className=' font-blk tracking-[-0.2rem]
+          xl:text-[6.8rem] 
+          lg:text-7xl lg:py-3
           md:text-6xl
           sm:text-4xl sm:py-0
           '
@@ -402,63 +418,29 @@ function FourthSection(){
 
     const ctx = gsap.context((self : any) => {
         
-      const el1 = self.selector('.el1');
-      const el2 = self.selector('.el2');
-      const el3 = self.selector('.el3');
-
+      const elements = self.selector('.el');
+      
       const markers = false;
 
-      gsap.fromTo(el1, {
-        x: '20%',
-        opacity: 0,
-        },
-        {
-          x: '40%',
-          opacity: 1,
-          scrollTrigger: {
-            trigger: el1,
-            markers: markers,
-            start: 'bottom 90%',
-            end: 'top 40%',
-            scrub: true,
-          }
-        },
-      );
-
-      gsap.fromTo(el2, {
-        x: '40%',
-        opacity: 0,
-        },
-        {
-          x: '60%',
-          opacity: 1,
-          scrollTrigger: {
-            trigger: el2,
-            markers: markers,
-            start: 'bottom 90%',
-            end: 'top 40%',
-            scrub: true,
-          }
-        },
-      );
-
-
-      gsap.fromTo(el3, {
-        x: '60%',
-        opacity: 0,
-        },
-        {
-          x: '80%',
-          opacity: 1,
-          scrollTrigger: {
-            trigger: el3,
-            markers: markers,
-            start: 'bottom 90%',
-            end: 'top 40%',
-            scrub: true,
-          }
-        },
-      );
+      elements.forEach((el) => {
+        gsap.fromTo(el, {
+          x: '20%',
+          opacity: 0,
+          },
+          {
+            x: '40%',
+            opacity: 1,
+            scrollTrigger: {
+              trigger: el,
+              markers: markers,
+              start: 'bottom 90%',
+              end: 'top 40%',
+              scrub: true,
+            }
+          },
+        );
+        }         
+      )
 
     }, main);
     return () => ctx.revert();
@@ -484,12 +466,12 @@ function FourthSection(){
 
         <div 
         ref={main} 
-        className='flex flex-col items-start'>
+        className='flex flex-col items-start '>
 
-          <div className="el1 w-1/2 my-5">
+          <div className="el w-1/2 my-5">
             <div>
-              <div className='font-telegraf-ultrab text-lg'>1.</div>
-              <h4 className='xl:text-6xl font-telegraf-ultrab'>Design</h4>
+              <div className='font-telegraf-ultrab text-xl'>1.</div>
+              <h4 className='xl:text-6xl sm:text-3xl font-telegraf-ultrab'>ANALYSIS</h4>
               <ul className='text-2xl pt-5'>
                 <li><span>I deliver strong and user-friendly designs.</span></li>
               </ul>
@@ -498,10 +480,22 @@ function FourthSection(){
 
           <div className='w-5 h-40'/>
 
-          <div className="el2 w-1/2 my-5">
+          <div className="el w-1/2 my-5">
             <div>
-              <div className='font-telegraf-ultrab text-lg'>2.</div>
-              <h4 className='xl:text-6xl font-telegraf-ultrab'>Development</h4>
+              <div className='font-telegraf-ultrab text-xl'>2.</div>
+              <h4 className='xl:text-6xl sm:text-3xl font-telegraf-ultrab'>DESIGN</h4>
+              <ul className='text-2xl pt-5'>
+                <li><span>I deliver strong and user-friendly designs.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className='w-5 h-40'/>
+
+          <div className="el w-1/2 my-5">
+            <div>
+              <div className='font-telegraf-ultrab text-xl'>3.</div>
+              <h4 className='xl:text-6xl sm:text-3xl font-telegraf-ultrab'>DEVELOPMENT</h4>
               <ul className='text-2xl pt-5'>
                 <li><span>Anything in my tech-stack that match your requirement. </span></li>
               </ul>
@@ -510,10 +504,10 @@ function FourthSection(){
 
           <div className='w-5 h-40'/>
 
-          <div className="el3 w-1/2 my-5">
+          <div className="el w-1/2 my-5">
             <div>
-              <div className='font-telegraf-ultrab text-lg'>3.</div>
-              <h4 className='xl:text-6xl font-telegraf-ultrab'>The full package</h4>
+              <div className='font-telegraf-ultrab text-xl'>4.</div>
+              <h4 className='xl:text-6xl sm:text-3xl font-telegraf-ultrab'>THE FULL PROCESS</h4>
               <ul className='text-2xl pt-5'>
                 <li><span>A complete website from concept to implementation. The Wombo Combo.</span></li>
               </ul>
