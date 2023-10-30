@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 
-const CHARS = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890!@#$%^&*():{};|,.<>/?+-";
+const CHARS = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890!@#$%^&*|.<>/?+-_~"; //()[]{}:;,
 
 const EncryptText = ({target_text} : {target_text: string}) => {
     const intervalRef = useRef<any>(null);
@@ -21,8 +21,8 @@ const EncryptText = ({target_text} : {target_text: string}) => {
 
     const scramble = useCallback(() => {
         let pos = 0;
-        const CYCLES_PER_LETTER = 1.5;
-        const SHUFFLE_TIME = 50;
+        const CYCLES_PER_LETTER = 1;
+        const SHUFFLE_TIME = 60;
 
         intervalRef.current = setInterval(() => {
                         

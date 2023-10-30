@@ -30,7 +30,7 @@ export default function RootLayoutClientComponent({children}: {children: React.R
   return (
     <>
       <Provider store={store}>
-
+        
         <div 
         className='root-layout relative flex flex-col justify-between 
         '>

@@ -84,9 +84,9 @@ export default function Footer(){
             >
               <motion.div 
               initial={{x: '100%', opacity: 0}}
-              animate={GITInView ? {x: '0%',  opacity: 0.5} : {}}
+              animate={GITInView ? {x: '0%',  opacity: 0.4} : {}}
               transition={{duration: 1.5, delay: 0, ease: 'easeOut'}}
-              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-4 border-b-0 border-x-0 border-themeColor 
+              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-[3px] border-b-0 border-x-0 border-themeColor 
               will-change-[transform,opacity]
               '/>
             </div>
@@ -123,7 +123,7 @@ export default function Footer(){
               hover:before:w-full hover:before:right-[unset] hover:before:left-0
               '
               >
-              <span className='block z-3 w-full h-full'><EncryptText target_text='Get in touch'/></span>
+              <span className='block z-3 w-full h-full'><EncryptText target_text='GET IN TOUCH'/></span>
               </span>
               </Magnetic>
             </motion.div>
