@@ -9,7 +9,7 @@ const Cursor = () => {
     const {cursorEffect , title} = useSelector((state : RootState) => state.cursor);
     const dot = useRef<any>(null);
     const outline = useRef<any>(null); 
-    const l = 123;
+    const l = 333;
     const [latency, setLatency] = useState(l);
 
 
@@ -17,15 +17,14 @@ const Cursor = () => {
         setLatency(0);
         outline.current.classList.add('cursor-outline-hover');
         dot.current.classList.add('cursor-dot-hover');
-        dot.current.style.opacity = !title ? `1` : '0';
-        outline.current.style.mixBlendMode = !title ? `exclusion` : 'normal';
+        outline.current.style.mixBlendMode = title && 'normal';
     },[title])
 
     const mouseOutHover = useCallback(() => {
         setLatency(l);
         outline.current.classList.remove('cursor-outline-hover');
         dot.current.classList.remove('cursor-dot-hover');
-        outline.current.style.mixBlendMode = `normal`;
+        outline.current.style.mixBlendMode = `exclusion`;
 
     },[])
 
@@ -76,12 +75,6 @@ const Cursor = () => {
 
 
     useEffect(() => {
-        if(window.innerWidth < 1380){
-            dot.current.style.display = outline.current.style.display = `none`;
-        }else{
-            dot.current.style.display = outline.current.style.display = `flex`;
-        }
-
         window.addEventListener('mousemove', mouseMove);
         document.documentElement.addEventListener('mousedown', mousePress);
         document.documentElement.addEventListener('mouseup', mouseRelease);
@@ -98,10 +91,10 @@ const Cursor = () => {
 
     return(
         <>
-            <div className="cursor-dot" ref={dot}></div>
-            <div className="cursor-outline" ref={outline}>
+            <div className="cursor-dot sm:hidden xl:flex" ref={dot}></div>
+            <div className="cursor-outline sm:hidden xl:flex" ref={outline}>
                 {title && 
-                    <span className="cursor-title text-black text-[0.68rem] font-telegraf-ultrab tracking-wider ">{title}</span>
+                    <span className="cursor-title text-[0.5rem] font-b tracking-wider ">{title}</span>
                 }   
             </div>
         </>

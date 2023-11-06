@@ -1,10 +1,10 @@
 
 
-import { ScrollTrigger } from '@/component/scroll-trigger';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { ScrollTrigger } from '@/component/layout/scroll-trigger';
+//import { useEffect, useLayoutEffect, useState } from 'react';
 import { RootState } from '@/app/store/store';
 import { useSelector } from 'react-redux';
-import Preloader from './preloader';
+import PreNavigate from './prenavigate-loader';
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation';
 import { navigateDelay } from '@/app/layout-client';
@@ -103,7 +103,7 @@ function EnterAnimation(){
                 animate={{opacity: 0}}
                 transition={{delay: 0, duration: duration * 0.7, ease: 'easeOut'}}
                 >
-                    <Preloader/>
+                    <PreNavigate/>
                 </motion.div>
 
             </motion.div>
@@ -140,7 +140,7 @@ function ExitAnimation(){
                 animate={{opacity: 1}}
                 transition={{delay: duration * 0.5, duration: duration * 0.5, ease: 'easeIn'}}
                 >
-                    <Preloader/>
+                    <PreNavigate/>
                 </motion.div>
             </motion.div>
         </>

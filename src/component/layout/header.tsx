@@ -1,13 +1,13 @@
 
 
-import Nav from '../navbar';
+import Nav from './navbar';
 
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
-import { clickSound } from '../navbar';
-import EncryptText from '../encrypt-text';
+import { clickSound } from './navbar';
+import EncryptText from '../utils/encrypt-text';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 
 

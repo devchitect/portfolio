@@ -25,7 +25,6 @@ const config: Config = {
           '50%' : { opacity: '1'},
           '100%': { transform: 'rotate(360deg)', opacity: '0' },
         },
-
         'text-loop': {
           '0%' : {transform:'translateX(-100%)'},
           '100%' : {transform: 'translateX(var(0))'}
@@ -41,8 +40,9 @@ const config: Config = {
         '10xl': '9rem'
       },
       animation: {
+        'bounce-slow': 'bounce 5s ease-out infinite',
         'spin-slow': 'spin 3s ease-in-out infinite',
-        'spin-opacity': 'spin-opacity 3s ease-in-out infinite',
+        'spin-opacity': 'spin-opacity 5s ease-in-out infinite',
         'text-loop':'text-loop 50s linear infinite',
         'text-loop-reverse':'text-loop-reverse 50s linear infinite',
       },

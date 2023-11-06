@@ -38,7 +38,7 @@
       --logo-size: 1.65rem;
       --nav-resHeightOff: auto;
       --nav-resHeightOn: auto;
-      --blur: 5px;
+      --blur: 8px;
 
       --dropdown-hover-outline: 2px solid var(--theme-color);
 
@@ -60,9 +60,9 @@
   --theme-color: rgba(0,255,255);
   --cursor-color: rgba(0,255,255);
   --cursor-blend: exclusion;
-  --cursor-outline: rgba(255, 255, 255, 0.69);
+  --cursor-outline: rgba(255, 255, 255, 0.5);
   --glassmorphism-bg:rgba(255, 255, 255, 0.05);
-  --header-bg: rgba(0, 0, 0, 0.5);
+  --header-bg: rgba(0, 0, 0, 0.6);
   --mask-bg: rgba(16, 16, 16,0.65);
 
   //Responsive must go in correct order

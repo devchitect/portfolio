@@ -11,8 +11,8 @@ import { motion, useInView, useScroll, useTransform, useSpring } from 'framer-mo
 import { Icon } from '@iconify/react/dist/iconify.js';
 // import { useSelector } from 'react-redux';
 // import { RootState } from './store/store';
-import Magnetic from '@/component/magnetic'
-import EncryptText from '@/component/encrypt-text'
+import Magnetic from '@/component/utils/magnetic'
+import EncryptText from '@/component/utils/encrypt-text'
 
 import useIsomorphicLayoutEffect from "@/component/gsap-helper/isomorphic-effect";
 import { gsap } from 'gsap/dist/gsap';
@@ -21,7 +21,7 @@ import { usePageNavigate } from '@/component/custom-hook/use-page_navigate'
 
 
 //Code Splitting & Lazy Loading
-const DynamicTypedText = dynamic(() => import('../component/typed-text'), {
+const DynamicTypedText = dynamic(() => import('../component/utils/typed-text'), {
   loading: () => null,
   ssr: false
 })
@@ -37,13 +37,13 @@ const LandingHomepage = () => {
     <>
       <main className=''>
           <FirstSection/>
-          <div className='w-5 h-28'/>
+          <div className='w-5 h-20'/>
           <SecondSection/>
-          <div className='w-5 h-40'/>
+          <div className='w-5 h-32 '/>
           <ThirdSection/>
-          <div className='w-5 h-40'/>
+          <div className='w-5 lg:h-32 sm:h-14'/>
           <FourthSection/> 
-          <div className='w-5 h-40'/>
+          <div className='w-5 h-32'/>
 
       </main>
     </>
@@ -52,11 +52,14 @@ const LandingHomepage = () => {
 export default LandingHomepage;
 
 function FirstSection(){
+  const [isClient, setIsClient] = useState(false); 
+
   const landingSection = useRef<HTMLElement>(null);
   const landingSectionInView = useInView(landingSection, { once: true });
   const [maskPosition, setMaskPosition] = useState({x:0, y:0}); 
   const maskArea = useRef<any>(null);
   const size = useRef<number>(0)
+
 
   //
   const updateMaskPosition = useCallback((e : React.MouseEvent<HTMLDivElement, MouseEvent> ) =>{
@@ -95,6 +98,10 @@ function FirstSection(){
     yValue.current = (typeof window !== 'undefined' && window.innerWidth > 1000) ? 60 : 60;
   },[hideMask, updateMaskPosition])
   
+  useEffect(() => {
+    setIsClient(true);
+  },[])
+
   return (
     <>
       <section ref={landingSection}  
@@ -128,7 +135,7 @@ function FirstSection(){
       
         <motion.div 
         ref={targetRef}
-        style={{translateY: y, opacity: opacity}} 
+        style={(isClient &&  window.innerWidth > 1380) ? {translateY: y, opacity: opacity} : {}} 
         className={`something relative leading-[1] text-center select-none h-full
         lg:mx-[10%] lg:mt-[7rem] 
         sm:mx-[10%] sm:mt-[3rem] sm:mb-[var(--header-height)] ease-out will-change-transform
@@ -154,7 +161,7 @@ function FirstSection(){
             sm:text-[1.7rem]
             `}>CRAFTING</div>
 
-            <div className={`relative font-telegraf-ultrab sm:py-5 sm:px-5 opacity-90 xl:z-1 pointer-events-none select-none
+            <div className={`relative font-telegraf-ultrab sm:py-5 sm:px-5 opacity-90 z-1 pointer-events-none select-none
             lg:text-[120px] 
             md:text-[4.2rem]
             sm:text-[2.2rem]
@@ -175,7 +182,7 @@ function FirstSection(){
             `}>
             <div className='relative font-l3'>
               <span style={{textShadow: '0 0 5px var(--theme-color)'}} className='opacity-70'>DIGITAL</span>
-              <ul className='absolute w-full whitespace-nowrap font-telegraf-rg opacity-90 font-semibold lg:text-[1.5rem] sm:text-[0.8rem] text-left leading-[1.5] tracking-normal top-full left-1/3 mt-4'>
+              <ul className='absolute w-full whitespace-nowrap font-telegraf-rg opacity-90 lg:text-[1.2rem] sm:text-[0.8rem] text-left leading-[1.5] tracking-[0rem] top-full left-1/3 mt-4'>
                 <li>+ Website</li>
                 <li>+ Web Application</li>
               </ul>
@@ -418,7 +425,9 @@ function FourthSection(){
   const main = useRef<HTMLDivElement>(null);
   const section = useRef<any>();
   const sectionInView = useInView(section, {once: false, margin: '0px 0px -10% 0px'})
-
+  const pathSVG = useRef<any>();
+  const pathLength = useRef(0);
+  
   useIsomorphicLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -430,7 +439,7 @@ function FourthSection(){
 
       elements.forEach((el, i : number) => {
         gsap.fromTo(el, {
-          x: i % 2 === 0 ? '10%' : '70%',
+          x: i % 2 === 0 ? '20%' : '100%',
           opacity: 0,
           },
           {
@@ -451,15 +460,53 @@ function FourthSection(){
     }, main);
     return () => ctx.revert();
   }, []);
+
+  function drawSVG(){
+    console.log('asd')
+  }
+
+  useEffect(() => {
+    pathLength.current = pathSVG.current.getTotalLength();
+
+  },[])
  
   return (
     <>
       <section 
       ref={section}
-      className=' mt-28
+      className=' mt-5 relative
       '
       >
-        <h3 className='overflow-hidden tracking-[-0.09rem] mt-5 mb-16
+
+        <div className='absolute -left-32 top-per15 -z-1'>
+          <svg width="2428" height="1549" viewBox="0 0 2428 1549" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path 
+            ref={pathSVG}
+            style={{
+              strokeDasharray: pathLength.current,
+              strokeDashoffset: pathLength.current
+            }}
+            className={`fill-transparent stroke-black dark:stroke-white
+            ${sectionInView && 'svg-draw'}
+            `}
+            d="M1 156.5C521.8 298.9 914 241.002 907.5 84C904.806 18.9313 934.9 -20.7 1064.5 162.5C1226.5 391.5 1388.24 -91.9995 1431.24 18.0005C1474.24 128 1763.5 227.502 1579 241.002C1394.5 254.502 1390.5 293.5 1697 397.5C2003.5 501.5 1838.5 215.5 1792.5 290C1746.5 364.5 1958.16 575.269 2114 457.002C2255 350 2489 980.5 2412.5 587.5C2365.63 346.702 2094 1124 1640.5 1114C1552.5 1116.17 1418 1057 1371.5 1101.5C1318.68 1152.04 1482 1250.5 1392.5 1279.5C1303 1308.5 1194.5 1210.5 1242 1155C1289.5 1099.5 1213.5 986 1041.5 1229C869.5 1472 1044 806 877.5 1070.5C711 1335 251 1435.5 357 1279.5C441.8 1154.7 186.333 1406.83 48 1548.5" stroke="black"/>
+          </svg>
+
+        </div>
+
+        <div className='absolute w-[500px] h-[500px] flex justify-center items-start pointer-events-none select-none -z-1 -top-10 left-per5'>
+          <div 
+          className='float-bg-gradient h-[69%] w-[69%] rounded-[10%] opacity-30 rotate-45'/>
+          <div 
+          className='float-bg-gradient h-[30%] w-[100%] rounded-[10%] opacity-30'/>
+        </div>
+
+        <div className='absolute w-[50%] h-[50%] flex justify-center items-start pointer-events-none select-none -z-1 top-per30 -right-per30  opacity-30'>
+          <div 
+          className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] animate-bounce-slow '/>
+        </div>
+
+        <h3 className='overflow-hidden tracking-[-0.09rem] mt-5 mb-16 sticky lg:top-[0px] sm:top-[var(--header-height)] h-[var(--header-height)] flex items-center glassmorphism z-3
         sm:px-[10.05%]
         '>
             <motion.p
@@ -467,24 +514,26 @@ function FourthSection(){
             initial='initial'
             animate={sectionInView ? 'animate' : ''}
             transition={{duration: 0.6, delay: 0, ease: 'easeOut'}}
-            className='xl:text-[44px] font-md'>I can help you with...</motion.p>
+            className='xl:text-[38px] sm:text-xl font-md'>I can help you with ...</motion.p>
         </h3>    
 
         <div 
         ref={main} 
         className='flex flex-col items-start '>
 
+          <div className='w-5 h-20'/>
+
           <div className="el w-1/2 my-5">
             <div>
               <div className='font-telegraf-ultrab text-xl'>1.</div>
               <h4 className='xl:text-7xl sm:text-3xl font-telegraf-ultrab inline-block'><EncryptText target_text='ANALYSIS'/></h4>
-              <ul className='text-2xl pt-5 leading-[1.5]'>
+              <ul className='lg:text-3xl sm:text-lg pt-5'>
                 <li>
-                  <span>I have ability to perform some business analysis technique.</span>
-                  <ol className='pl-5'>
-                    <li><span>- SWOT</span></li>
-                    <li><span>- Use case modeling</span></li>
-                    <li><span>- CATWOE</span></li>
+                  <span className='leading-[1.5]'>I have the ability to perform some analysis techniques for your business&apos;s digital transformation.</span>
+                  <ol className='pl-5 mt-2 leading-[1.7] lg:text-2xl sm:text-lg'>
+                  <li><span>- Use-Case Modeling</span></li>
+                    <li><span>- SWOT (Strengths, Weaknesses, Opportunities, Threats) </span></li>
+                    <li><span>- CATWOE (Clients, Agents, Transformation, World view, Owners, Environment)</span></li>
                   </ol>
                 </li>
               </ul>
@@ -497,7 +546,7 @@ function FourthSection(){
             <div>
               <div className='font-telegraf-ultrab text-xl'>2.</div>
               <h4 className='xl:text-7xl sm:text-3xl font-telegraf-ultrab inline-block'><EncryptText target_text='DESIGN'/></h4>
-              <ul className='text-2xl pt-5 leading-[1.5]'>
+              <ul className='lg:text-3xl sm:text-lg pt-5 leading-[1.5]'>
                 <li><span>I deliver strong and user-friendly designs.</span></li>
                 <li><span>Minialist yet unforgetable!</span></li>
               </ul>
@@ -510,7 +559,7 @@ function FourthSection(){
             <div>
               <div className='font-telegraf-ultrab text-xl'>3.</div>
               <h4 className='xl:text-7xl sm:text-3xl font-telegraf-ultrab inline-block'><EncryptText target_text='DEVELOPMENT'/></h4>
-              <ul className='text-2xl pt-5 leading-[1.5]'>
+              <ul className='lg:text-3xl sm:text-lg pt-5 leading-[1.5]'>
                 <li><span>Each unique requirement need an unique solution stack!</span></li>
                 <li><span>I&apos;m here to crafting your perfect match.</span></li>
               </ul>
@@ -522,8 +571,8 @@ function FourthSection(){
           <div className="el w-1/2 my-5">
             <div>
               <div className='font-telegraf-ultrab text-xl'>4.</div>
-              <h4 className='xl:text-7xl sm:text-3xl font-telegraf-ultrab inline-block'><EncryptText target_text='THE FULL PROCESS'/></h4>
-              <ul className='text-2xl pt-5'>
+              <h4 className='xl:text-7xl sm:text-3xl font-telegraf-ultrab inline-block'>THE FULL PROCESS</h4>
+              <ul className='lg:text-3xl sm:text-lg pt-5'>
                 <li><span>A complete website from concept to implementation.</span></li>
               </ul>
             </div>

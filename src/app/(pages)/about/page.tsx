@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import ParallaxText from '@/component/marquee-motion'
-const DynamicTypedText = dynamic(() => import('../../../component/typed-text'), {
+const DynamicTypedText = dynamic(() => import('../../../component/utils/typed-text'), {
     loading: () => null,
     ssr: false
   })

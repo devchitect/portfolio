@@ -5,11 +5,11 @@ import {Icon} from '@iconify/react' ;
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
-import { switchMode } from '@/app/store/slices/themeSlice';
 import { usePathname } from "next/navigation";
-import Magnetic from "./magnetic";
-import { usePageNavigate } from './custom-hook/use-page_navigate';
-
+import Magnetic from "../utils/magnetic";
+import { usePageNavigate } from '../custom-hook/use-page_navigate';
+import { ThemeSwitcher } from '../utils/theme-switcher';
+import { InterSemiBold } from '../utils/fonts';
 export function clickSound(){
     const audio = new Audio('./sound/high-pitch-click.mp3');
     audio.volume = 0.4;
@@ -122,11 +122,11 @@ export default function Nav({toggleNav, setToggleNav}){
 
         <nav 
         ref={navbar}
-        className="nav z-20 duration-500 ease-out glassmorphism font-semib 
+        className={`nav z-20 duration-500 ease-out glassmorphism ${InterSemiBold.className}
         lg:rounded-md
         lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:bg-transparent lg:dark:bg-transparent lg:h-auto lg:w-auto lg:overflow-visible
         sm:absolute sm:right-0  sm:left-0 sm:top-full sm:bg-[#ffffffdd] sm:dark:bg-[#000000dd] sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
-        "> 
+        `}> 
             <ul 
             className='z-10
             lg:grid lg:grid-flow-col lg:gap-2 lg:divide-y-0
@@ -236,64 +236,3 @@ export default function Nav({toggleNav, setToggleNav}){
     )
 }
 
-
-
-function ThemeSwitcher(){
-
-    const dispatch = useDispatch();
-    const [theme, setTheme] = useState<string | null>();
-    const schemeQuery = '(prefers-color-scheme: dark)';
-
-    function switchTheme(){
-
-        const mode = theme === 'dark' ? 'light' : 'dark';
-
-        setTheme(mode);
-        setDocTheme(mode);
-        dispatch(switchMode(mode));
-
-    }
-
-    function setDocTheme(x : string){
-        document.documentElement.removeAttribute('class');
-        document.documentElement.setAttribute('class', x);
-        localStorage.setItem('theme', x);
-    }
-    
-    useEffect(() => {
-
-        const mediaQuery = window.matchMedia(schemeQuery);
-        const userPref = mediaQuery.matches ? 'dark' : 'light';
-        const selectedTheme = localStorage.getItem('theme');
-
-        if(selectedTheme){
-            let res = selectedTheme === 'dark' ? 'dark' : 'light';            
-            setTheme(res);
-            dispatch(switchMode(res));
-        }else{
-            setTheme(userPref);
-            dispatch(switchMode(userPref));
-        }
-    },[dispatch])
-
-
-    return(
-        <>
-        <div className='flex items-center justify-center lg:ml-4 sm:ml-2 sm:mr-1'>
-        <Magnetic>
-                <button
-                onMouseEnter={() => {dispatch(hoverOn(''))}}
-                onMouseLeave={() => {dispatch(hoverOff())}}
-                onClick={() => {switchTheme(); clickSound();}}
-                className={`glassmorphism text-2xl rounded-lg p-2 `}
-                >
-                    {theme === 'dark' && <Icon icon='line-md:sunny-outline-loop'color={`rgba(0, 255, 255)`} />}           
-                    {theme === 'light' && <Icon icon='line-md:moon-loop' hFlip={true} color={`rgba(111, 0, 255)`} />}
-                    
-                </button>
-            </Magnetic>
-            </div>
-                  
-        </>
-    )
-}

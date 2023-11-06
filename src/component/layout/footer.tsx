@@ -6,15 +6,10 @@ import { useRef } from 'react';
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
 import { RootState } from '@/app/store/store';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import Magnetic from '../magnetic';
+import Magnetic from '../utils/magnetic';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
-import EncryptText from '../encrypt-text';
-
-
-const textAnimate = {
-  initial: {y:'110%'},
-  animate: {y:'0%'},
-}
+import EncryptText from '../utils/encrypt-text';
+import { LibraryRegular } from '../utils/fonts';
 
 export default function Footer(){
 
@@ -31,13 +26,18 @@ export default function Footer(){
   const GITInView = useInView(getInTouchRef, {once: true, margin: '0px 0px -30% 0px'})
 
   const y = useTransform(scrollYProgress, [0, 1], [`${100}%`, `${-100}%`]);
-  const opacity = useTransform(scrollYProgress, [0.2, 0.5], [0,1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0,1]);
 
   return(
       <>
-        <footer className="footer flex flex-col w-full min-h-screen font-extrab
+        <footer className="footer flex flex-col w-full min-h-screen font-extrab relative overflow-hidden
         
         ">
+          <div className='absolute w-[44rem] h-[44rem] flex justify-center items-center pointer-events-none select-none -z-1 top-per70 -right-per10'>
+            <div 
+            className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] opacity-30 animate-spin-slow'/>
+          </div>
+
           <div
           className='relative overflow-hidden mt-3'>
             <Marquee marqueedirec={'forward'}
@@ -59,16 +59,25 @@ export default function Footer(){
           ref={article}
           style={{y: y, opacity: opacity}}
 
-          className=' 
-          lg
-          sm:px-per10 sm:mt-20 will-change-[transform,opacity]
+          className=' relative
+          lg:px-per10
+          sm:px-per10 sm:mt-20 will-change-[transform,opacity] 
           '>
-            <div className='font-l3-soft tracking-[-0.1rem] leading-[1.1] opacity-90
-            lg:text-[95px]
+
+              <div className='absolute w-[30%] h-[100%] flex justify-center items-center pointer-events-none select-none -z-1 top-10 left-per5'>
+                <div 
+                className='float-bg-gradient h-[50%] w-[100%] rounded-[40%] opacity-50'/>
+              </div>
+
+            <div className={`${LibraryRegular.className} leading-[1.1] opacity-90 
+            lg:text-[105px]
             sm:text-[2rem]
-            '>
-              <div className=''>Let&apos;s</div>
-              <div className='mt-2 '><span className='text-gradient'>collaborate</span> <span>!</span></div>
+            `}>
+              <div>
+                <div className=''>Let&apos;s</div>
+                <div className='mt-2 '><span className='text-gradient'>Connect</span> <span>!</span></div>
+              </div>
+              
               </div>
           </motion.div>
 
@@ -114,9 +123,9 @@ export default function Footer(){
               border-themeColor border-4 border-double 
               bg-[#ffffff] dark:bg-[#000000b9]  dark:shadow-[#ffffff81] shadow-[#00000081]
               text-themeColor
-              xl:w-[250px] xl:h-[250px] xl:text-[1.3rem] 
+              xl:w-[250px] xl:h-[250px] xl:text-[20px] 
               lg:w-[180px] lg:h-[180px] lg:text-[1.1rem] 
-              sm:w-[130px] sm:h-[130px] sm:text-sm
+              sm:w-[144px] sm:h-[144px] sm:text-sm
               hover:text-white hover:border-solid hover:shadow-2xl  hover:tracking-[0.05rem]
               before:content-[""] before:absolute before:right-0 before:top-0 before:h-full before:w-0 before:duration-[500ms] before:z-2 before:rounded-full
               before:bg-themeColor before:opacity-80

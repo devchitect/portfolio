@@ -3,11 +3,11 @@
 //Custom Cursor
 .cursor-dot{
     display: flex;
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     background: var(--theme-color);
-    box-shadow: 0 0 15px 1px var(--theme-color),
-    inset 0 0 1px 1px rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 0 10px var(--theme-color),
+    inset 0 0 2px rgba(0, 0, 0, 0.8); 
    
   }
 
@@ -16,17 +16,20 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 30px;
-    height: 30px;
-    border: 4px double var(--cursor-outline);
-    box-shadow: inset 0 0 2px var(--theme-color);
+    width: 60px;
+    height: 60px;
+    border: 5px double var(--cursor-outline);
     transform-origin: center;
     overflow: hidden;
+    background: var(--bg-color);
+    mix-blend-mode: exclusion;
 
     .cursor-title{ 
       transform-origin: center;
       word-break: break-all;
       animation: title 300ms linear forwards;
+      color:initial;
+
 
       @keyframes title {
         0%, 50%{opacity: 0; transform: scale(0);}
@@ -44,7 +47,7 @@
     transform: translate(-50%,-50%);
     pointer-events: none;
     z-index: 39;
-    transition: 300ms;
+    transition: 500ms;
   }
   
   @include color-scheme(dark){
@@ -54,37 +57,35 @@
   }
   @include color-scheme(light){
     .cursor-outline-hover{
-    background: rgba(255, 255, 0,0.8) !important;
+      background: rgba(255, 255, 0, 0.8) !important;
     }
   }
 
   .cursor-outline-hover{
-    $radius : 78px;
-    width:  $radius !important;
-    height:  $radius !important;
+    transform:  translate(-50%, -50%) scale(1.8);
     border: none;
+
 
   }
   .cursor-dot-hover{
-    $radius : 80px;
-    width:  $radius !important;
-    height:  $radius !important;
-    mix-blend-mode: difference !important;
+    transform:  translate(-50%, -50%) scale(15);
+    mix-blend-mode: exclusion !important;
+
   }
 
   .cursor-outline-press{
     z-index: 38 !important;
-    border: 4px double var( --theme-color) !important;
+    border: 4px solid var( --theme-color) !important;
     box-shadow:  0 0 10px var(--theme-color);
-    transform:  translate(-50%, -50%) scale(2);
+    background: white;
+    transform:  translate(-50%, -50%) scale(0.88);
   }
 
   .cursor-dot-press{
-    $radius : 0px;
-    width: $radius !important;
-    height: $radius !important;
+    transform:  translate(-50%, -50%) scale(0);
   }
     
+
 //Preloader
 .loader-text {
   background: var(--bg-gradient);
@@ -92,3 +93,17 @@
   background-clip: text;
   color: transparent;
 }
+
+
+//SVG Drawing
+.svg-draw{
+  animation: draw forwards 6s linear;
+  animation-delay: 0.5s;
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+

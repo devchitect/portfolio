@@ -9,24 +9,25 @@ import { useEffect } from "react";
 export function usePageNavigate(){
     const dispatch = useDispatch();
     const router = useRouter();
-    const path = usePathname();
+    const pathname = usePathname();
     
     useEffect(() => {
-        const label = path.split('/')[1].toUpperCase() ;
+        const label = pathname.split('/')[1].toUpperCase() ;
         const endpath = label  === '' ? 'Home' : label;
         dispatch(transition({type: 'enter', endpath: endpath}));
-        //document.body.style.overflowY = 'scroll';
 
-    },[dispatch, path])
+    },[dispatch, pathname])
 
     return (path : string) => {
         const label = path.split('/')[1].toUpperCase();
         const endpath = label  === '' ? 'Home' : label;
 
-        dispatch(transition({type: 'exit', endpath: endpath}))
-        //document.body.style.overflowY = 'hidden';
-        setTimeout(()=>{
-            router.push(path, { scroll: false });    
-        }, navigateDelay)
+        if(path !== pathname){
+            dispatch(transition({type: 'exit', endpath: endpath}))
+            setTimeout(()=>{
+                router.push(path, { scroll: false });    
+            }, navigateDelay)
+        }
+        
     }
 }

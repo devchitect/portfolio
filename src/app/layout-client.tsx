@@ -15,12 +15,12 @@ import Footer from '@/component/layout/footer';
 export const navigateDelay = 1500;
 
 //Code Splitting & Lazy Loading
-const DynamicParticles = dynamic(() => import('../component/particles-container'), {
+const DynamicParticles = dynamic(() => import('../component/layout/particles-container'), {
   loading: () => null,
   ssr: false 
 })
 
-const DynamicCursor = dynamic(() => import('../component/cursor'), {
+const DynamicCursor = dynamic(() => import('../component/utils/cursor'), {
   loading: () => null,
   ssr: false
 })

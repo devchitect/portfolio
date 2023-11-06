@@ -82,7 +82,7 @@ const EncryptText = ({target_text} : {target_text: string}) => {
     <span
       onMouseEnter={() => {stopScrambleReverse(); scramble()}}
       onMouseLeave={() => {stopScramble(); scrambleReverse()}}
-      className=" relative flex items-center justify-center w-full h-full z-3"
+      className=" relative flex items-center justify-center w-full h-full z-3 select-none"
     >
         {text}
     </span>

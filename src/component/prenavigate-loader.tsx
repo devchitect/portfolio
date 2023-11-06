@@ -3,7 +3,7 @@
 import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
 
-export default function Preloader(){
+export default function PreNavigate(){
     return (
         <>
             <Content/>
