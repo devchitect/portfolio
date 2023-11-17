@@ -1,7 +1,7 @@
 "use client"
 
 import {Icon} from '@iconify/react' ;
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
 import { switchMode } from '@/app/store/slices/themeSlice';
@@ -19,13 +19,13 @@ export function ThemeSwitcher(){
 
         const mode = theme === 'dark' ? 'light' : 'dark';
 
-        setTheme(mode);
         setDocTheme(mode);
         dispatch(switchMode(mode));
 
     }
 
     function setDocTheme(x : string){
+        setTheme(x);
         document.documentElement.removeAttribute('class');
         document.documentElement.setAttribute('class', x);
         localStorage.setItem('theme', x);
@@ -39,10 +39,10 @@ export function ThemeSwitcher(){
 
         if(selectedTheme){
             let res = selectedTheme === 'dark' ? 'dark' : 'light';            
-            setTheme(res);
+            setDocTheme(res);
             dispatch(switchMode(res));
         }else{
-            setTheme(userPref);
+            setDocTheme(userPref);
             dispatch(switchMode(userPref));
         }
     },[dispatch])
@@ -50,13 +50,13 @@ export function ThemeSwitcher(){
 
     return(
         <>
-        <div className='flex items-center justify-center lg:ml-4 sm:ml-2 sm:mr-1'>
+        <div className='flex items-center justify-center lg:ml-4 sm:ml-2 sm:mr-[2px]'>
         <Magnetic>
                 <button
                 onMouseEnter={() => {dispatch(hoverOn(''))}}
                 onMouseLeave={() => {dispatch(hoverOff())}}
                 onClick={() => {switchTheme(); clickSound();}}
-                className={`glassmorphism text-2xl rounded-lg p-2 `}
+                className={`glassmorphism text-2xl rounded-lg p-[0.7rem] `}
                 >
                     {theme === 'dark' && <Icon icon='line-md:sunny-outline-loop'color={`rgba(0, 255, 255)`} />}           
                     {theme === 'light' && <Icon icon='line-md:moon-loop' hFlip={true} color={`rgba(111, 0, 255)`} />}

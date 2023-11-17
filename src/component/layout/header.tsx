@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
 import { clickSound } from './navbar';
-import EncryptText from '../utils/encrypt-text';
+import EncryptText from '../utils/encrypted-text';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 
 
@@ -76,7 +76,7 @@ function Header(){
         sm:px-per5 xm:py-3
         ">
             <span
-            className={`logo font-l3 select-none lg:text-[1.5rem]`}
+            className={`logo font-l3 select-none lg:text-[1.35rem] ml-[2px] ${path === '/' && 'text-themeColor'}`}
             onClick={closeNavbar}
             onMouseEnter={() => {dispatch(hoverOn(''))}}
             onMouseLeave={() => {dispatch(hoverOff())}}
@@ -98,7 +98,7 @@ function ScrollProgress(){
     const path = usePathname();
 
     function resetProgress(){
-        progressLine.current.style.width = `0%`;
+        progressLine.current.style.transform = `translateX(-100%)`;
     }
 
     useEffect(() => {
@@ -111,7 +111,7 @@ function ScrollProgress(){
             const { scrollTop , scrollHeight} = document.documentElement;
             const scrolled = (scrollTop / (scrollHeight - window.innerHeight)) * 100;
 
-            progressLine.current.style.width = `${scrolled}%`;
+            progressLine.current.style.transform = `translateX(${-(100-scrolled)}%)`;
         }
 
         window.addEventListener('scroll', scrollProgress);
@@ -123,10 +123,10 @@ function ScrollProgress(){
  
     return(
         <>
-            <div className="absolute w-full h-[0.25rem] left-0 top-full z-5 pointer-events-none opacity-[0.8]">
+            <div className="absolute w-full h-[0.5rem] left-0 top-full z-5 pointer-events-none opacity-[0.8] overflow-hidden flex items-center">
                 <div 
                 ref={progressLine}
-                className="scroll-progress h-full w-full bg-themeColor rounded-r-lg"/>
+                className="scroll-progress h-1/2 w-full bg-themeColor rounded-r-lg ease-out duration-300"/>
             </div>
         </>
     )

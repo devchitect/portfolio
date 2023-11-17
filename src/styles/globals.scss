@@ -2,6 +2,7 @@
 @import './partials/reset';
 @import './partials/utilities';
 @import './partials/variables';
+@import './partials/animations';
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +11,7 @@
 //Scroll-bar
 ::-webkit-scrollbar{
   background: transparent;
-  width: 5px;
+  width: 0px;
 }
 ::-webkit-scrollbar-thumb{
   background: var(--bg-gradient);
@@ -25,7 +26,7 @@ html{
   transition: background-color 300ms linear;
   
   scrollbar-color: var(--theme-color) transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 
   @include responsive(phone){
 
@@ -174,64 +175,6 @@ html, body{
 }
 
 
-  //Overlay Background
-  .overlay-background{
-    display: inline-block;
-    pointer-events: none;
-    user-select: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vH;
-    width: 100vW;
-    z-index: -1;
-    -webkit-opacity: var(--bg-opacity); /* WebKit browser e.g. Safari */
-    -moz-opacity: var(--bg-opacity); /* Firefox and Mozilla browsers */
-    opacity: var(--bg-opacity);
-
-    @include responsive(phone){
-      background-attachment: scroll;
-   }
-    @include responsive(tablet){
-       background-attachment: fixed;
-    }
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-
-    animation: opaup 300ms forwards;
-    @keyframes opaup {
-      0% {opacity: 0}
-      100% {
-        opacity: var(--bg-opacity);
-        -webkit-opacity: var(--bg-opacity); /* WebKit browser e.g. Safari */
-        -moz-opacity: var(--bg-opacity); /* Firefox and Mozilla browsers */
-      }  
-    }
-
-  }
-  
-  @include color-scheme(dark){
-    .overlay-background{
-      background-image: url("../assets/images/background/blockchain-shubham_dhage.jpg");
-      background-color: black;
-
-    }
-  }
-
-  @include color-scheme(light){
-    .overlay-background{
-      background-image: url("../assets/images/background/white-pattern.jpg");
-      background-color: white;
-
-    }
-  }
-  
-
 .glassmorphism{
   background-color: var(--glassmorphism-bg);
   -webkit-backdrop-filter: blur(var(--blur));
@@ -242,18 +185,21 @@ html, body{
 //Logo
 .logo{
   display: inline-block;
-  color: var(--theme-color);
   font-weight: normal;
   background: transparent;
   border-radius: 10px;
-  transform-origin: center;
+  transform-origin: left;
   transition: 300ms ease-out;
   letter-spacing: 1px;
 
+  &:hover{
+    color: var(--theme-color);
+  }
+
   @include responsive (laptop){
     &:hover{
-      transform: scale(1.05);
-      letter-spacing: 4px;
+      transform: scale(1.09);
+      letter-spacing: 3px;
       text-shadow: 0 0 5px var(--theme-color);
       ;
     }
@@ -293,3 +239,5 @@ html, body{
   background-position: center;
   filter: blur(100px);
 }
+
+

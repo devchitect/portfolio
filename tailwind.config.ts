@@ -40,7 +40,7 @@ const config: Config = {
         '10xl': '9rem'
       },
       animation: {
-        'bounce-slow': 'bounce 5s ease-out infinite',
+        'bounce-slow': 'bounce 3.5s ease-out infinite alternate',
         'spin-slow': 'spin 3s ease-in-out infinite',
         'spin-opacity': 'spin-opacity 5s ease-in-out infinite',
         'text-loop':'text-loop 50s linear infinite',
@@ -74,7 +74,8 @@ const config: Config = {
         grey: '#9ca3af'
       },
       backgroundImage : {
-        'colorful': "var(--gradient-colorful)",
+        'colorful': 'var(--gradient-colorful)',
+        'bgGradient': 'var(--bg-gradient)'
       },
       zIndex: {
         '1': '1',

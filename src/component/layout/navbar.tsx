@@ -10,6 +10,8 @@ import Magnetic from "../utils/magnetic";
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 import { ThemeSwitcher } from '../utils/theme-switcher';
 import { InterSemiBold } from '../utils/fonts';
+import { maxMedium, minLarge } from '../utils/use-media_queries';
+
 export function clickSound(){
     const audio = new Audio('./sound/high-pitch-click.mp3');
     audio.volume = 0.4;
@@ -37,19 +39,19 @@ export default function Nav({toggleNav, setToggleNav}){
     ]
 
     const stuffsLinks = [
-        {href: '/1', label: 'Snippets'},
-        {href: '/2', label: 'Templates'},
-        {href: '/3', label: 'Utils'},
+        {href: '/snippets', label: 'Snippets'},
+        {href: '/templates', label: 'Templates'},
+        {href: '/utils', label: 'Utils'},
     ]
 
     function toggleNavbar(){
-        if(window.innerWidth < 1000){
+        if(maxMedium){
             setToggleNav(!toggleNav);       
         }
     }
 
     const toggleNavbarPassive = useCallback(() => {
-        if(window.innerWidth < 1000){
+        if(maxMedium){
             if(toggleNav){
                 document.body.style.overflowY = 'hidden';
                 navbar.current.style.height = 'var(--nav-resHeightOn)';
@@ -63,7 +65,7 @@ export default function Nav({toggleNav, setToggleNav}){
 
     function toggleDropdown(e : React.MouseEvent<Element, MouseEvent>){
 
-        if(window.innerWidth < 1000){
+        if(maxMedium){
             setStuffState(!stuffState)
             const target = e.currentTarget as HTMLElement;
             if(toggleDDState){
@@ -78,7 +80,7 @@ export default function Nav({toggleNav, setToggleNav}){
         }    
     }
     function dropdownActive(e: React.MouseEvent<Element, MouseEvent>, str: string){
-        if(str === 'Playground' && window.innerWidth >= 1000){
+        if(str === 'Playground' && minLarge){
             setStuffState(true);
             const target = e.currentTarget as HTMLElement;
             target.style.outline = 'var(--dropdown-hover-outline)';
@@ -88,7 +90,7 @@ export default function Nav({toggleNav, setToggleNav}){
     }
 
     function dropdownDeactive(e: React.MouseEvent<Element, MouseEvent>, str: string){  
-        if(str === 'Playground'  && window.innerWidth >= 1000){  
+        if(str === 'Playground'  && minLarge){  
             setStuffState(false)
             const target = e.currentTarget as HTMLElement;
             target.style.outline = 'transparent';
@@ -135,8 +137,8 @@ export default function Nav({toggleNav, setToggleNav}){
 
             {links.map((l) => (     
                 <li key={l.label} 
-                className={`grid justify-center relative lg:rounded-md tracking-[0.1rem] 
-                lg:grid-flow-col lg:py-0 lg:text-xs ${l.type === 'normal' && 'lg:mx-2'}
+                className={`grid justify-center relative lg:rounded-md tracking-[0.1rem] first:
+                lg:grid-flow-col lg:py-0 lg:text-xs ${l.type === 'normal' && 'lg:mx-[0.55rem] first:lg:mx-0 last:lg:mx-0'}
                 sm:grid-flow-row sm:py-2 sm:text-[0.88rem] 
                 ${l.href === path && 'pointer-events-none'}
                 `}
@@ -163,7 +165,7 @@ export default function Nav({toggleNav, setToggleNav}){
                         `}
                         `}>
                         <div className={` pointer-events-none
-                        sm:px-3 sm:py-3  
+                        sm:px-3 sm:py-[0.9rem]
                         relative z-30`}>{l.label.toUpperCase()}</div>
 
                         </div>
@@ -192,7 +194,7 @@ export default function Nav({toggleNav, setToggleNav}){
                         {/* Dropdown content */}
                         <div
                         ref = {stuffs}
-                        className={`z-20 text-black dark:text-white tracking-wide
+                        className={`z-20 text-black dark:text-white tracking-wide glasspmorphism
                         lg:w-auto lg:grid lg:grid-flow-row lg:justify-start lg:absolute lg:top-per100 lg:pt-3 lg:border-0 lg:overflow-visible lg:h-auto 
                         ${stuffState ? 'opacity-100 translate-0  duration-500' : 'opacity-0 xl:-translate-x-1/3 select-none pointer-events-none'}
                         sm:w-screen sm:grid sm:grid-flow-row sm:justify-center sm:overflow-hidden sm:h-0
@@ -209,14 +211,15 @@ export default function Nav({toggleNav, setToggleNav}){
                                     <li key={sl.href}
                                     className="text-sm hover:text-themeColor xl:text-right sm:text-center"
                                     >
-                                        <Link
+                                        <span
+                                        onClick={() => {navigate(sl.href)}}
                                         onMouseEnter={() => dispatch(hoverOn(''))}
                                         onMouseLeave={() => dispatch(hoverOff())}
                                         className="
                                         lg:py-2 my-1
                                         sm:py-4 sm:block sm:w-full
                                         " 
-                                        href={sl.href}>{sl.label.toUpperCase()}</Link>
+                                        >{sl.label.toUpperCase()}</span>
                                     </li>
                                 ))}
                             </ul>

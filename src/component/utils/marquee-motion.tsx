@@ -17,7 +17,7 @@ interface ParallaxProps {
   baseVelocity: number;
 }
 
-export default function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
+export default function MarqueeMotion({ children, baseVelocity = 100 }: ParallaxProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -33,7 +33,7 @@ export default function ParallaxText({ children, baseVelocity = 100 }: ParallaxP
    * This is a magic wrapping for the length of the text,
    * You have to replace for wrapping that works for you or dynamically calculate
    */
-  const x = useTransform(baseX, (v) => `${wrap(-20, -40.2, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-20, -40, v)}%`);
 
   const directionFactor = useRef<number>(1);
   useAnimationFrame((time, delta) => {

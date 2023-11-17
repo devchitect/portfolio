@@ -6,7 +6,7 @@ import '../styles/globals.scss'
 import RootLayoutClientComponent from '@/app/layout-client'
 
 export const metadata: Metadata = {
-  title: 'Devchitect',
+  title: 'Dzung Nguyen',
   description: '',
 }
 
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className='' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         <script async type="text/javascript" src='./script/initialize.js'/>
       </head>

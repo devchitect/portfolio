@@ -26,7 +26,10 @@ export function ScrollTrigger(){
     }
   
   useEffect(() => {
-    window.scrollTo(0,0);
+    window.scrollTo({
+      top: 0,
+      behavior : 'instant'
+    });
 
     window.addEventListener('scroll', getScrolled);
     return () => { 
@@ -40,9 +43,10 @@ export function ScrollTrigger(){
         onMouseEnter={() => {dispatch(hoverOn(''))}}
         onMouseLeave={() => {dispatch(hoverOff())}}
         onClick={() => {scrollNow()}}
-        className='fixed opacity-40 hover:opacity-100 z-2 
+        className='fixed opacity-40 hover:opacity-100 z-10 
         text-white bg-black rounded-full dark:text-black dark:bg-white dark:hover:bg-darkTheme
-        md:right-10 md:bottom-32  md:text-3xl
+        xl:right-[4%] xl:bottom-[160px]
+        md:right-10 md:bottom-36  md:text-3xl
         sm:right-5 sm:bottom-28 sm:text-2xl
         '>
           <Icon icon='line-md:chevron-up-circle'

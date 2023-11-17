@@ -1,0 +1,42 @@
+//Animation
+@keyframes float {
+	0% {
+		//box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translateY(0px);
+	}
+	50% {
+		//box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translateY(-25px);
+	}
+	100% {
+		//box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translateY(0px);
+	}
+}
+
+.floating{
+  animation: float 6s ease-in-out infinite;
+}
+
+//
+@keyframes mist {
+	0% {
+		transform: translate(30%, 0px) rotate(0deg);
+	}
+	20% {
+		transform: translate(-50%, -80%) rotate(180deg);
+	}
+	50% {
+		transform: translate(-120%, 45%) rotate(360deg);
+	}
+	60%{
+		transform: translate(-200%, 0px) rotate(180deg);
+	}
+	100% {
+		transform: translate(-160%, 20%) rotate(0deg);
+	}
+}
+
+.mist{
+  animation: mist 15s linear infinite alternate;
+}

@@ -17,18 +17,28 @@
 }
 
 .something{
-    --s: 15px; /* the size on the corner */
+    --s: 23px; /* the size on the corner */
     --t: 2px;  /* the thickness of the border */
-    --g: 1px; /* the gap between the border and image */
+    --g: 0px; /* the gap between the border and image */
     
     
     padding: calc(var(--g) + var(--t));
-    outline: var(--t) solid var(--theme-color); /* the color here */
+    outline: var(--t) solid; /* the color here */
     outline-offset: calc(-1*var(--t));
+
+    mask: 
+    conic-gradient(at var(--s) var(--s),#0000 75%,#000 0)
+      0 0/calc(100% - var(--s)) calc(100% - var(--s)),
+      linear-gradient(#000 0 0) content-box;
+
     -webkit-mask:
       conic-gradient(at var(--s) var(--s),#0000 75%,#000 0)
       0 0/calc(100% - var(--s)) calc(100% - var(--s)),
       linear-gradient(#000 0 0) content-box;
+
+    &:hover{
+      outline: var(--t) solid var(--theme-color); /* the color here */
+    }
 }
 
 .mask{
@@ -38,7 +48,6 @@
     mask-repeat: no-repeat;
     -webkit-mask-size: 0px;
     mask-size: 0px;
-
     background: transparent;
         
     .mask-text{
@@ -50,3 +59,16 @@
         color: transparent;
     }
 }
+
+//SVG Drawing
+.svg-draw{
+    animation: draw forwards 15s ease-in-out infinite alternate;
+  
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+  
+  

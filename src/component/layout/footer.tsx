@@ -2,19 +2,22 @@
 
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
-import { RootState } from '@/app/store/store';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Magnetic from '../utils/magnetic';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
-import EncryptText from '../utils/encrypt-text';
-import { LibraryRegular } from '../utils/fonts';
+import EncryptText from '../utils/encrypted-text';
+import { LibraryRegular, InterExtraBold, PPTelegrafUltrabold, PPTelegrafRegular } from '../utils/fonts';
+import Marquee from '../utils/marquee-regular';
+import { desktop, maxMedium } from '../utils/use-media_queries';
+import { StaggeredText } from '../utils/staggered-text'; 
 
 export default function Footer(){
 
   const navigate = usePageNavigate();
   const dispatch = useDispatch();
+  const [isClient, setIsClient] = useState(false);
   const targetRef = useRef<HTMLDivElement>(null);
   const getInTouchRef = useRef<any>();
   const article = useRef<any>();
@@ -23,19 +26,25 @@ export default function Footer(){
     offset: ["start end", "end start"]
   });
 
-  const GITInView = useInView(getInTouchRef, {once: true, margin: '0px 0px -30% 0px'})
+  const GITInView = useInView(getInTouchRef, {once: false, margin: '0px 0px -25% 0px'})
 
   const y = useTransform(scrollYProgress, [0, 1], [`${100}%`, `${-100}%`]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0,1]);
 
+  useEffect(() => {
+    setIsClient(true);
+  },[])
+
   return(
       <>
-        <footer className="footer flex flex-col w-full min-h-screen font-extrab relative overflow-hidden
+        <footer className={`
+        ${InterExtraBold}
+        footer flex flex-col w-full min-h-screen  relative overflow-hidden
         
-        ">
-          <div className='absolute w-[44rem] h-[44rem] flex justify-center items-center pointer-events-none select-none -z-1 top-per70 -right-per10'>
+        `}>
+          <div className='absolute w-[44rem] h-[44rem] flex justify-center items-center pointer-events-none select-none top-per70 -right-per10 opacity-20 -z-2'>
             <div 
-            className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] opacity-30 animate-spin-slow'/>
+            className='float-bg-gradient h-[100%] w-[100%] rounded-[50%]  animate-spin-slow'/>
           </div>
 
           <div
@@ -57,25 +66,29 @@ export default function Footer(){
 
           <motion.div 
           ref={article}
-          style={{y: y, opacity: opacity}}
+          style={(isClient && desktop ) ? {y: y, opacity: opacity} : {opacity: opacity}}
 
           className=' relative
           lg:px-per10
-          sm:px-per10 sm:mt-20 will-change-[transform,opacity] 
+          sm:px-per10 sm:mt-28 will-change-[transform,opacity]
           '>
-
-              <div className='absolute w-[30%] h-[100%] flex justify-center items-center pointer-events-none select-none -z-1 top-10 left-per5'>
-                <div 
-                className='float-bg-gradient h-[50%] w-[100%] rounded-[40%] opacity-50'/>
-              </div>
-
-            <div className={`${LibraryRegular.className} leading-[1.1] opacity-90 
+            <div className={`${LibraryRegular.className} 
+            inline-block
             lg:text-[105px]
-            sm:text-[2rem]
+            sm:text-[3rem]
             `}>
-              <div>
-                <div className=''>Let&apos;s</div>
-                <div className='mt-2 '><span className='text-gradient'>Connect</span> <span>!</span></div>
+
+              <div className='absolute w-[30%] h-[100%] flex justify-center items-center pointer-events-none select-none top-10 left-per5 opacity-60 -z-2 floating'>
+                <div 
+                className='float-bg-gradient h-[50%] w-[100%] rounded-[50%] '/>
+              </div>      
+
+              <div className='leading-[1.05]'>
+                <div className={`lg:text-[100px] sm:text-[2.8rem] tracking-wide`}>LET&apos;S</div>
+                <div className='relative'>
+                  <span className='text-gradient'>CONNECT</span> 
+                  <StaggeredText text={['& COLLABORATE !']} className={`${PPTelegrafUltrabold.className} absolute top-full right-0 mt-[1rem] lg:text-[42px] sm:text-[1.3rem] tracking-wide`}/>
+                </div>
               </div>
               
               </div>
@@ -84,7 +97,7 @@ export default function Footer(){
           <div 
           ref={targetRef}
           className='relative
-          grid lg:grid-cols-[75%,25%] px-per10 items-center
+          grid lg:grid-cols-[75%,25%] px-per10 items-center my-5
           
           '>
 
@@ -93,8 +106,8 @@ export default function Footer(){
             >
               <motion.div 
               initial={{x: '100%', opacity: 0}}
-              animate={GITInView ? {x: '0%',  opacity: 0.4} : {}}
-              transition={{duration: 1.5, delay: 0, ease: 'easeOut'}}
+              animate={GITInView ? {x: '0%',  opacity: 0.5} : {}}
+              transition={{duration: 2.2, delay: 0, ease: 'easeOut'}}
               className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-[3px] border-b-0 border-x-0 border-themeColor 
               will-change-[transform,opacity]
               '/>
@@ -138,12 +151,21 @@ export default function Footer(){
             </motion.div>
           </div>
 
+          <div className={`flex ${PPTelegrafRegular.className} px-per10 -translate-y-10`}>
+            <Magnetic>
+              <div className='flex items-center text-xl glassmorphism p-3 rounded-md'>
+                <Icon icon={`tabler:mail-pin`} className='mr-2 text-2xl'/> 
+                <a href="mailto:dzungnguyen.2k@gmail.com" className='mt-1'>dzungnguyen.2k@gmail.com</a>
+              </div>
+            </Magnetic>
+          </div>
+
           <div
-          className='flex items-center mt-auto
-          lg:px-per10 lg:justify-between
-          sm:px-per5 sm:justify-center sm:py-10
+          className='flex items-center mt-10
+          lg:px-per10 lg:justify-center lg:py-5
+          sm:px-per5 sm:justify-center sm:py-10 
           '>
-            <div className="lg:text-lg md:text-md sm:text-sm font-telegraf-ultrab
+            <div className="lg:text-xl md:text-md sm:text-sm font-telegraf-ultrab
             ">
                 <div>2023 &copy; BY DEVCHITECT.</div>
             </div>
@@ -168,7 +190,7 @@ function Socials(){
 
     return(
         <>
-            <div className={`xl:fixed xl:right-12 xl:bottom-1/3 xl:grid xl:grid-flow-row xl:gap-6 xl:text-xl z-10 
+            <div className={`xl:fixed xl:right-[4.20%] xl:bottom-1/3 xl:grid xl:grid-flow-row xl:gap-6 xl:text-xl z-10 
             sm:flex sm:justify-evenly sm:py-3
             `}>
                 {socials.map((s) => ( 
@@ -178,93 +200,10 @@ function Socials(){
                     onMouseEnter={() => {dispatch(hoverOn(s.title))}}
                     onMouseLeave={() => {dispatch(hoverOff())}}
                     >
-                        <Icon icon={s.icon} className='block hover:scale-150 duration-150 text-xl'/>
+                        <Icon icon={s.icon} className='block hover:scale-150 duration-150 text-2xl'/>
                     </a>     
                 ))}
             </div>
         </>
     )
 }
-
-function Marquee({text1, text2, text3, marqueedirec = 'forward'}){
-
-    return (
-      <>
-        <motion.div      
-        initial={{opacity: 0, filter: 'blur(10px)'}}
-        whileInView={{opacity: 1, filter: 'blur(0)'}} 
-        transition={{duration: 1}}
-        viewport={{margin: '0px 0px -200px 0px', once: true }}
-        className='relative flex select-none font-telegraf-ultrab
-        lg:text-[3.3rem] 
-        md:text-2xl
-        sm:text-lg sm:tracking-normal will-change-[opacity]
-        '>
-          <div
-          className={`flex shrink-0 min-w-full leading-normal border-y-[5px] border-[#11111155] border-double dark:border-[#ffffff55]
-
-          sm:pt-5 sm:pb-4  
-          ${marqueedirec === 'forward' ? 'animate-text-loop' : 'animate-text-loop-reverse'}`}>
-            <MarqueeText text1={text1} text2={text2} text3={text3}/>
-            <MarqueeText text1={text1} text2={text2} text3={text3}/>
-            <MarqueeText text1={text1} text2={text2} text3={text3}/>
-          </div>
-          <div
-          className={`flex shrink-0 min-w-full leading-normal border-y-[5px] border-[#11111155] border-double dark:border-[#ffffff55] 
-
-          sm:pt-5 sm:pb-4 
-          ${marqueedirec === 'forward' ? 'animate-text-loop' : 'animate-text-loop-reverse'}`}>
-            <MarqueeText text1={text1} text2={text2} text3={text3}/>
-            <MarqueeText text1={text1} text2={text2} text3={text3}/>
-            <MarqueeText text1={text1} text2={text2} text3={text3}/>
-          </div>
-        </motion.div>
-      </>
-    )
-}
-  
-  function MarqueeText({text1, text2, text3}){
-  
-    const theme = useSelector((state : RootState) => state.theme.mode)
-  
-    const hoverOn = (e : React.MouseEvent<Element, MouseEvent>, color : string) => {
-      const target = e.currentTarget as HTMLElement;
-      
-      if(theme === 'light'){
-        color = 'linear-gradient(360deg, black, grey)';
-      }
-       target.style.backgroundImage = color;
-    }
-  
-    const hoverOut = (e : React.MouseEvent<Element, MouseEvent>) => {
-      const target = e.currentTarget as HTMLElement;
-      target.style.backgroundImage = 'none';
-      target.style.backgroundColor = 'var(--marque-default-bg)';
-    }
-  
-    return (
-      <>
-        <p>
-          <span
-          className='marquee-text trans-bg duration-200  border-none'
-          onMouseEnter={(e) => {hoverOn(e, text1.color)}}
-          onMouseLeave={(e) => {hoverOut(e)}}
-          >{text1.label}</span>
-          <span className='marquee-line'>&nbsp;&nbsp;-&nbsp;&nbsp;</span> 
-          <span
-          className='marquee-text trans-bg duration-200 border-none'
-          onMouseEnter={(e) => {hoverOn(e, text2.color)}}
-          onMouseLeave={(e) => {hoverOut(e)}}
-          >{text2.label}</span>
-          <span className='marquee-line'>&nbsp;&nbsp;-&nbsp;&nbsp;</span>
-          <span
-           className='marquee-text trans-bg duration-200 border-none'
-           onMouseEnter={(e) => {hoverOn(e, text3.color)}}
-           onMouseLeave={(e) => {hoverOut(e)}}
-          >{text3.label}</span>
-          <span className='marquee-line'>&nbsp;&nbsp;-&nbsp;&nbsp;</span>  
-        </p>
-      </>
-    )
-}
-  

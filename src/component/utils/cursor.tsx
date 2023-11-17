@@ -38,13 +38,22 @@ const Cursor = () => {
         outline.current.style.opacity = `0`;
     }
 
-    const mousePress = () => {
+    const mousePress = (e) => {
+        setLatency(0);
         outline.current.classList.add('cursor-outline-press');
         dot.current.classList.add('cursor-dot-press');
+
+        if (e.offsetX > e.target.clientWidth || e.offsetY > e.target.clientHeight) 
+        {
+            // mouse down over scroll element
+            mouseHide();
+        }
 
     }
 
     const mouseRelease = () => {
+        setLatency(l);
+        mouseShow();
         outline.current.classList.remove('cursor-outline-press');
         dot.current.classList.remove('cursor-dot-press');
 

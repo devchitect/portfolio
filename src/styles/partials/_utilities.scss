@@ -16,9 +16,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 60px;
-    height: 60px;
-    border: 5px double var(--cursor-outline);
+    width: 55px;
+    height: 55px;
+    border: 4px double var(--cursor-outline);
     transform-origin: center;
     overflow: hidden;
     background: var(--bg-color);
@@ -47,7 +47,7 @@
     transform: translate(-50%,-50%);
     pointer-events: none;
     z-index: 39;
-    transition: 500ms;
+    transition: 350ms;
   }
   
   @include color-scheme(dark){
@@ -62,13 +62,13 @@
   }
 
   .cursor-outline-hover{
-    transform:  translate(-50%, -50%) scale(1.8);
+    transform: translate(-50%, -50%) scale(1.69);
     border: none;
 
 
   }
   .cursor-dot-hover{
-    transform:  translate(-50%, -50%) scale(15);
+    transform:  translate(-50%, -50%) scale(14);
     mix-blend-mode: exclusion !important;
 
   }
@@ -78,11 +78,11 @@
     border: 4px solid var( --theme-color) !important;
     box-shadow:  0 0 10px var(--theme-color);
     background: white;
-    transform:  translate(-50%, -50%) scale(0.88);
+    transform:  translate(-50%, -50%) scale(0.8);
   }
 
   .cursor-dot-press{
-    transform:  translate(-50%, -50%) scale(0);
+    opacity: 0 !important;
   }
     
 
@@ -95,15 +95,35 @@
 }
 
 
-//SVG Drawing
-.svg-draw{
-  animation: draw forwards 6s linear;
-  animation-delay: 0.5s;
+//Marquee
 
-  @keyframes draw {
-    to {
-      stroke-dashoffset: 0;
-    }
+.marquee-hide{
+  background: transparent;
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+.marquee-text{
+  display: inline-block;
+  background-color: var(--marque-default-bg);
+
+  @include responsive (phone){
+      &:hover{
+          transform: translateY(-10px);
+      }
   }
+
+  @include responsive (tablet){
+      &:hover{
+          transform: scale(1.05);
+      }
+  }
+
+}
+
+.marquee-line{
+  border: none;
+  display: inline-block;
+  color:  var(--marque-default-bg);
 }
 

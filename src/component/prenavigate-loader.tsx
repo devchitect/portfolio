@@ -2,6 +2,7 @@
 
 import { useSelector } from "react-redux"
 import { RootState } from "@/app/store/store"
+import { LibrarySoft } from "./utils/fonts"
 
 export default function PreNavigate(){
     return (
@@ -21,12 +22,12 @@ function Content(){
         className='fixed top-0 left-0 w-screen h-screen z-50 flex justify-center items-center pointer-events-none'
         >
             <div className='relative text-center'>
-                <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
+                <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none'>
                     <div 
                     className='float-bg-gradient h-[50%] w-[100%] rounded-[60%] opacity-80'/>
                 </div>
 
-                <div className="font-l3">
+                <div className={`${LibrarySoft.className}`}>
                     <span className='loader-text inline-block relative
                     xl:text-[110px]
                     lg:text-[5.5rem]

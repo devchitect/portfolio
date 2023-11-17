@@ -8,7 +8,9 @@ export const InterSemiBold = localFont({src: './fonts/Inter-SemiBold.ttf'})
 
 export const InterBold = localFont({src: './fonts/Inter-Bold.ttf'})
 
-export const InterExtraBold = localFont({src: './fonts/Inter-Medium.ttf'})
+export const InterExtraBold = localFont({src: './fonts/Inter-ExtraBold.ttf'})
+
+export const InterBlack = localFont({src: './fonts/Inter-Black.ttf'})
 
 export const LibrarySoft = localFont({src: './fonts/library-3am-soft.otf'})
 
