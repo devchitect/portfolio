@@ -10,7 +10,7 @@ import Loading from './loading';
 import PageWrapper from "@/component/page-wrapper";
 import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
-import Footer from '@/component/layout/footer';
+//import Footer from '@/component/layout/footer';
 
 import { MomentumScrolling } from '@/component/momentum-scrolling';
 
@@ -32,6 +32,12 @@ const DynamicScrollbar = dynamic(() => import('../component/utils/custom-scrollb
   ssr: false
 })
 
+const DynamicFooter = dynamic(() => import('../component/layout/footer'), {
+  loading: () => null,
+  ssr: false
+})
+
+
 export default function RootLayoutClientComponent({children}: {children: React.ReactNode}){
 
   return (
@@ -49,7 +55,7 @@ export default function RootLayoutClientComponent({children}: {children: React.R
             {children}
             </Suspense>
           </PageWrapper>   
-          <Footer/>    
+          <DynamicFooter/>    
           </>     
         </div>
         </>

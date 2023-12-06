@@ -423,8 +423,8 @@ function FourthSection(){
             scrollTrigger: {
               trigger: el,
               markers: markers,
-              start: 'bottom 100%',
-              end: 'top 20%',
+              start: 'center 100%',
+              end: 'top 30%',
               scrub: true,
             }
           },
@@ -486,17 +486,15 @@ function FourthSection(){
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>01.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='ANALYSIS'/></h4>
-              <ul className='lg:text-3xl sm:text-base p-6 glassmorphism rounded-md mt-5'>
+              <ul className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md mt-5'>
                   <li>
                   <RevealedTextParagraph
                   className='leading-[1.5]'
-                  once={false}
                   text={["I have the ability to perform some analysis techniques for your business's digital transformation."]}
                   />
                   <div className='pl-5 mt-2 leading-[1.7] lg:text-lg sm:text-sm'>
                     <RevealedTextParagraph
                     className=''
-                    once={false}
                     text={["- Use-Case Modeling",
                     "- SWOT (Strengths, Weaknesses, Opportunities, Threats) ",
                     "- CATWOE (Clients, Agents, Transformation, World view, Owners, Environment)"
@@ -513,10 +511,10 @@ function FourthSection(){
           <div className="el w-full my-20">
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>02.</div>
-              <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DESIGN'/></h4>
-              <ul className='lg:text-3xl sm:text-base p-6 glassmorphism rounded-md leading-[1.5] mt-5'>
+              <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DESIGN'/></h4>} />
+              
+              <ul className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md leading-[1.5] mt-5'>
                 <RevealedTextParagraph
-                once={false}
                 text={["I deliver strong and user-friendly designs.","Minialist yet unforgetable!"]}
                 />
               </ul>
@@ -529,9 +527,8 @@ function FourthSection(){
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>03.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DEVELOPMENT'/></h4>
-              <ul className='lg:text-3xl sm:text-base leading-[1.5] p-6 glassmorphism rounded-md mt-5'>
+              <ul className='lg:text-2xl sm:text-base leading-[1.5] px-6 py-3 glassmorphism rounded-md mt-5'>
                 <RevealedTextParagraph
-                once={false}
                 text={["Each unique requirement need an unique solution stack!","I'm here to crafting your perfect match."]}
                 />
               </ul>
@@ -544,9 +541,8 @@ function FourthSection(){
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>04.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block select-none hover:tracking-wider duration-300'>THE FULL PROCESS</h4>
-              <ul className='lg:text-3xl sm:text-base p-6 glassmorphism rounded-md mt-5'>
+              <ul className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md mt-5'>
                 <RevealedTextParagraph
-                once={false}
                 text={["A complete website from concept to implementation."]}
                 />
               </ul>

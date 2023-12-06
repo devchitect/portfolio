@@ -7,7 +7,7 @@
     height: 7px;
     background: var(--theme-color);
     box-shadow: 0 0 10px var(--theme-color),
-    inset 0 0 2px rgba(0, 0, 0, 0.8); 
+    inset 0 0 1px rgba(0, 0, 0, 0.3); 
    
   }
 
@@ -16,8 +16,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 55px;
-    height: 55px;
+    width: 35px;
+    height: 35px;
     border: 4px double var(--cursor-outline);
     transform-origin: center;
     overflow: hidden;
@@ -28,7 +28,7 @@
       transform-origin: center;
       word-break: break-all;
       animation: title 300ms linear forwards;
-      color:initial;
+      color: initial;
 
 
       @keyframes title {
@@ -47,7 +47,7 @@
     transform: translate(-50%,-50%);
     pointer-events: none;
     z-index: 39;
-    transition: 350ms;
+    transition: 300ms;
   }
   
   @include color-scheme(dark){
@@ -62,13 +62,13 @@
   }
 
   .cursor-outline-hover{
-    transform: translate(-50%, -50%) scale(1.69);
+    transform: translate(-50%, -50%) scale(2.69);
     border: none;
 
 
   }
   .cursor-dot-hover{
-    transform:  translate(-50%, -50%) scale(14);
+    transform:  translate(-50%, -50%) scale(13);
     mix-blend-mode: exclusion !important;
 
   }
@@ -79,10 +79,16 @@
     box-shadow:  0 0 10px var(--theme-color);
     background: white;
     transform:  translate(-50%, -50%) scale(0.8);
-  }
+
+    .cursor-title{ 
+      opacity: 0 !important;
+    }
+  } 
 
   .cursor-dot-press{
     opacity: 0 !important;
+    transition: 0ms !important;
+
   }
     
 

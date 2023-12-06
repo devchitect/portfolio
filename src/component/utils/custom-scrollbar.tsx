@@ -149,14 +149,14 @@ export default function CustomScrollbar(){
     // Listen for mouse events to handle scrolling by dragging the thumb
     useEffect(() => {
 
-      document.addEventListener('mousemove', handleThumbMousemove);
-      document.addEventListener('mouseup', handleThumbMouseup);
-      document.addEventListener('mouseleave', handleThumbMouseup);
+      window.addEventListener('mousemove', handleThumbMousemove);
+      window.addEventListener('mouseup', handleThumbMouseup);
+      window.addEventListener('mouseleave', handleThumbMouseup);
       window.addEventListener("scroll", activeScrollbar)
       return () => {
-        document.removeEventListener('mousemove', handleThumbMousemove);
-        document.removeEventListener('mouseup', handleThumbMouseup);
-        document.removeEventListener('mouseleave', handleThumbMouseup);
+        window.removeEventListener('mousemove', handleThumbMousemove);
+        window.removeEventListener('mouseup', handleThumbMouseup);
+        window.removeEventListener('mouseleave', handleThumbMouseup);
         window.removeEventListener("scroll", activeScrollbar)
 
         };

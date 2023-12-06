@@ -1,7 +1,7 @@
 'use client'
 
 import { RootState } from "@/app/store/store";
-import { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux";
 
 
@@ -14,7 +14,7 @@ const Cursor = () => {
 
 
     const mouseOnHover = useCallback(() => {
-        setLatency(0);
+        setLatency(l/2);
         outline.current.classList.add('cursor-outline-hover');
         dot.current.classList.add('cursor-dot-hover');
         outline.current.style.mixBlendMode = title && 'normal';
@@ -38,7 +38,7 @@ const Cursor = () => {
         outline.current.style.opacity = `0`;
     }
 
-    const mousePress = (e) => {
+    const mousePress = useCallback((e) => {
         setLatency(0);
         outline.current.classList.add('cursor-outline-press');
         dot.current.classList.add('cursor-dot-press');
@@ -49,15 +49,15 @@ const Cursor = () => {
             mouseHide();
         }
 
-    }
+    },[])
 
-    const mouseRelease = () => {
+    const mouseRelease = useCallback(() => {
         setLatency(l);
         mouseShow();
         outline.current.classList.remove('cursor-outline-press');
         dot.current.classList.remove('cursor-dot-press');
 
-    }
+    },[])
 
     const mouseMove = useCallback((e: MouseEvent) => {
         mouseShow();
@@ -96,14 +96,14 @@ const Cursor = () => {
           document.documentElement.removeEventListener('mouseleave', mouseHide);
         }
 
-    },[mouseMove])
+    },[mouseMove, mousePress, mouseRelease])
 
     return(
         <>
             <div className="cursor-dot sm:hidden xl:flex" ref={dot}></div>
             <div className="cursor-outline sm:hidden xl:flex" ref={outline}>
                 {title && 
-                    <span className="cursor-title text-[0.5rem] font-b tracking-wider ">{title}</span>
+                    <span className="cursor-title text-[0.3rem] font-b tracking-wider ">{title}</span>
                 }   
             </div>
         </>

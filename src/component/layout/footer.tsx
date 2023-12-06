@@ -152,7 +152,7 @@ export default function Footer(){
           </div>
 
           <div className={`flex ${PPTelegrafRegular.className} px-per10 -translate-y-10`}>
-            <div className='flex items-center text-xl glassmorphism p-3 rounded-md'>
+            <div className='flex items-center glassmorphism py-2 px-3 rounded-md'>
               <Icon icon={`tabler:mail-pin`} className='mr-2 text-2xl'/> 
               <a href="mailto:dzungnguyen.2k@gmail.com" className='mt-1'>dzungnguyen.2k@gmail.com</a>
             </div>
@@ -164,7 +164,7 @@ export default function Footer(){
           lg:px-per10 lg:justify-center lg:py-5
           sm:px-per5 sm:justify-center sm:py-10 
           '>
-            <div className="lg:text-xl md:text-md sm:text-sm font-telegraf-ultrab
+            <div className="lg:text-lg md:text-base sm:text-sm font-telegraf-ultrab
             ">
                 <div>2023 &copy; BY DEVCHITECT.</div>
             </div>

@@ -42,15 +42,15 @@ export function RevealedText(
 
         <>
             <div className="overflow-hidden" ref={ref}>
-                <motion.p
-                variants={textAnimate}
+                <motion.div
+                variants={animation}
                 initial='initial'
                 animate={isInView ? 'animate' : ''}
                 transition={{duration: duration, delay: delay, ease: 'easeOut'}}
                 className={className}
                 >
                     {text}
-                </motion.p>
+                </motion.div>
             </div>
         </>
     )
@@ -72,7 +72,7 @@ export function RevealedTextParagraph(
     {
         text,
         className,
-        once,
+        once = true,
         delay = 0,
         duration = 0.69,
         animation = textAnimate
@@ -90,8 +90,8 @@ export function RevealedTextParagraph(
                 <div className={`block`} key={`${line}-${lineIndex}`} ref={ref}>
                     {line.split(" ").map((word, wordIndex) => (
                         <div className="inline-block overflow-hidden" key={`${word}-${wordIndex}`}>
-                            <motion.p
-                            variants={textAnimate}
+                            <motion.div
+                            variants={animation}
                             initial='initial'
                             animate={isInView ? 'animate' : ''}
                             transition={{duration: duration, delay: delay + ( lineIndex * 0.1), ease: 'easeOut'}}
@@ -99,7 +99,7 @@ export function RevealedTextParagraph(
                             >
                                 <span>{word}</span> 
                                 <span className="inline-block">&nbsp;</span>                          
-                            </motion.p>
+                            </motion.div>
                         </div>          
                     ))}
                 </div>                          
