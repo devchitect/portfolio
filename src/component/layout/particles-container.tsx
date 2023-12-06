@@ -6,6 +6,7 @@ import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
+import { desktop } from "../utils/use-media_queries";
 
 
 const ParticlesContainer = () => {
@@ -601,7 +602,7 @@ const ParticlesContainer = () => {
 
     return (
       <>
-      {theme === 'dark' &&
+      {(theme === 'dark' && desktop) &&
        <div style={{position:'fixed', zIndex:'-3'}}>  
             <Particles
                 id="tsparticles"

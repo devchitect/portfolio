@@ -423,8 +423,8 @@ function FourthSection(){
             scrollTrigger: {
               trigger: el,
               markers: markers,
-              start: 'bottom 98%',
-              end: 'top 38%',
+              start: 'bottom 100%',
+              end: 'top 20%',
               scrub: true,
             }
           },
@@ -480,20 +480,20 @@ function FourthSection(){
         ref={main} 
         className='flex flex-col items-start '>
 
-          <div className='w-5 lg:h-60 sm:h-28'/>
+          <div className='w-5 lg:h-60 sm:h-24'/>
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>01.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='ANALYSIS'/></h4>
-              <ul className='lg:text-3xl sm:text-lg p-6 glassmorphism rounded-md mt-5'>
+              <ul className='lg:text-3xl sm:text-base p-6 glassmorphism rounded-md mt-5'>
                   <li>
                   <RevealedTextParagraph
                   className='leading-[1.5]'
                   once={false}
                   text={["I have the ability to perform some analysis techniques for your business's digital transformation."]}
                   />
-                  <div className='pl-5 mt-2 leading-[1.7] lg:text-2xl sm:text-base'>
+                  <div className='pl-5 mt-2 leading-[1.7] lg:text-lg sm:text-sm'>
                     <RevealedTextParagraph
                     className=''
                     once={false}
@@ -508,13 +508,13 @@ function FourthSection(){
             </div>
           </div>
 
-          <div className='w-5 lg:h-48 sm:h-28'/>
+          <div className='w-5 lg:h-48 sm:h-24'/>
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>02.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DESIGN'/></h4>
-              <ul className='lg:text-3xl sm:text-lg p-6 glassmorphism rounded-md leading-[1.5] mt-5'>
+              <ul className='lg:text-3xl sm:text-base p-6 glassmorphism rounded-md leading-[1.5] mt-5'>
                 <RevealedTextParagraph
                 once={false}
                 text={["I deliver strong and user-friendly designs.","Minialist yet unforgetable!"]}
@@ -523,13 +523,13 @@ function FourthSection(){
             </div>
           </div>
 
-          <div className='w-5 lg:h-48 sm:h-28'/>
+          <div className='w-5 lg:h-48 sm:h-24'/>
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>03.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DEVELOPMENT'/></h4>
-              <ul className='lg:text-3xl sm:text-lg leading-[1.5] p-6 glassmorphism rounded-md mt-5'>
+              <ul className='lg:text-3xl sm:text-base leading-[1.5] p-6 glassmorphism rounded-md mt-5'>
                 <RevealedTextParagraph
                 once={false}
                 text={["Each unique requirement need an unique solution stack!","I'm here to crafting your perfect match."]}
@@ -538,13 +538,13 @@ function FourthSection(){
             </div>
           </div>
 
-          <div className='w-5 lg:h-48 sm:h-28'/>
+          <div className='w-5 lg:h-48 sm:h-24'/>
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
               <div className='font-telegraf-ultrab text-xl mb-5'>04.</div>
               <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block select-none hover:tracking-wider duration-300'>THE FULL PROCESS</h4>
-              <ul className='lg:text-3xl sm:text-lg p-6 glassmorphism rounded-md mt-5'>
+              <ul className='lg:text-3xl sm:text-base p-6 glassmorphism rounded-md mt-5'>
                 <RevealedTextParagraph
                 once={false}
                 text={["A complete website from concept to implementation."]}

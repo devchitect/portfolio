@@ -152,12 +152,11 @@ export default function Footer(){
           </div>
 
           <div className={`flex ${PPTelegrafRegular.className} px-per10 -translate-y-10`}>
-            <Magnetic>
-              <div className='flex items-center text-xl glassmorphism p-3 rounded-md'>
-                <Icon icon={`tabler:mail-pin`} className='mr-2 text-2xl'/> 
-                <a href="mailto:dzungnguyen.2k@gmail.com" className='mt-1'>dzungnguyen.2k@gmail.com</a>
-              </div>
-            </Magnetic>
+            <div className='flex items-center text-xl glassmorphism p-3 rounded-md'>
+              <Icon icon={`tabler:mail-pin`} className='mr-2 text-2xl'/> 
+              <a href="mailto:dzungnguyen.2k@gmail.com" className='mt-1'>dzungnguyen.2k@gmail.com</a>
+            </div>
+            
           </div>
 
           <div
