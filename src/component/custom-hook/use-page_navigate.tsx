@@ -3,7 +3,7 @@
 import { useDispatch } from "react-redux";
 import { transition } from "@/app/store/slices/pageTransitionSlice";
 import { usePathname, useRouter } from "next/navigation";
-import { navigateDelay } from "@/app/layout-client";
+import { navigateDelay } from "../layout/page-transistion";
 import { useEffect } from "react";
 
 export function usePageNavigate(){

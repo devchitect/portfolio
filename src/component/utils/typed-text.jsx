@@ -3,7 +3,7 @@
 import {useEffect, useRef} from "react";
 import Typed from "typed.js";
 
-const TypedText = ({params, speed = 150, cursorC = '|', backSpeed = 80 , delay = 1000, gradient = false}) => {
+const TypedText = ({params, speed = 150, cursorC = '|', backSpeed = 80 , delay = 1000, gradient = false, classname = ''}) => {
     // Create reference to store the DOM element containing the animation
     const el = useRef(null);
 
@@ -27,7 +27,7 @@ const TypedText = ({params, speed = 150, cursorC = '|', backSpeed = 80 , delay =
 
     return (
         <span ref={el} 
-        className={gradient && 'text-gradient'}
+        className={`${gradient && 'text-gradient'} ${classname}`}
         />
     );
 }

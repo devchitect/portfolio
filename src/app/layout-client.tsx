@@ -10,11 +10,9 @@ import Loading from './loading';
 import PageWrapper from "@/component/layout/page-wrapper";
 import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
-//import Footer from '@/component/layout/footer';
+import Footer from '@/component/layout/footer';
 
 import { MomentumScrolling } from '@/component/momentum-scrolling';
-
-export const navigateDelay = 1500;
 
 //Code Splitting & Lazy Loading
 const DynamicParticles = dynamic(() => import('../component/layout/particles-container'), {
@@ -28,11 +26,6 @@ const DynamicCursor = dynamic(() => import('../component/utils/cursor'), {
 })
 
 const DynamicScrollbar = dynamic(() => import('../component/utils/custom-scrollbar'), {
-  loading: () => null,
-  ssr: false
-})
-
-const DynamicFooter = dynamic(() => import('../component/layout/footer'), {
   loading: () => null,
   ssr: false
 })
@@ -55,7 +48,7 @@ export default function RootLayoutClientComponent({children}: {children: React.R
             {children}
             </Suspense>
           </PageWrapper>   
-          <DynamicFooter/>    
+          <Footer/>    
           </>     
         </div>
         </>

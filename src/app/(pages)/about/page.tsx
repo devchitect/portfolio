@@ -36,7 +36,7 @@ export default function About() {
       <>
         <div className=' min-h-[95vh]'>
           <div className='my-20 relative'>
-            <div className='relative w-[33%] mx-auto corner-border floating'>
+            <div className='relative w-[35%] mx-auto corner-border floating'>
             <Image
             priority={true}
             src={`/images/me.jpg`}
@@ -47,7 +47,7 @@ export default function About() {
             />                
             </div>
 
-            <div className={`absolute bottom-[40%] left-[20%] ${PPTelegrafUltrabold.className} text-[30px] w-[20%]`}>
+            <div className={`absolute bottom-[40%] left-[20%] ${PPTelegrafUltrabold.className} text-[30px]`}>
               <div className='relative pl-1'>
               <DynamicStaggeredText 
                 text={[

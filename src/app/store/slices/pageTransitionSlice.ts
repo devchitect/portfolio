@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+let path = '';
+
 export interface CounterState {
   type: string,
   endpath: string
@@ -8,7 +10,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
     type: '',
-    endpath: 'Devchitect'
+    endpath: 'Devchitect' 
 }
 
 export const transitionSlice = createSlice({
