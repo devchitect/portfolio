@@ -41,7 +41,7 @@ export function RevealedText(
     return (
 
         <>
-            <div className="overflow-hidden" ref={ref}>
+            <div className="overflow-hidden inline-block" ref={ref}>
                 <motion.div
                 variants={animation}
                 initial='initial'

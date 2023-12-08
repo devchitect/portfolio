@@ -29,7 +29,7 @@ function Content(){
 
                 <div className={`${LibrarySoft.className}`}>
                     <span className='loader-text inline-block relative
-                    xl:text-[110px]
+                    xl:text-[130px]
                     lg:text-[5.5rem]
                     sm:text-[3.3rem]
                     '>{endpath}</span>

@@ -8,12 +8,17 @@ import '@/styles/about.scss'
 import { PPTelegrafUltrabold } from '@/component/utils/fonts'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import MarqueeMotion from '@/component/utils/marquee-motion'
-import { StaggeredText } from '@/component/utils/staggered-text'
 
 const DynamicTypedText = dynamic(() => import('../../../component/utils/typed-text'), {
     loading: () => null,
     ssr: false
   })
+
+const DynamicStaggeredText = dynamic(() => import('../../../component/utils/staggered-text'), {
+  loading: () => null,
+  ssr: false
+})
+
 
 export default function About() {
     return (
@@ -44,7 +49,7 @@ export default function About() {
 
             <div className={`absolute bottom-[40%] left-[20%] ${PPTelegrafUltrabold.className} text-[30px] w-[20%]`}>
               <div className='relative pl-1'>
-              <StaggeredText 
+              <DynamicStaggeredText 
                 text={[
                   "WASSUP ?!",
                   "IT'S ME!",
@@ -83,7 +88,7 @@ export default function About() {
           lg:text-[40px]
           before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:dark:bg-white before:bg-black before:opacity-80
           `}>
-             <StaggeredText 
+             <DynamicStaggeredText 
                 text={[
                   "MORE ABOUT ME",
                 ]}
@@ -106,7 +111,7 @@ export default function About() {
           lg:text-[40px]
           before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:dark:bg-white before:bg-black before:opacity-80
           `}>
-             <StaggeredText 
+             <DynamicStaggeredText 
                 text={[
                   "MY SKILLS",
                 ]}

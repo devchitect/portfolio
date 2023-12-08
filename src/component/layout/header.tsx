@@ -73,7 +73,7 @@ function Header(){
         ref = {header}
         className="header sticky top-0 flex items-center justify-between z-20 duration-500 border-none transition-transform w-full
         xl:px-per10
-        sm:px-per5 xm:py-3
+        sm:px-per10 xm:py-3
         ">
             <span
             className={`logo font-l3 select-none lg:text-[1.35rem] ml-[2px] ${path === '/' && 'text-themeColor'}`}

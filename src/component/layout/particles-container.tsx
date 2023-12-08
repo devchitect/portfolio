@@ -1,9 +1,9 @@
 'use client'
 
-import { useCallback } from "react";
-import type { Container, Engine, ISourceOptions } from "tsparticles-engine" // importing the ISourceOptions type
-import Particles from "react-particles";
-import { loadFull } from "tsparticles";
+import { useEffect, useState } from "react";
+import type { Container, Engine, ISourceOptions } from "@tsparticles/engine" // importing the ISourceOptions type
+import Particles, {initParticlesEngine} from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { desktop } from "../utils/use-media_queries";
@@ -16,17 +16,26 @@ const ParticlesContainer = () => {
     const particlesColor = theme === 'dark' ? '#ffffff' : '#111111d7';
     const particlesLink = theme === 'dark' ? '#00ffff' : 'rgba(111,0,255)';
 
-    const particlesInit = useCallback(async (engine : Engine) => {
-        // console.log(engine);
-        // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-        // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-        // starting from v2 you can add only the features you need reducing the bundle size
-        await loadFull(engine);
+    const [ init, setInit ] = useState(false);
+
+    // this should be run only once per application lifetime
+    useEffect(() => {
+        initParticlesEngine(async (engine) => {
+            // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+            // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+            // starting from v2 you can add only the features you need reducing the bundle size
+            //await loadAll(engine);
+            //await loadFull(engine);
+            await loadSlim(engine);
+            //await loadBasic(engine);
+        }).then(() => {
+            setInit(true);
+        });
     }, []);
 
-    // const particlesLoaded = useCallback(async container => {
-    //     await console.log(container);
-    // }, []);
+    // const particlesLoaded = (container) => {
+    //     console.log(container);
+    // };
 
     const particlesConfig : ISourceOptions = {
         autoPlay: true,
@@ -182,17 +191,9 @@ const ParticlesContainer = () => {
         particles: {
             bounce: {
                 horizontal: {
-                    random: {
-                        enable: false,
-                        minimumValue: 0.1
-                    },
                     value: 1
                 },
-                vertical: {
-                    random: {
-                        enable: false,
-                        minimumValue: 0.1
-                    },
+                vertical: {                  
                     value: 1
                 }
             },
@@ -201,18 +202,10 @@ const ParticlesContainer = () => {
                     speed: 2
                 },
                 bounce: {
-                    horizontal: {
-                        random: {
-                            enable: false,
-                            minimumValue: 0.1
-                        },
+                    horizontal: {                     
                         value: 1
                     },
                     vertical: {
-                        random: {
-                            enable: false,
-                            minimumValue: 0.1
-                        },
                         value: 1
                     }
                 },
@@ -285,11 +278,7 @@ const ParticlesContainer = () => {
                 },
                 path: {
                     clamp: true,
-                    delay: {
-                        random: {
-                            enable: false,
-                            minimumValue: 0
-                        },
+                    delay: {                      
                         value: 0
                     },
                     enable: false,
@@ -324,14 +313,9 @@ const ParticlesContainer = () => {
                     width: 1920,
                     height: 1080
                 },
-                limit: 200,
                 value: 88
             },
-            opacity: {
-                random: {
-                    enable: true,
-                    minimumValue: 0.3
-                },
+            opacity: {             
                 value: {
                     min: 0.3,
                     max: 1
@@ -344,7 +328,6 @@ const ParticlesContainer = () => {
                     sync: false,
                     destroy: "none",
                     startValue: "random",
-                    minimumValue: 0.5
                 }
             },
             reduceDuplicates: false,
@@ -364,10 +347,6 @@ const ParticlesContainer = () => {
                 type: "polygon"
             },
             size: {
-                random: {
-                    enable: true,
-                    minimumValue: 1
-                },
                 value: {
                     min: 1,
                     max: 3
@@ -380,7 +359,6 @@ const ParticlesContainer = () => {
                     sync: false,
                     destroy: "none",
                     startValue: "random",
-                    minimumValue: 1
                 }
             },
             stroke: {
@@ -416,10 +394,6 @@ const ParticlesContainer = () => {
                 }
             },
             zIndex: {
-                random: {
-                    enable: false,
-                    minimumValue: 0
-                },
                 value: 0,
                 opacityRate: 1,
                 sizeRate: 1,
@@ -604,11 +578,12 @@ const ParticlesContainer = () => {
       <>
       {(theme === 'dark' && desktop) &&
        <div style={{position:'fixed', zIndex:'-3'}}>  
+        {init &&
             <Particles
                 id="tsparticles"
-                init={particlesInit}
-                // loaded={particlesLoaded}
+                // particlesLoaded={particlesLoaded}
                 options={particlesConfig}/>
+        }
         </div>
         } 
       </> 

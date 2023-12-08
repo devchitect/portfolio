@@ -6,14 +6,13 @@ import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
 import { switchMode } from '@/app/store/slices/themeSlice';
 import Magnetic from "../utils/magnetic";
-import { clickSound } from '../layout/navbar';
+import { clickSound } from './navbar';
 import useIsomorphicLayoutEffect from '../gsap-helper/isomorphic-effect';
 
 export function ThemeSwitcher(){
 
     const dispatch = useDispatch();
     const [theme, setTheme] = useState<string | null>();
-    const schemeQuery = '(prefers-color-scheme: dark)';
 
     function switchTheme(){
 
@@ -31,20 +30,14 @@ export function ThemeSwitcher(){
         localStorage.setItem('theme', x);
     }
     
-    useIsomorphicLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => 
+    {
+        const selectedTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
+        let res = selectedTheme === 'dark' ? 'dark' : 'light';            
 
-        const mediaQuery = window.matchMedia(schemeQuery);
-        const userPref = mediaQuery.matches ? 'dark' : 'light';
-        const selectedTheme = localStorage.getItem('theme');
-
-        if(selectedTheme){
-            let res = selectedTheme === 'dark' ? 'dark' : 'light';            
-            setDocTheme(res);
-            dispatch(switchMode(res));
-        }else{
-            setDocTheme(userPref);
-            dispatch(switchMode(userPref));
-        }
+        setDocTheme(res);
+        dispatch(switchMode(res));
+        
     },[dispatch])
 
 

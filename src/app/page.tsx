@@ -16,7 +16,6 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 // import { RootState } from './store/store';
 import Magnetic from '@/component/utils/magnetic'
 import EncryptText from '@/component/utils/encrypted-text'
-import { RevealedText, RevealedTextParagraph } from '@/component/utils/revealed-text';
 import { usePageNavigate } from '@/component/custom-hook/use-page_navigate'
 import { desktop, minLarge } from '@/component/utils/use-media_queries';
 
@@ -25,6 +24,20 @@ const DynamicTypedText = dynamic(() => import('../component/utils/typed-text'), 
   loading: () => null,
   ssr: false
 })
+
+const DynamicRevealedText = dynamic(() =>
+  import('@/component/utils/revealed-text').then((mod) => mod.RevealedText), {
+    loading: () => null,
+    ssr: false
+  }
+)
+
+const DynamicRevealedTextParagraph = dynamic(() =>
+  import('@/component/utils/revealed-text').then((mod) => mod.RevealedTextParagraph),{
+    loading: () => null,
+    ssr: false
+  }
+)
 
 const LandingHomepage = () => {
 
@@ -106,9 +119,9 @@ function FirstSection(){
     > 
     
         <div 
-        className='absolute flex items-center dark:text-gray-200 xl:left-per10 xl:mx-0 opacity-50 hover:opacity-100
-        md:left-per5 md:bottom-auto md:top-10 md:right-auto md:px-0 md:mx-0
-        sm:left-0 sm:top-2 sm:right-auto sm:bottom-auto sm:mx-5 sm:text-sm
+        className='absolute flex items-center dark:text-gray-200 opacity-50 hover:opacity-100
+        md:bottom-auto md:top-10 md:right-auto md:px-0 
+        sm:left-0 sm:top-2 sm:right-auto sm:bottom-auto sm:mx-per10 sm:text-sm
         '>
           <Icon icon='gis:globe-share' className=' lg:mr-2 sm:mr-3'/>
           <span>Open for any collaborations and offers.</span>
@@ -116,9 +129,8 @@ function FirstSection(){
 
         <div 
         className='absolute flex items-center text-sm dark:text-gray-200 opacity-50 hover:opacity-100
-        xl:left-per10 xl:mx-0
-        md:left-per5 md:top-3 md:bottom-auto md:right-auto md:px-0 md:mx-0
-        sm:left-0 sm:top-12 sm:mx-5
+        md:top-3 md:bottom-auto md:right-auto md:px-0
+        sm:left-0 sm:top-12 sm:mx-per10
         '>
           <Icon icon='circle-flags:vn' className='lg:mr-2 sm:mr-3'/>
           <span>Presently located in Vietnam.</span>
@@ -271,7 +283,7 @@ function SecondSection(){
       lg:px-0
       sm:px-per5'
       >
-        <RevealedText 
+        <DynamicRevealedText 
         className={`
         font-blk tracking-[-0.01rem]
         xl:text-[6.8rem] 
@@ -288,26 +300,27 @@ function SecondSection(){
         md:text-3xl
         sm:text-lg
         '>
-          <RevealedText 
+          <DynamicRevealedText
           className={`
           xl:text-[2.8rem] lg:py-4 sm:py-1 font-md tracking-[-0.09rem]
           `} 
           delay={0.2}
           text={<>My name is <span className='font-telegraf-ultrab tracking-normal'>Dzung Nguyen</span>,</>}
           />
-          <div className='leading-[1.5] tracking-[-0.05rem] '>
-            <RevealedText 
-            className={`
+
+          <div className='leading-[1.25] tracking-[-0.05rem] '>
+            <DynamicRevealedText
+            className={`inline-block
             `} 
             delay={0.3}
-            text={<>I&apos;m a <span className='text-gradient font-b tracking-tight'>freelance developer</span> that take offers</>}
+            text={<span>I&apos;m a <span className='text-gradient font-b tracking-tight'>freelance developer</span></span>}
             />
 
-            <RevealedText 
-            className={`
+            <DynamicRevealedTextParagraph
+            className={`inline-block
             `} 
             delay={0.4}
-            text={<>whenever there is a need.</>}
+            text={'that take offers whenever there is a need.'}
             />
           </div>
         </div>
@@ -328,9 +341,9 @@ function SecondSection(){
         <Magnetic>
         <span 
         onClick={() => {navigate('/about')}}
-        className='relative flex items-center justify-center rounded-full overflow-hidden text-center font-telegraf-ultrab origin-center duration-300
+        className='relative flex items-center justify-center rounded-full overflow-hidden text-center font-telegraf-ultrab origin-center duration-300 
         border-themeColor border-4 border-double 
-        bg-[#ffffff78] dark:bg-[#00000078]  dark:shadow-[#ffffff81] shadow-[#00000050]
+        bg-[#ffffffcd] dark:bg-[#00000078]  dark:shadow-[#ffffff81] shadow-[#00000050]
         text-themeColor
         xl:w-[250px] xl:h-[250px] xl:text-[1.3rem] 
         lg:w-[180px] lg:h-[180px] lg:text-[1.1rem] 
@@ -341,7 +354,7 @@ function SecondSection(){
         hover:before:w-full hover:before:right-[unset] hover:before:left-0
         '
         >
-         <span className='fixed block z-3 w-full h-full'><EncryptText target_text='ABOUT ME'/></span>
+         <span className='block z-3 w-full h-full '><EncryptText target_text='ABOUT ME'/></span>
         </span>
         </Magnetic>
       </motion.div>
@@ -375,14 +388,14 @@ function ThirdSection(){
       className='
       lg:text-[2rem] tracking-[-0.09rem]
       '>
-        <RevealedText
+        <DynamicRevealedText
         className={`
         xl:text-[38px] font-rg 
         `}
         text={<>I help brands to stand out in the digital era.</>}
         />
 
-        <RevealedText
+        <DynamicRevealedText
         className={`
         xl:text-[38px] font-rg
         `}
@@ -473,7 +486,7 @@ function FourthSection(){
         <div className=' tracking-[-0.05rem] mt-5 mb-16 sticky lg:top-[0px] sm:top-[var(--header-height)] h-[var(--header-height)] flex items-center glassmorphism z-3
         sm:px-[10.05%]
         '>
-          <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={`I can help you with ...`} />
+          <DynamicRevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={`I can help you with ...`} />
         </div>    
 
         <div 
@@ -484,16 +497,18 @@ function FourthSection(){
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-5'>01.</div>
-              <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='ANALYSIS'/></h4>
+              <div className='font-telegraf-ultrab text-xl mb-3'>01.</div>
+              <DynamicRevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} 
+              text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'>
+                      <EncryptText target_text='ANALYSIS'/></h4>} />
               <ul className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md mt-5'>
                   <li>
-                  <RevealedTextParagraph
+                  <DynamicRevealedTextParagraph
                   className='leading-[1.5]'
                   text={["I have the ability to perform some analysis techniques for your business's digital transformation."]}
                   />
                   <div className='pl-5 mt-2 leading-[1.7] lg:text-lg sm:text-sm'>
-                    <RevealedTextParagraph
+                    <DynamicRevealedTextParagraph
                     className=''
                     text={["- Use-Case Modeling",
                     "- SWOT (Strengths, Weaknesses, Opportunities, Threats) ",
@@ -510,11 +525,11 @@ function FourthSection(){
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-5'>02.</div>
-              <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DESIGN'/></h4>} />
+              <div className='font-telegraf-ultrab text-xl mb-3'>02.</div>
+              <DynamicRevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'><EncryptText target_text='DESIGN'/></h4>} />
               
               <ul className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md leading-[1.5] mt-5'>
-                <RevealedTextParagraph
+                <DynamicRevealedTextParagraph
                 text={["I deliver strong and user-friendly designs.","Minialist yet unforgetable!"]}
                 />
               </ul>
@@ -525,10 +540,10 @@ function FourthSection(){
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-5'>03.</div>
-              <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block hover:tracking-wider duration-300'><EncryptText target_text='DEVELOPMENT'/></h4>
+              <div className='font-telegraf-ultrab text-xl mb-3'>03.</div>
+              <DynamicRevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'><EncryptText target_text='DEVELOPMENT'/></h4>} />
               <ul className='lg:text-2xl sm:text-base leading-[1.5] px-6 py-3 glassmorphism rounded-md mt-5'>
-                <RevealedTextParagraph
+                <DynamicRevealedTextParagraph
                 text={["Each unique requirement need an unique solution stack!","I'm here to crafting your perfect match."]}
                 />
               </ul>
@@ -539,10 +554,10 @@ function FourthSection(){
 
           <div className="el w-full my-20">
             <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-5'>04.</div>
-              <h4 className='xl:text-[78px] sm:text-3xl font-telegraf-ultrab inline-block select-none hover:tracking-wider duration-300'>THE FULL PROCESS</h4>
+              <div className='font-telegraf-ultrab text-xl mb-3'>04.</div>
+              <DynamicRevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'>THE FULL PROCESS</h4>} />
               <ul className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md mt-5'>
-                <RevealedTextParagraph
+                <DynamicRevealedTextParagraph
                 text={["A complete website from concept to implementation."]}
                 />
               </ul>

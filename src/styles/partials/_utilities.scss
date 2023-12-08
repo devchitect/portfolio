@@ -16,8 +16,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 35px;
-    height: 35px;
+    width: 39px;
+    height: 39px;
     border: 4px double var(--cursor-outline);
     transform-origin: center;
     overflow: hidden;
@@ -62,7 +62,7 @@
   }
 
   .cursor-outline-hover{
-    transform: translate(-50%, -50%) scale(2.69);
+    transform: translate(-50%, -50%) scale(2.39);
     border: none;
 
 

@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic'
 import { Suspense, useCallback, useEffect, useRef } from "react";
 import Header from '@/component/layout/header'
 import Loading from './loading';
-import PageWrapper from "@/component/page-wrapper";
+import PageWrapper from "@/component/layout/page-wrapper";
 import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
 //import Footer from '@/component/layout/footer';

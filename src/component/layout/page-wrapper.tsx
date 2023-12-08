@@ -4,8 +4,8 @@ import { ScrollTrigger } from '@/component/layout/scroll-trigger';
 //import { useEffect, useLayoutEffect, useState } from 'react';
 import { RootState } from '@/app/store/store';
 import { useSelector } from 'react-redux';
-import PreNavigate from './prenavigate-loader';
-import { motion } from 'framer-motion'
+import PreNavigate from '../prenavigate-loader';
+import { motion, AnimatePresence  } from 'framer-motion'
 import { usePathname } from 'next/navigation';
 import { navigateDelay } from '@/app/layout-client';
 
@@ -47,13 +47,11 @@ export default function PageWrapper({children} : {children: React.ReactNode}){
 
 const slideup = {
     initial : {
-        y: '0%',
-        height: '0%',
-        opacity: 0.5, 
+        translateY: '0%',
+        opacity: 0.69, 
     },
     animate : {
-        y: '100%',
-        height: '100%',
+        translateY: '100%',
         opacity: 1,
 
     },
@@ -61,14 +59,12 @@ const slideup = {
 
 const slidedown = {
     initial : {
-        y: '-100%',
-        height: '100%',
+        translateY: '-100%',
         opacity: 1,
     },
     animate : {
-        y: '0%',
-        height: '0%',
-        opacity: 0,
+        translateY: '0%',
+        opacity: 0.69,
     },
 }
 
@@ -80,7 +76,8 @@ function EnterAnimation(){
     //'0px','10%','20%','30%','40%','50%','60%','70%','80%','90%'
     return(
         <>
-            <motion.div 
+        <AnimatePresence initial={true}>
+            <motion.div className='z-40 select-none pointer-events-none fixed top-0 left-0 overflow-hidden h-screen w-screen'
             key={path}>
 
                 {grid.map((x, index) => {
@@ -88,8 +85,8 @@ function EnterAnimation(){
                         <motion.div 
                         key={x}
                         style={{left: `${x*10}%`,  width: index === 9 ? '10%' :gridWidth}}
-                        className='fixed top-full right-0 select-none pointer-events-none
-                        z-40 h-screen bg-[#111111] border border-white border-opacity-10 will-change-[transform,opacity]'
+                        className='fixed top-full right-0
+                        h-screen bg-[#111111] border border-white border-opacity-10 will-change-transform'
                         variants={slidedown}
                         initial='initial'
                         animate='animate'
@@ -97,18 +94,17 @@ function EnterAnimation(){
                         />
                     )
                 })}
-           
-                 <motion.div
-                className='fixed bottom-full right-0 left-0 w-screen h-screen z-50 '
+                <motion.div
+                className='fixed bottom-full right-0 left-0 w-screen h-screen z-50'
                 initial={{opacity: 1}}
                 animate={{opacity: 0}}
-                transition={{delay: 0, duration: duration * 0.7, ease: 'easeOut'}}
+                transition={{delay: 0, duration: duration * 0.78, ease: 'easeOut'}}
                 >
                     <PreNavigate/>
                 </motion.div>
 
             </motion.div>
-               
+        </AnimatePresence>
         </>
     )
 }
@@ -119,14 +115,14 @@ function ExitAnimation(){
 
     return(
         <>
-            <motion.div>
+            <motion.div className='z-40 select-none pointer-events-none fixed top-0 left-0 overflow-hidden h-screen w-screen'>
                 {grid.map((x, index) => {
                     return (
                         <motion.div 
                             key={x}
-                            style={{left: `${x*10}%`, width:gridWidth}}
-                            className='fixed bottom-full right-0 select-none pointer-events-none
-                            z-40 h-screen bg-[#111111] border border-white border-opacity-10 will-change-transform'
+                            style={{left: `${x*10}%`,  width: index === 9 ? '10%' :gridWidth}}
+                            className='fixed bottom-full right-0  
+                            h-screen bg-[#111111] border border-white border-opacity-10 will-change-transform'
                             variants={slideup}
                             initial='initial'
                             animate='animate'
@@ -134,15 +130,15 @@ function ExitAnimation(){
                             />
                     )
                 })}
+            </motion.div>
 
-                <motion.div
+            <motion.div
                 className='fixed bottom-full right-0 left-0 w-screen h-screen z-50'
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
-                transition={{delay: duration * 0.5, duration: duration * 0.5, ease: 'easeIn'}}
+                transition={{delay: duration * 0.4, duration: duration * 0.6, ease: 'easeIn'}}
                 >
-                    <PreNavigate/>
-                </motion.div>
+                <PreNavigate/>
             </motion.div>
         </>
     )

@@ -4,9 +4,13 @@
 @import './partials/variables';
 @import './partials/animations';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 //Scroll-bar
 ::-webkit-scrollbar{
@@ -18,12 +22,14 @@
 }
 
 html{
+  $duration: 150ms;
+
   color: var(--font-color);
   background:var(--bg-color);
   
-  -webkit-transition: background-color 300ms linear;
-  -ms-transition: background-color 300ms linear;
-  transition: background-color 300ms linear;
+  -webkit-transition: background-color $duration linear;
+  -ms-transition: background-color $duration linear;
+  transition: background-color $duration linear;
   
   scrollbar-color: var(--theme-color) transparent;
   scrollbar-width: none;

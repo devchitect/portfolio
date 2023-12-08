@@ -8,7 +8,7 @@ import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
 import { usePathname } from "next/navigation";
 import Magnetic from "../utils/magnetic";
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
-import { ThemeSwitcher } from '../utils/theme-switcher';
+import { ThemeSwitcher } from './theme-switcher';
 import { InterSemiBold } from '../utils/fonts';
 import { maxMedium, minLarge } from '../utils/use-media_queries';
 

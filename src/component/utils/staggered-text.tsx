@@ -27,7 +27,7 @@ const defaultAnimations = {
   },
 };
 
-export const StaggeredText = ({
+const StaggeredText = ({
   text,
   el: Wrapper = "p",
   className,
@@ -98,3 +98,5 @@ export const StaggeredText = ({
     </Wrapper>
   );
 };
+
+export default StaggeredText;

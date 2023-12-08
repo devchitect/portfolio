@@ -1,5 +1,7 @@
 'use client'
 
+import dynamic from 'next/dynamic'
+
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react';
@@ -11,8 +13,11 @@ import EncryptText from '../utils/encrypted-text';
 import { LibraryRegular, InterExtraBold, PPTelegrafUltrabold, PPTelegrafRegular } from '../utils/fonts';
 import Marquee from '../utils/marquee-regular';
 import { desktop, maxMedium } from '../utils/use-media_queries';
-import { StaggeredText } from '../utils/staggered-text'; 
 
+const DynamicStaggeredText = dynamic(() => import('../utils/staggered-text'), {
+  loading: () => null,
+  ssr: false
+})
 export default function Footer(){
 
   const navigate = usePageNavigate();
@@ -87,7 +92,7 @@ export default function Footer(){
                 <div className={`lg:text-[100px] sm:text-[2.8rem] tracking-wide`}>LET&apos;S</div>
                 <div className='relative'>
                   <span className='text-gradient'>CONNECT</span> 
-                  <StaggeredText text={['& COLLABORATE !']} className={`${PPTelegrafUltrabold.className} absolute top-full right-0 mt-[1rem] lg:text-[42px] sm:text-[1.3rem] tracking-wide`}/>
+                  <DynamicStaggeredText text={['& COLLABORATE !']} className={`${PPTelegrafUltrabold.className} absolute top-full right-0 mt-[1rem] lg:text-[42px] sm:text-[1.3rem] tracking-wide`}/>
                 </div>
               </div>
               
@@ -105,8 +110,8 @@ export default function Footer(){
             className='absolute w-full overflow-hidden'
             >
               <motion.div 
-              initial={{x: '100%', opacity: 0}}
-              animate={GITInView ? {x: '0%',  opacity: 0.5} : {}}
+              initial={{x: '100%'}}
+              animate={GITInView ? {x: '0%'} : {}}
               transition={{duration: 2.2, delay: 0, ease: 'easeOut'}}
               className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-[3px] border-b-0 border-x-0 border-themeColor 
               will-change-[transform,opacity]
@@ -116,14 +121,10 @@ export default function Footer(){
 
             <div></div>
 
-            <motion.div 
+            <div 
             ref={getInTouchRef}
-            // style={{y: y}}
             onMouseEnter={() => {dispatch(hoverOn('Click!'))}}
             onMouseLeave={() => {dispatch(hoverOff())}}
-            initial={{opacity: 0, rotate: '360deg'}}
-            animate={GITInView ? {opacity: 1, rotate: '0deg'} : {}}
-            transition={{duration: 1.3, delay: 0, ease: 'easeOut'}}
             className={` 
             lg:mx-auto lg:py-0 origin-center will-change-[transform,opacity]
             sm:ml-auto sm:mx-per10 sm:py-10 
@@ -132,9 +133,9 @@ export default function Footer(){
               <Magnetic>
               <span 
               onClick={() => {navigate('/contact')}}
-              className='relative flex items-center justify-center rounded-full overflow-hidden text-center font-telegraf-ultrab origin-center duration-300
+              className='relative flex items-center justify-center rounded-full overflow-hidden text-center font-telegraf-ultrab origin-center duration-300 
               border-themeColor border-4 border-double 
-              bg-[#ffffff] dark:bg-[#000000b9]  dark:shadow-[#ffffff81] shadow-[#00000081]
+              bg-[#ffffffc8] dark:bg-[#000000b9]  dark:shadow-[#ffffff81] shadow-[#00000081]
               text-themeColor
               xl:w-[250px] xl:h-[250px] xl:text-[20px] 
               lg:w-[180px] lg:h-[180px] lg:text-[1.1rem] 
@@ -148,7 +149,7 @@ export default function Footer(){
               <span className='block z-3 w-full h-full'><EncryptText target_text='GET IN TOUCH'/></span>
               </span>
               </Magnetic>
-            </motion.div>
+            </div>
           </div>
 
           <div className={`flex ${PPTelegrafRegular.className} px-per10 -translate-y-10`}>
@@ -160,11 +161,11 @@ export default function Footer(){
           </div>
 
           <div
-          className='flex items-center mt-10
-          lg:px-per10 lg:justify-center lg:py-5
-          sm:px-per5 sm:justify-center sm:py-10 
+          className='flex items-center mt-10 glassmorphism
+          lg:px-per10 lg:justify-between lg:py-5
+          sm:px-per10 sm:justify-between sm:py-10 
           '>
-            <div className="lg:text-lg md:text-base sm:text-sm font-telegraf-ultrab
+            <div className="md:text-base sm:text-sm font-telegraf-ultrab sm:mt-2
             ">
                 <div>2023 &copy; BY DEVCHITECT.</div>
             </div>
@@ -189,12 +190,12 @@ function Socials(){
 
     return(
         <>
-            <div className={`xl:fixed xl:right-[4.20%] xl:bottom-1/3 xl:grid xl:grid-flow-row xl:gap-6 xl:text-xl z-10 
-            sm:flex sm:justify-evenly sm:py-3
+            <div className={` z-10 
+            sm:flex sm:justify-evenly sm:py-2
             `}>
                 {socials.map((s) => ( 
                     <a 
-                    className='block sm:pl-4 opacity-70 hover:opacity-100 hover:text-themeColor'
+                    className='block opacity-70 hover:opacity-100 hover:text-themeColor mx-4'
                     key={s.icon} href={s.href}
                     onMouseEnter={() => {dispatch(hoverOn(s.title))}}
                     onMouseLeave={() => {dispatch(hoverOff())}}
