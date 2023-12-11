@@ -6,10 +6,10 @@ import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import useIsomorphicLayoutEffect from "@/component/gsap-helper/isomorphic-effect";
 
-import '../styles/landing-homepage.scss'
+import '@/styles/landing-homepage.scss'
 
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
+import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Icon } from '@iconify/react/dist/iconify.js';
 // import { useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ import { desktop, minLarge } from '@/component/utils/use-media_queries';
 import { RevealedText, RevealedTextParagraph } from '@/component/utils/revealed-text';
 
 //Code Splitting & Lazy Loading
-const DynamicTypedText = dynamic(() => import('../component/utils/typed-text'), {
+const DynamicTypedText = dynamic(() => import('../../component/utils/typed-text'), {
   loading: () => null,
   ssr: false
 })
@@ -40,7 +40,7 @@ const DynamicRevealedTextParagraph = dynamic(() =>
   }
 )
 
-const LandingHomepage = () => {
+const LandingHomepage = ({params: {language}}) => {
 
   return (
     <>

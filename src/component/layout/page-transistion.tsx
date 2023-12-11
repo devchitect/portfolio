@@ -1,4 +1,4 @@
-import { RootState } from '@/app/store/store';
+import { RootState } from '@/app/redux/store';
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence  } from 'framer-motion'
 import { usePathname } from 'next/navigation';
@@ -50,7 +50,7 @@ function EnterAnimation(){
     const path = usePathname();
     //'0px','10%','20%','30%','40%','50%','60%','70%','80%','90%'
     return(
-        <AnimatePresence initial={true} >
+        <AnimatePresence initial={false} >
             <motion.div className='z-40 select-none pointer-events-none fixed top-0 left-0 overflow-hidden h-screen w-screen'
             key={path}>
                 <motion.div

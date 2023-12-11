@@ -5,7 +5,7 @@ import type { Container, Engine, ISourceOptions } from "@tsparticles/engine" // 
 import Particles, {initParticlesEngine} from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/app/redux/store";
 import { desktop } from "../utils/use-media_queries";
 
 

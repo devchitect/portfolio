@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react';
-import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
+import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Magnetic from '../utils/magnetic';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';

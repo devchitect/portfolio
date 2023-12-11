@@ -3,8 +3,8 @@
 import {Icon} from '@iconify/react' ;
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
-import { switchMode } from '@/app/store/slices/themeSlice';
+import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
+import { switchMode } from '@/app/redux/slices/themeSlice';
 import Magnetic from "../utils/magnetic";
 import { clickSound } from './navbar';
 import useIsomorphicLayoutEffect from '../gsap-helper/isomorphic-effect';

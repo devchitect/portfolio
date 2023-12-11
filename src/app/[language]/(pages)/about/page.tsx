@@ -9,18 +9,19 @@ import { PPTelegrafUltrabold } from '@/component/utils/fonts'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import MarqueeMotion from '@/component/utils/marquee-motion'
 
-const DynamicTypedText = dynamic(() => import('../../../component/utils/typed-text'), {
+const DynamicTypedText = dynamic(() => import('../../../../component/utils/typed-text'), {
     loading: () => null,
     ssr: false
   })
 
-const DynamicStaggeredText = dynamic(() => import('../../../component/utils/staggered-text'), {
+const DynamicStaggeredText = dynamic(() => import('../../../../component/utils/staggered-text'), {
   loading: () => null,
   ssr: false
 })
 
 
-export default function About() {
+export default function About({params: {language}}) {
+
     return (
         <main>
             <Introduce/>

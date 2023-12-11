@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
-import { hoverOn,hoverOff } from "@/app/store/slices/cursorSlice";
+import { hoverOn,hoverOff } from "@/app/redux/slices/cursorSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 export function ScrollTrigger(){

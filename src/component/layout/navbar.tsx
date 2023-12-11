@@ -1,10 +1,9 @@
-"use client"
 
 import Link from 'next/link';
 import {Icon} from '@iconify/react' ;
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
+import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 import { usePathname } from "next/navigation";
 import Magnetic from "../utils/magnetic";
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
@@ -13,11 +12,10 @@ import { InterSemiBold } from '../utils/fonts';
 import { maxMedium, minLarge } from '../utils/use-media_queries';
 
 export function clickSound(){
-    const audio = new Audio('./sound/high-pitch-click.mp3');
+    const audio = new Audio('/sound/high-pitch-click.mp3');
     audio.volume = 0.4;
     audio.play();
 }
-
 
 export default function Nav({toggleNav, setToggleNav}){
     const dispatch = useDispatch();

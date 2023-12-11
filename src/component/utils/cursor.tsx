@@ -1,6 +1,6 @@
 'use client'
 
-import { RootState } from "@/app/store/store";
+import { RootState } from "@/app/redux/store";
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux";
 

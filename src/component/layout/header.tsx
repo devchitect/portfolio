@@ -1,11 +1,11 @@
-
+'use client'
 
 import Nav from './navbar';
 
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff } from '@/app/store/slices/cursorSlice';
+import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 import { clickSound } from './navbar';
 import EncryptText from '../utils/encrypted-text';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
