@@ -93,7 +93,7 @@ function ExitAnimation(){
                 className='fixed bottom-full right-0 left-0 w-screen h-screen z-50 will-change-[opacity]'
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
-                transition={{delay: duration * 0.35, duration: duration * 0.65, ease: 'easeIn'}}
+                transition={{delay: duration * 0.3, duration: duration * 0.6, ease: 'easeIn'}}
                 >
                     <PreNavigate/>
                 </motion.div>

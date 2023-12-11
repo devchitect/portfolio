@@ -24,14 +24,11 @@ export default function Footer(){
   const dispatch = useDispatch();
   const [isClient, setIsClient] = useState(false);
   const targetRef = useRef<HTMLDivElement>(null);
-  const getInTouchRef = useRef<any>();
   const article = useRef<any>();
   const { scrollYProgress } = useScroll({
     target: article,
     offset: ["start end", "end start"]
   });
-
-  const GITInView = useInView(getInTouchRef, {once: false, margin: '0px 0px -25% 0px'})
 
   const y = useTransform(scrollYProgress, [0, 1], [`${100}%`, `${-100}%`]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0,1]);
@@ -109,10 +106,7 @@ export default function Footer(){
             <div
             className='absolute w-full overflow-hidden'
             >
-              <motion.div 
-              initial={{x: '100%'}}
-              animate={GITInView ? {x: '0%'} : {}}
-              transition={{duration: 2.2, delay: 0, ease: 'easeOut'}}
+              <div 
               className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-[3px] border-b-0 border-x-0 border-themeColor 
               will-change-[transform,opacity]
               '/>
@@ -122,7 +116,6 @@ export default function Footer(){
             <div></div>
 
             <div 
-            ref={getInTouchRef}
             onMouseEnter={() => {dispatch(hoverOn('Click!'))}}
             onMouseLeave={() => {dispatch(hoverOff())}}
             className={` 

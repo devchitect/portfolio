@@ -48,9 +48,9 @@ const LandingHomepage = () => {
           <FirstSection/>
           <div className='w-5 h-20'/>
           <SecondSection/>
-          <div className='w-5 lg:h-40'/>
+          <div className='w-5 lg:h-20'/>
           <ThirdSection/>
-          <div className='w-5 h-40'/>
+          <div className='w-5 h-20'/>
           <FourthSection/> 
       </main>
     </>
@@ -64,7 +64,6 @@ function FirstSection(){
   //
   const sectionRef = useRef<HTMLDivElement>(null);
   const article = useRef<any>();
-  const GSAPContext = useRef<any>(null);
 
   const articleInView = useInView(article, {once: true, amount: 0.3})
 
@@ -83,7 +82,7 @@ function FirstSection(){
         
       const elements = self.selector('.el');
       
-      const markers = true;
+      const markers = false;
 
         gsap.fromTo(elements[0], {
           y: '0px',
@@ -97,7 +96,7 @@ function FirstSection(){
               markers: markers,
               start: 'top 30%',
               end: 'bottom 0%',
-              scrub: true,
+              scrub: 0.75,
             }
           },
         );
@@ -221,6 +220,8 @@ function SecondSection(){
   const [maskPosition, setMaskPosition] = useState({x:0, y:0}); 
   const [maskSize, setMaskSize] =  useState(0);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   //
   const updateMaskPosition = useCallback((e : React.MouseEvent<HTMLDivElement, MouseEvent> ) =>{
     showMask();
@@ -239,39 +240,64 @@ function SecondSection(){
     setMaskSize(0);
   },[])
 
-  //
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "end start"]
-  });
-  const yValue = useRef(50);
-  const y =  useTransform(scrollYProgress, [0, 1], [`-${yValue.current * 1}%`, `${yValue.current}%`]);
-  const opacity = useTransform(scrollYProgress, [0,0.5,1], [0,1,0.3]);
-
-
+ 
   useEffect(() => {
     hideMask();
-    yValue.current = minLarge ? 60 : 60;
   },[hideMask, updateMaskPosition])
   
   useEffect(() => {
     setIsClient(true);
   },[])
 
+
+  
+  useIsomorphicLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context((self : any) => {
+        
+      const elements = self.selector('.el');
+      const trigger = self.selector('.trigger');
+
+      const markers = true;
+
+      gsap.fromTo(elements[0], {
+        y: '-50%',
+        opacity: 0,
+        },
+        {
+          y: '0px',
+          opacity: 1,
+          scrollTrigger: {
+            trigger: trigger,
+            markers: markers,
+            start: 'top 100%',
+            end: 'center 50%',
+            scrub: 0.1,
+          }
+        },
+      );   
+  
+    }, sectionRef);
+    
+    return () => ctx.revert();
+  }, []);
+
+
+
   return (
-    <>
-      <section 
-      className={`h-screen relative text-left 
+    <section      
+    ref={sectionRef}
+    >
+      <div 
+      className={`h-screen relative text-left trigger
       lg:center lg:mb-10 lg:pt-0
       md
       sm:flex sm:flex-col sm:pt-20 sm:justify-center
       `}
     >     
-        <motion.div 
-        ref={targetRef}
-        style={(isClient &&  desktop) ? {y: y, opacity: opacity} : {}} 
-        className={`something relative leading-[1] text-center select-none h-full
+        <div 
+        className={`el something relative leading-[1] text-center select-none h-full
         lg:mx-[10%] lg:mt-[7rem] 
         sm:mx-[10%] sm:mt-[3rem] sm:mb-[var(--header-height)] ease-out will-change-transform
         `}>
@@ -374,9 +400,9 @@ function SecondSection(){
           </motion.div>
           }
 
-        </motion.div>
-      </section>
-    </>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -408,9 +434,9 @@ function ThirdSection(){
             scrollTrigger: {
               trigger: el,
               markers: markers,
-              start: '50% 100%',
-              end: '1% 40%',
-              scrub: true,
+              start: '20% 100%',
+              end: '1% 50%',
+              scrub: 0.89,
             }
           },
         );
