@@ -22,8 +22,8 @@ export function usePageNavigate(){
 
     return (path : string) => {
         const label = path.split('/').slice(-1)[0].toUpperCase();
+        path = '/' + document.documentElement.getAttribute('lang') + path;
         const endpath = label  === '' ? 'Home' : label;
-
         if(path !== pathname){
             dispatch(transition({type: 'exit', endpath: endpath}))
             setTimeout(()=>{

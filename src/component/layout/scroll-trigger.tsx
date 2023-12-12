@@ -1,10 +1,12 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
 import { hoverOn,hoverOff } from "@/app/redux/slices/cursorSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-export function ScrollTrigger(){
+export default function ScrollTrigger(){
  
     const [pos, setPos] = useState<number>();
     const dispatch = useDispatch();  

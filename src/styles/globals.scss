@@ -89,6 +89,57 @@ html, body{
 
 }
 
+
+  //Overlay Background
+  .overlay-background{
+    display: inline-block;
+    pointer-events: none;
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vH;
+    width: 100vW;
+    z-index: -10;
+    
+    -webkit-opacity: var(--bg-opacity); /* WebKit browser e.g. Safari */
+    -moz-opacity: var(--bg-opacity); /* Firefox and Mozilla browsers */
+    opacity: var(--bg-opacity);
+
+    @include responsive(phone){
+      background-attachment: scroll;
+   }
+    @include responsive(tablet){
+       background-attachment: fixed;
+    }
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  }
+  
+
+  @include color-scheme(dark){
+    background-color: rgb(6, 6, 6);
+
+    .overlay-background{
+      background-image: url("../assets/images/background/blockchain-shubham_dhage.jpg");
+
+    }
+  }
+
+  @include color-scheme(light){
+    background-color: rgb(244, 244, 244);
+
+    .overlay-background{
+      background-image: url("../assets/images/background/white-pattern.jpg");
+    }
+  }
+  
+
 @font-face {
   font-family: Inter-Regular;
   src: local('Inter'),

@@ -11,7 +11,7 @@ import EncryptText from '../utils/encrypted-text';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 
 
-function Header(){
+function Header({lang}){
 
     const path = usePathname();
     const navigate = usePageNavigate();
@@ -45,7 +45,7 @@ function Header(){
     },[scrollPos])
 
     function closeNavbar(){      
-        if(path === '/'){
+        if(path === `/${lang}`){
             return;
         }
 
@@ -126,7 +126,7 @@ function ScrollProgress(){
             <div className="absolute w-full h-[0.5rem] left-0 top-full z-5 pointer-events-none opacity-[0.8] overflow-hidden flex items-center">
                 <div 
                 ref={progressLine}
-                className="scroll-progress h-1/2 w-full bg-themeColor rounded-r-lg ease-out duration-300"/>
+                className="scroll-progress h-1/2 w-full bg-themeColor rounded-r-lg ease-out duration-300 translate-x-[-100%] "/>
             </div>
         </>
     )

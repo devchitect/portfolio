@@ -60,7 +60,10 @@ const StaggeredText = ({
       controls.start("hidden");
     }
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+    }
+    
   }, [isInView, controls, repeatDelay]);
 
   return (

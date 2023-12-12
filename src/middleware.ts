@@ -10,8 +10,6 @@ let languages = new Negotiator({ headers }).languages()
 let locales = ['en', 'vn']
 let defaultLocale = 'en'
 
-match(languages, locales, defaultLocale);// -> 'en-US'
-
 export const config = {
   matcher: [
     // Skip all internal paths (_next)
@@ -41,7 +39,7 @@ export function middleware(request: NextRequest) {
  if (pathnameHasLocale) return
 
  //No Redirect for static assets in public folder
- if (/(script|images|sound)/.exec(pathname)){
+ if (/(images|sound)/.exec(pathname)){
   return NextResponse.next();
  }
  

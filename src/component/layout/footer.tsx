@@ -1,19 +1,22 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Image from 'next/image';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react';
 import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Magnetic from '../utils/magnetic';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 import EncryptText from '../utils/encrypted-text';
 import { LibraryRegular, InterExtraBold, PPTelegrafUltrabold, PPTelegrafRegular } from '../utils/fonts';
 import Marquee from '../utils/marquee-regular';
+import { gsap } from 'gsap/dist/gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { desktop, maxMedium } from '../utils/use-media_queries';
-
+import { RevealedText } from '../utils/revealed-text';
+import useIsomorphicLayoutEffect from '../gsap-helper/isomorphic-effect';
 const DynamicStaggeredText = dynamic(() => import('../utils/staggered-text'), {
   loading: () => null,
   ssr: false
@@ -22,26 +25,51 @@ export default function Footer(){
 
   const navigate = usePageNavigate();
   const dispatch = useDispatch();
-  const [isClient, setIsClient] = useState(false);
-  const targetRef = useRef<HTMLDivElement>(null);
-  const article = useRef<any>();
-  const { scrollYProgress } = useScroll({
-    target: article,
-    offset: ["start end", "end start"]
-  });
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  useIsomorphicLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-  const y = useTransform(scrollYProgress, [0, 1], [`${100}%`, `${-100}%`]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0,1]);
+    const ctx = gsap.context((self : any) => {
+        
+      const elements = self.selector('.el');
+      const trigger = self.selector('.trigger');
 
-  useEffect(() => {
-    setIsClient(true);
-  },[])
+      const markers = false;
+
+        gsap.fromTo(elements[0], {
+          y: '100%',
+          opacity: 0,
+          },
+          {
+            y: '0px',
+            opacity: 1,
+            scrollTrigger: {
+              trigger: trigger,
+              markers: markers,
+              start: '25% 100%',
+              end: '90% 100%',
+              scrub: 0.2,
+            }
+          },
+        );
+    
+    }, sectionRef);
+    
+    return () => ctx.revert();
+  }, []);
+
+
 
   return(
-      <>
-        <footer className={`
+      <footer
+      className='footer'
+      ref={sectionRef}
+      >
+        <div
+        className={`trigger
         ${InterExtraBold}
-        footer flex flex-col w-full min-h-screen  relative overflow-hidden
+        flex flex-col w-full min-h-screen relative overflow-hidden
         
         `}>
           <div className='absolute w-[44rem] h-[44rem] flex justify-center items-center pointer-events-none select-none top-per70 -right-per10 opacity-20 -z-2'>
@@ -66,38 +94,52 @@ export default function Footer(){
             /> 
           </div>
 
-          <motion.div 
-          ref={article}
-          style={(isClient && desktop ) ? {y: y, opacity: opacity} : {opacity: opacity}}
-
-          className=' relative
+          <div 
+          className='el relative
           lg:px-per10
-          sm:px-per10 sm:mt-28 will-change-[transform,opacity]
+          sm:px-per10 sm:mt-20
           '>
             <div className={`${LibraryRegular.className} 
             inline-block
-            lg:text-[105px]
-            sm:text-[3rem]
             `}>
 
-              <div className='absolute w-[30%] h-[100%] flex justify-center items-center pointer-events-none select-none top-10 left-per5 opacity-60 -z-2 floating'>
-                <div 
-                className='float-bg-gradient h-[50%] w-[100%] rounded-[50%] '/>
-              </div>      
+               
 
-              <div className='leading-[1.05]'>
-                <div className={`lg:text-[100px] sm:text-[2.8rem] tracking-wide`}>LET&apos;S</div>
+              <div className='relative leading-[1.05] ml-1'>
+
+                <div className='absolute w-[100%] h-[50%] flex justify-center items-center pointer-events-none select-none bottom-10 left-per5 opacity-60 -z-2'>
+                  <div 
+                  className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] '/>
+                </div>    
+
+                <div className='flex items-center justify-start'>
+                  <div className='relative lg:h-[85px] sm:h-[2.8rem] mr-5 rounded-full overflow-hidden border-[1px] border-solid border-[var(--text-color)]
+                  shadow-themeColor shadow-md
+                  '>
+                    <Image
+                    priority={true}
+                    src={`/images/me.jpg`}
+                    alt="Picture of the author"
+                    width={500}
+                    height={500}
+                    className='h-full w-auto'
+                    />                
+                  </div>     
+                  <div className={`lg:text-[110px] sm:text-[2.8rem] tracking-wide`}>LET&apos;S</div>
+                    
+                </div>
                 <div className='relative'>
-                  <span className='text-gradient'>CONNECT</span> 
-                  <DynamicStaggeredText text={['& COLLABORATE !']} className={`${PPTelegrafUltrabold.className} absolute top-full right-0 mt-[1rem] lg:text-[42px] sm:text-[1.3rem] tracking-wide`}/>
+                  <span
+                  className='text-gradient lg:text-[115px] sm:text-[3rem] tracking-tight'
+                  >CONNECT</span>
+                  <DynamicStaggeredText text={['& COLLABORATE !']} className={`${PPTelegrafUltrabold.className} absolute top-full right-0 mt-[1.2rem] lg:text-[50px] sm:text-[1.3rem] tracking-wide`}/>
                 </div>
               </div>
               
               </div>
-          </motion.div>
+          </div>
 
           <div 
-          ref={targetRef}
           className='relative
           grid lg:grid-cols-[75%,25%] px-per10 items-center my-5
           
@@ -165,8 +207,8 @@ export default function Footer(){
             <Socials/>
           </div>
           
-        </footer>
-      </>
+        </div>
+      </footer>
   )
 }
 

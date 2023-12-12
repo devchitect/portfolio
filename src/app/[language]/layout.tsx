@@ -14,9 +14,8 @@ import Footer from '@/component/layout/footer';
 
 export const metadata: Metadata = {
   title: 'Dzung Nguyen',
-  description: '',
+  description: 'Portfolio',
 }
-
 
 //Code Splitting & Lazy Loading
 const DynamicParticles = dynamic(() => import('../../component/layout/particles-container'), {
@@ -35,6 +34,19 @@ const DynamicScrollbar = dynamic(() => import('../../component/utils/custom-scro
 })
 
 
+function  InitializeTheme() : any{
+  return 
+    {
+      __html: `try {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      } catch (_) {}`
+    }
+}
+
 export default function Root({
   children, params
 }: {
@@ -45,7 +57,7 @@ export default function Root({
   return (
     <html lang={params.language} suppressHydrationWarning={true}>
       <head>
-        <script async type="text/javascript" src='/script/initialize.js'/>
+        <script dangerouslySetInnerHTML={InitializeTheme()}/>
       </head>
       <body className=''>
         <Providers>
@@ -54,7 +66,7 @@ export default function Root({
           className='root-layout relative flex flex-col justify-between 
           '>   
             <>
-            <Header /> 
+            <Header lang={params.language}/> 
             <PageWrapper>
               <Suspense fallback={<Loading/>}>
               {children}
@@ -71,8 +83,6 @@ export default function Root({
 
         </Providers>
         <Background/>
-
-        {/* <RootLayoutClientComponent lang = {params.language}>{children}</RootLayoutClientComponent> */}
       </body>
     </html>
   )
@@ -80,9 +90,24 @@ export default function Root({
 
 
 function Background(){
+  const grid = [0,1,2,3,4,5,6,7,8,9];
+
   return(
     <>
       <div className="overlay-background sm:opacity-20"/>
+      <div className='-z-10 opacity-[0.05]'>
+                {grid.map((x) => {
+                    return (
+                        <div key={x}
+                            style={{left: `${x*10}%`}}
+                            className='fixed top-0 right-0 h-screen w-[10%] select-none pointer-events-none
+                            border-x border-black dark:border-white'
+                            
+                        />
+                    )
+                })}          
+            </div>
+            
     </>
   )
 }

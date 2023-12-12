@@ -170,20 +170,20 @@ export default function CustomScrollbar(){
             <main 
             onMouseOver={activeScrollbarExtend}
             onMouseOut={activeScrollbar}
-            className="scrollbar-wrapper fixed items-center h-[100vh] right-[11px] w-[15px] top-0 z-20 select-none 
+            className="scrollbar-wrapper fixed items-center h-[100vh] right-[15px] w-[15px] top-0 z-20 select-none 
             xl:flex sm:hidden">
                 <div className="scrollbar relative h-[69%] duration-[1s] ease-in-out mx-auto" ref={scrollBarRef}>
                     <div
                     ref={scrollTrackRef}
                     onClick={handleTrackClick}
-                    className="track absolute h-full w-[8px] dark:bg-[white] bg-[black] rounded-[3px] opacity-30 
+                    className="track absolute h-full w-[10px] dark:bg-[white] bg-[black] rounded-full opacity-20 
                     shadow-md shadow-black dark:shadow-white"></div>
               
                     <div 
                     ref={scrollThumbRef}
                     onMouseDown={handleThumbMousedown}
-                    style={{height: `${thumbHeight}px`, boxShadow: '0 0 3px 1px var(--theme-color)'}}
-                    className={`thumb absolute w-[8px] bg-bgGradient rounded-[3px] opacity-80`}></div>
+                    style={{height: `${thumbHeight}px`, boxShadow: '0 0 3px var(--theme-color)'}}
+                    className={`thumb absolute w-[10px] bg-bgGradient rounded-full opacity-60`}></div>
                 </div>
                
             </main>

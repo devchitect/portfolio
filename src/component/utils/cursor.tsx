@@ -103,7 +103,7 @@ const Cursor = () => {
             <div className="cursor-dot sm:hidden xl:flex" ref={dot}></div>
             <div className="cursor-outline sm:hidden xl:flex" ref={outline}>
                 {title && 
-                    <span className="cursor-title text-[0.3rem] font-b tracking-wider ">{title}</span>
+                    <span className="cursor-title text-[0.33rem] font-telegraf-ultrab tracking-wider ">{title}</span>
                 }   
             </div>
         </>

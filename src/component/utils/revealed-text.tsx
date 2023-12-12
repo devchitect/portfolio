@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useRef } from "react";
 type RevealedTextProps = {
     text: ReactNode;
     className?: string;
+    style?: any;
     once?: boolean;
     delay?: number;
     duration?: number;
@@ -28,6 +29,7 @@ export function RevealedText(
     {
         text,
         className,
+        style,
         once = true,
         delay,
         duration = 0.69,
@@ -43,6 +45,7 @@ export function RevealedText(
         <>
             <div className="overflow-hidden inline-block" ref={ref}>
                 <motion.div
+                style={style}
                 variants={animation}
                 initial='initial'
                 animate={isInView ? 'animate' : ''}
@@ -59,6 +62,7 @@ export function RevealedText(
 type RevealedTextParagraphProps = {
     text: string | string[];
     className?: string;
+    style?: any;
     once?: boolean;
     delay?: number;
     duration?: number;
@@ -72,6 +76,7 @@ export function RevealedTextParagraph(
     {
         text,
         className,
+        style,
         once = true,
         delay = 0,
         duration = 0.69,
@@ -89,13 +94,14 @@ export function RevealedTextParagraph(
             {textArray.map((line, lineIndex) => (  
                 <div className={`block`} key={`${line}-${lineIndex}`} ref={ref}>
                     {line.split(" ").map((word, wordIndex) => (
-                        <div className="inline-block overflow-hidden" key={`${word}-${wordIndex}`}>
+                        <div className="overflow-hidden inline-block" key={`${word}-${wordIndex}`}>
                             <motion.div
                             variants={animation}
                             initial='initial'
                             animate={isInView ? 'animate' : ''}
                             transition={{duration: duration, delay: delay + ( lineIndex * 0.1), ease: 'easeOut'}}
                             className={className}  
+                            style={style}
                             >
                                 <span>{word}</span> 
                                 <span className="inline-block">&nbsp;</span>                          
