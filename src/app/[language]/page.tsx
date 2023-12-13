@@ -85,10 +85,12 @@ function FirstSection(){
 
         gsap.fromTo(elements[0], {
           y: '0px',
+          rotate:'0deg',
           opacity: 1,
           },
           {
             y: '400px',
+            rotate:'45deg',
             opacity: 1,
             scrollTrigger: {
               trigger: elements[0],

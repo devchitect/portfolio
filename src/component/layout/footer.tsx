@@ -146,11 +146,10 @@ export default function Footer(){
           '>
 
             <div
-            className='absolute w-full overflow-hidden'
+            className='absolute w-full overflow-hidden opacity-40'
             >
               <div 
-              className='h-[2px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-[3px] border-b-0 border-x-0 border-themeColor 
-              will-change-[transform,opacity]
+              className='h-[1px] left-0 w-full top-0 bottom-0 my-auto border border-double border-t-[3px] border-b-0 border-x-0 border-themeColor 
               '/>
             </div>
 

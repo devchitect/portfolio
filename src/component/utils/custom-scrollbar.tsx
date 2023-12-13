@@ -183,7 +183,7 @@ export default function CustomScrollbar(){
                     ref={scrollThumbRef}
                     onMouseDown={handleThumbMousedown}
                     style={{height: `${thumbHeight}px`, boxShadow: '0 0 3px var(--theme-color)'}}
-                    className={`thumb absolute w-[10px] bg-bgGradient rounded-full opacity-60`}></div>
+                    className={`thumb absolute w-[10px] bg-bgGradient rounded-full opacity-90`}></div>
                 </div>
                
             </main>

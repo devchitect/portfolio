@@ -33,18 +33,22 @@ const DynamicScrollbar = dynamic(() => import('../../component/utils/custom-scro
   ssr: false
 })
 
+const DynamicFooter = dynamic(() => import('../../component/layout/footer'), {
+  loading: () => null,
+  ssr: false
+})
 
-function  InitializeTheme() : any{
-  return 
-    {
-      __html: `try {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark')
-        } else {
-          document.documentElement.classList.remove('dark')
-        }
-      } catch (_) {}`
-    }
+
+function initializeThemeBeforeRender() {
+  return {
+    __html: `try {
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    } catch (_) {}`
+  };
 }
 
 export default function Root({
@@ -57,7 +61,8 @@ export default function Root({
   return (
     <html lang={params.language} suppressHydrationWarning={true}>
       <head>
-        <script dangerouslySetInnerHTML={InitializeTheme()}/>
+        <script 
+        dangerouslySetInnerHTML={initializeThemeBeforeRender()}/>
       </head>
       <body className=''>
         <Providers>
@@ -72,7 +77,7 @@ export default function Root({
               {children}
               </Suspense>
             </PageWrapper>   
-            <Footer/>    
+            <DynamicFooter/>    
             </>     
           </div>
           </>
@@ -95,7 +100,7 @@ function Background(){
   return(
     <>
       <div className="overlay-background sm:opacity-20"/>
-      <div className='-z-10 opacity-[0.05]'>
+      <div className='-z-30 opacity-[0.05]'>
                 {grid.map((x) => {
                     return (
                         <div key={x}

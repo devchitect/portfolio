@@ -10,7 +10,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
     type: '',
-    endpath: 'Devchitect' 
+    endpath: '' 
 }
 
 export const transitionSlice = createSlice({
@@ -20,7 +20,7 @@ export const transitionSlice = createSlice({
   reducers: {
     transition: (state, action) => {
       state.type = action.payload.type;
-      state.endpath = action.payload.endpath;
+      state.endpath = action.payload.endpath ? action.payload.endpath : state.endpath;
     },
 
   

@@ -45,7 +45,7 @@ const StaggeredText = ({
     let timeout: NodeJS.Timeout;
     const show = () => {
       controls.start("visible");
-
+      
       if (repeatDelay) {
         timeout = setTimeout(async () => {
           await controls.start("hidden");
@@ -53,6 +53,7 @@ const StaggeredText = ({
         }, repeatDelay);
       }
     };
+
 
     if (isInView) {
       show();
