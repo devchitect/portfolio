@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-const DynamicTrasition = dynamic(() => import('./page-transistion'), {
+const DynamicTransition = dynamic(() => import('./page-transistion'), {
     loading: () => null,
     ssr: false 
 })
@@ -15,7 +15,7 @@ export default function PageWrapper({children} : {children: React.ReactNode}){
 
     return (
         <>
-        <DynamicTrasition/>
+        <DynamicTransition/>
         <div>
             {children}
         </div>

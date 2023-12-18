@@ -16,9 +16,15 @@ export const LibrarySoft = localFont({src: './fonts/library-3am-soft.otf'})
 
 export const LibraryRegular = localFont({src: './fonts/library-3am.otf'})
 
-export const PPTelegrafUltrabold = localFont({src: './fonts/PPTelegraf-Ultrabold.otf'})
+export const NeueMachinaRegular = localFont({src: './fonts/NeueMachina-Regular.otf'})
 
-export const PPTelegrafRegular = localFont({src: './fonts/PPTelegraf-Regular.otf'})
+export const NeueMachinaMedium = localFont({src: './fonts/NeueMachina-Medium.otf'})
+
+export const NeueMachinaBold = localFont({src: './fonts/NeueMachina-Bold.otf'})
+
+export const NeueMachinaUltraBold = localFont({src: './fonts/NeueMachina-Ultrabold.otf'})
+
+export const NeueMachinaBlack = localFont({src: './fonts/NeueMachina-Black.otf'})
 
 // export const Inter = localFont({src: [
 //     {

@@ -1,12 +1,14 @@
 import { useCallback, useRef, useState } from "react";
 
-const CHARS = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890!@#$%^&*|.<>/?+-_~"; //()[]{}:;,
+const CHARS = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890!@#$%^&*.,`<>/?+-=_~"; //()[]{}:;|,
 
-const EncryptText = ({target_text} : {target_text: string}) => {
+const EncryptText = ({target_text, classname} : {target_text: string, classname? : string}) => {
+    
     const intervalRef = useRef<any>(null);
     const intervalRef2 = useRef<any>(null);
     const [text, setText] = useState(target_text);
 
+    const CYCLES_PER_LETTER = 1;
 
     const stopScrambleReverse = useCallback(() => { 
         clearInterval(intervalRef2.current);
@@ -21,8 +23,7 @@ const EncryptText = ({target_text} : {target_text: string}) => {
 
     const scramble = useCallback(() => {
         let pos = 0;
-        const CYCLES_PER_LETTER = 1;
-        const SHUFFLE_TIME = 60;
+        let SHUFFLE_TIME = 69;
 
         intervalRef.current = setInterval(() => {
                         
@@ -39,18 +40,17 @@ const EncryptText = ({target_text} : {target_text: string}) => {
 
             setText(scrambled);
             pos++;
-
-        if (pos >= target_text.length * CYCLES_PER_LETTER) {
-            stopScramble();
-        }
+            SHUFFLE_TIME--;
+            if (pos >= target_text.length * CYCLES_PER_LETTER) {
+                stopScramble();
+            }
 
         }, SHUFFLE_TIME);
     },[stopScramble, target_text]);
 
     const scrambleReverse = useCallback(() => {
         let pos = 0;
-        const CYCLES_PER_LETTER = 1;
-        const SHUFFLE_TIME = 60;
+        let SHUFFLE_TIME = 69;
         
         intervalRef2.current = setInterval(() => {
                         
@@ -69,10 +69,11 @@ const EncryptText = ({target_text} : {target_text: string}) => {
 
             setText(scrambled);
             pos++;
+            SHUFFLE_TIME--;
 
-        if (pos >= target_text.length * CYCLES_PER_LETTER) {
-            stopScrambleReverse();
-        }
+            if (pos >= target_text.length * CYCLES_PER_LETTER) {
+                stopScrambleReverse();
+            }
 
         }, SHUFFLE_TIME);
     },[stopScrambleReverse,target_text]);
@@ -82,7 +83,7 @@ const EncryptText = ({target_text} : {target_text: string}) => {
     <span
       onMouseEnter={() => {stopScrambleReverse(); scramble()}}
       onMouseLeave={() => {stopScramble(); scrambleReverse()}}
-      className=" relative flex items-center justify-center w-full h-full z-3 select-none"
+      className={`relative flex items-center justify-center w-full h-full z-3 select-none ${classname}`}
     >
         {text}
     </span>

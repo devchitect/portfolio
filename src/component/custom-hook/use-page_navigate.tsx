@@ -27,7 +27,6 @@ export function usePageNavigate(){
             setTimeout(()=>{
                 router.push(path, { scroll: false });    
             }, navigateDelay)
-        }
-        
+        }       
     }
 }

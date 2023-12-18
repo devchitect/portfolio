@@ -21,7 +21,7 @@
 
 @mixin responsive($breakpoint){
      @if $breakpoint == laptop {
-          @media only screen and (min-width: 1380px) {
+          @media only screen and (min-width: 1280px) {
               @content;
           };
       }

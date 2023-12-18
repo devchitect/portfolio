@@ -7,7 +7,7 @@ import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 import { switchMode } from '@/app/redux/slices/themeSlice';
 import Magnetic from "../utils/magnetic";
 import { clickSound } from './navbar';
-import useIsomorphicLayoutEffect from '../gsap-helper/isomorphic-effect';
+import useIsomorphicLayoutEffect from '../custom-hook/isomorphic-effect';
 
 export function ThemeSwitcher(){
 
@@ -49,10 +49,10 @@ export function ThemeSwitcher(){
                 onMouseEnter={() => {dispatch(hoverOn(''))}}
                 onMouseLeave={() => {dispatch(hoverOff())}}
                 onClick={() => {switchTheme(); clickSound();}}
-                className={`glassmorphism text-2xl rounded-lg p-[0.7rem] `}
+                className={`glassmorphism text-2xl sm:text-xl text-themeColor rounded-lg p-[0.7rem] `}
                 >
-                    {theme === 'dark' && <Icon icon='line-md:sunny-outline-loop'color={`rgba(0, 255, 255)`} />}           
-                    {theme === 'light' && <Icon icon='line-md:moon-loop' hFlip={true} color={`rgba(111, 0, 255)`} />}
+                    {theme === 'light' && <Icon icon='line-md:sunny-outline-loop'/>}           
+                    {theme === 'dark' && <Icon icon='line-md:moon-loop' hFlip={true} />}
                     
                 </button>
             </Magnetic>

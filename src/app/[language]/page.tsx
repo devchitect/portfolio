@@ -1,31 +1,31 @@
 'use client'
 
+import '@/styles/pages/home.scss'
+
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap/dist/gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import useIsomorphicLayoutEffect from "@/component/gsap-helper/isomorphic-effect";
-
-import '@/styles/landing-homepage.scss'
-
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+
+import gsap from "gsap";
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+import { motion } from 'framer-motion';
+
 import { Icon } from '@iconify/react/dist/iconify.js';
 // import { useSelector } from 'react-redux';
 // import { RootState } from './store/store';
 import Magnetic from '@/component/utils/magnetic'
 import EncryptText from '@/component/utils/encrypted-text'
 import { usePageNavigate } from '@/component/custom-hook/use-page_navigate'
-import { desktop, minLarge } from '@/component/utils/use-media_queries';
+import { desktop } from '@/component/layout/responsive-media_queries';
 import { RevealedText, RevealedTextParagraph } from '@/component/utils/revealed-text';
+import { InterBold, InterMedium, InterSemiBold, LibraryRegular, LibrarySoft, NeueMachinaBold, NeueMachinaUltraBold } from '@/component/layout/fonts';
+import StaggeredText from '@/component/utils/staggered-text';
+
 
 //Code Splitting & Lazy Loading
-const DynamicTypedText = dynamic(() => import('../../component/utils/typed-text'), {
-  loading: () => null,
-  ssr: false
-})
-
 const DynamicRevealedText = dynamic(() =>
   import('@/component/utils/revealed-text').then((mod) => mod.RevealedText), {
     loading: () => null,
@@ -40,170 +40,212 @@ const DynamicRevealedTextParagraph = dynamic(() =>
   }
 )
 
-const LandingHomepage = ({params: {language}}) => {
+export default function LandingHomepage ({params: {language}}) {
+
+  const GSAPContext = useRef<HTMLElement>(null);
+  const collabTimeline = useRef<GSAPTimeline>();
+  
+  useGSAP(() => {
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    if(desktop){
+
+      const serviceBoxs = gsap.utils.toArray('.service-box');
+
+      gsap.fromTo('.about-btn', {
+        y: '0px',
+        rotate:'0deg',
+        opacity: 1,
+        },
+        {
+          y: '300px',
+          rotate:'360deg',
+          opacity: 1,
+          scrollTrigger: {
+            trigger: '.about-btn',
+            markers: false,
+            start: 'top 50%',
+            end: 'bottom 0%',
+            scrub: 0.69,
+          }
+        },
+      );
+
+      collabTimeline.current = gsap.timeline(
+        {
+          scrollTrigger: {
+            trigger: '.collab-trigger',
+            markers: false,
+            start: 'top 100%',
+            end: '100% 0%',
+            scrub: true,
+          }
+        }
+      ).from('.collab', { yPercent:-60, opacity:0, })
+      .to('.collab', { yPercent:0, opacity:1, })
+      .to('.collab', { yPercent:40, opacity:0, })
+
+      serviceBoxs.forEach((el : any) => {
+        gsap.fromTo(el, {
+          opacity: 0,
+          },
+          {
+            opacity: 1,
+            scrollTrigger: {
+              trigger: el,
+              markers: false,
+              start: 'center 100%',
+              end: 'bottom 50%',
+              scrub: 0.3,
+            }
+          },
+        )})
+
+    }},{ scope: GSAPContext, dependencies: [] });
+
 
   return (
     <>
-      <main className=''>
+      <main ref={GSAPContext} className=''>
           <FirstSection/>
           <div className='w-5 h-20'/>
           <SecondSection/>
           <div className='w-5 lg:h-20'/>
           <ThirdSection/>
-          <div className='w-5 h-20'/>
+          <div className='w-5 lg:h-20 sm:h-5'/>
           <FourthSection/> 
       </main>
     </>
   )
 }
-export default LandingHomepage;
 
-function FirstSection(){
+const  FirstSection = () => {
   const dispatch = useDispatch();
   const navigate = usePageNavigate();
-  //
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const article = useRef<any>();
-
-  const articleInView = useInView(article, {once: true, amount: 0.3})
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-  const opacity = useTransform(scrollYProgress, [0.5,1], [1,0] )
-
-
-  useIsomorphicLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context((self : any) => {
-        
-      const elements = self.selector('.el');
-      
-      const markers = false;
-
-        gsap.fromTo(elements[0], {
-          y: '0px',
-          rotate:'0deg',
-          opacity: 1,
-          },
-          {
-            y: '400px',
-            rotate:'45deg',
-            opacity: 1,
-            scrollTrigger: {
-              trigger: elements[0],
-              markers: markers,
-              start: 'top 0%',
-              end: 'bottom 0%',
-              scrub: 0.75,
-            }
-          },
-        );
-    
-    }, sectionRef);
-    
-    return () => ctx.revert();
-  }, []);
-
 
   return(
   <>
-    <div ref={sectionRef} 
+    <div 
     className='relative w-full home-intro z-1 
-    lg:pt-0 lg:grid lg:grid-cols-[75%,25%] lg:items-center
+    lg:pt-0  
     sm:pt-32 sm:flex sm:flex-col sm:items-start sm:px-[10%]
     '>
       <div 
-        className='absolute flex items-center dark:text-gray-200 opacity-50 hover:opacity-100
+        className='absolute flex items-center dark:text-gray-200 opacity-50 hover:opacity-100 z-1
         md:bottom-auto md:top-10 md:right-auto md:px-0 
-        sm:left-0 sm:top-2 sm:right-auto sm:bottom-auto sm:mx-per10 sm:text-sm
+        sm:left-0 sm:top-4 sm:right-auto sm:bottom-auto sm:mx-per10 sm:text-sm
         '>
-          <Icon icon='gis:globe-share' className=' lg:mr-2 sm:mr-3'/>
+          <Icon icon='gis:globe-share' className='mr-3 ml-1'/>
           <span>Open for any collaborations and offers.</span>
       </div>
 
       <div 
-      className='absolute flex items-center text-sm dark:text-gray-200 opacity-50 hover:opacity-100
+      className='absolute flex items-center text-sm dark:text-gray-200 opacity-50 hover:opacity-100 z-1
       md:top-3 md:bottom-auto md:right-auto md:px-0
-      sm:left-0 sm:top-12 sm:mx-per10
+      sm:left-0 sm:top-14 sm:mx-per10
       '>
-        <Icon icon='circle-flags:vn' className='lg:mr-2 sm:mr-3'/>
-        <span>Presently located in Vietnam.</span>
+        <Icon icon='circle-flags:vn' className='mr-3 ml-1'/>
+        <span>Presently located in Vietnam (GMT+7).</span>
       </div>
 
-      <motion.article
-      style={{opacity : opacity}}
-      ref={article}
-      className='
-      lg:px-0
-      sm:px-per5'
-      >
-        <DynamicRevealedText 
-        className={`
-        font-blk tracking-[-0.01rem]
-        xl:text-[110px] 
-        lg:text-7xl lg:py-3
-        md:text-6xl
-        sm:text-4xl sm:py-0
-        `} 
-        delay={0.1}
-        text={<><DynamicTypedText gradient={true} delay={3000} speed={50} cursorC={''} params={['Hello','Xin Chào','こんにちは','Ciao','Guten Tag','안녕하세요','Bonjour','Hola','Привет']}/>&nbsp;</> }
-        />
+      <div 
+      style={{writingMode: 'vertical-rl'}}
+      className='absolute flex items-center justify-center left-[10%] opacity-80 floating 
+      lg:
+      sm:bottom-10
+      '>
+        <span className='tracking-[0.15rem] lg:text-[0.78rem] sm:text-[0.69rem] border-l border-themeColor border-dashed'>
+        SCROLL DOWN
+        <Icon icon='solar:arrow-up-broken' vFlip={true}  className='sm:text-[0.9rem] absolute bottom-0 right-full mr-1'/>
+        </span>
         
-        <div 
-        className='font-rg my-1 ml-1 leading-loose
-        '>
-          <DynamicRevealedText
-          className={`
-          xl:text-[60px] font-md tracking-[-0.09rem] 
-          lg:text-[2rem] lg:py-3
-          md:text-3xl
-          sm:text-lg sm:py-1 
-          `} 
-          delay={0.2}
-          text={<>I am <span className='font-telegraf-ultrab leading-[1.25] tracking-normal'>Dzung Nguyen</span></>}
-          />
+      </div>
 
-          <div className='leading-[1.25] tracking-[-0.05rem] '>
-            <DynamicRevealedText
-            className={`inline-block ml-3
-            xl:text-[50px]
-            lg:text-[2rem] lg:py-3 
-            md:text-3xl
-            sm:text-lg
+      <article
+      className='w-full h-full relative flex flex-col 
+      lg:justify-center 
+      sm:px-0'
+      >
+        <div className='flex ml-1'>
+          <RevealedText
+            className={`
+            xl:text-[79px] 
+            lg:text-[4rem] 
+            md:py-1
+            sm:text-[2.1rem] sm:py-2 
             `} 
-            delay={0.3}
-            text={<span>- a <><DynamicTypedText classname='font-b' gradient={false} delay={1500} speed={80} cursorC={''} params={['Developer.','Designer.','Learner.']}/>&nbsp;</></span>}
+            delay={0.25}
+            text={<div className={`${LibrarySoft.className} leading-[1.1] lg:tracking-[-0.25rem]`}>DZUNG NGUYEN</div>}
             />
-          </div>
         </div>
-      </motion.article>
+
+        <DynamicRevealedText delay={0.4} className='' 
+        text={ <div className='h-[1px] lg:w-per50 sm:w-per60 ml-[5%] border-black dark:border-white border border-solid opacity-40 sm:my-1 rounded-r-full'/> }/>
+
+        <div className='relative self-start flex lg:ml-8 sm:ml-6 opacity-90'>
+          <RevealedText
+            className={` 
+            xl:text-[110px]  
+            lg:text-[3.6rem]
+            md:py-1
+            sm:text-[1.8rem] sm:py-2 
+            `} 
+            delay={0.5}
+            text={<div  
+                  className={`${NeueMachinaUltraBold.className} font-black leading-[1] tracking-[0.05rem]`}>
+                  THE DEVELOPER</div>}
+            />
+            <div className={`absolute bottom-full lg:right-3 sm:right-1 -mb-2 leading-[1.5rem]`}>
+              <DynamicRevealedText delay={0.6} className={`${InterMedium.className} lg:text-[1rem] sm:text-[0.8rem]`} text={<>MAIN</>}/>
+            </div>
+        </div>
+
+        <DynamicRevealedText delay={0.8} className='' 
+        text={ <div className='h-[1px] lg:w-per25 sm:w-per30 ml-[15%] border-black dark:border-white border border-dashed opacity-40 lg:my-3 sm:my-2 rounded-r-full'/> }/>
+
+        <div className='relative flex self-start lg:ml-36 sm:ml-12 opacity-80'>
+          <RevealedText
+            className={` 
+            xl:text-[95px]  
+            lg:text-[3.4rem]
+            md:py-1
+            sm:text-[1.5rem] sm:py-2 
+            `} 
+            delay={0.75}
+            text={<div  
+                  className={`${NeueMachinaUltraBold.className} font-black leading-[1] tracking-[0.25rem] text-stroke`}>
+                  DESIGNER</div>}
+            />
+            <div className={`absolute top-full lg:right-3 sm:left-1 -mb-2 leading-[1.5rem]`}>
+                <DynamicRevealedText delay={0.9} className={`${InterMedium.className} lg:text-[1rem] sm:text-[0.8rem]`} text={<>MAJOR</>}/>
+            </div>
+        </div>
+      </article>
       
       <div 
-      onMouseEnter={() => {dispatch(hoverOn('Click!'))}}
+      onMouseMove={() => {dispatch(hoverOn('Click!'))}}
       onMouseLeave={() => {dispatch(hoverOff())}}
-      className={` el
-      lg:mx-auto lg:mt-10 lg:py-0 origin-center
-      sm:ml-auto sm:mx-per10 sm:py-10 will-change-transform 
-      ${articleInView ? 'opacity-1 duration-150 ' : {}}
+      className={` ${'about-btn'} origin-center will-change-transform flex justify-center w-[20%] rounded-full
+      lg:mx-per10 lg:mt-10 lg:py-0 lg:absolute lg:bottom-28 lg:right-0
+      sm:ml-auto sm:py-5 sm:relative sm:right-per10 
       `}>
         <Magnetic>
         <span 
         onClick={() => {navigate('/about')}}
-        className='relative flex items-center justify-center rounded-full overflow-hidden text-center font-telegraf-ultrab origin-center duration-300 
-        border-themeColor border-4 border-double 
-        bg-[#ffffffcd] dark:bg-[#00000078]  dark:shadow-[#ffffff81] shadow-[#00000050]
-        text-themeColor
-        xl:w-[250px] xl:h-[250px] xl:text-[1.3rem] 
-        lg:w-[180px] lg:h-[180px] lg:text-[1.1rem] 
+        className={` ${NeueMachinaUltraBold.className} glassmorphism
+        relative flex items-center justify-center rounded-full overflow-hidden text-center origin-center duration-[500ms] 
+        border-[var(--font-color)] border-[2px] border-solid 
+        bg-[#ffffff00] dark:bg-[#00000000]  dark:shadow-[#ffffff81] shadow-[#00000050]
+        text-[var(--font-color)]
+        xl:w-[200px] xl:h-[200px] xl:text-[20px] 
+        lg:w-[180px] lg:h-[180px] lg:text-[1.0rem] 
         sm:w-[130px] sm:h-[130px] sm:text-md 
-        hover:text-white hover:border-solid hover:shadow-2xl  hover:tracking-[0.25rem]
-        before:content-[""] before:absolute before:right-0 before:top-0 before:h-full before:w-0 before:duration-[500ms] before:z-2 before:rounded-full
-        before:bg-themeColor before:opacity-80
-        hover:before:w-full hover:before:right-[unset] hover:before:left-0
-        '
+        hover:text-white hover:dark:text-black hover:border-transparent hover:shadow-2xl  hover:tracking-[0.25rem]
+        before:content-[""] before:absolute before:right-0 before:top-0 before:left-0 before:bottom-0 before:m-auto before:h-0 before:w-0 before:duration-[500ms] before:z-2 before:rounded-full
+        before:bg-white hover:before:bg-[var(--font-color)] before:opacity-0 hover:before:opacity-100 before:ease-in-out
+        hover:before:w-full hover:before:h-full 
+        `}
         >
          <span className='block z-3 w-full h-full '><EncryptText target_text='ABOUT ME'/></span>
         </span>
@@ -215,20 +257,11 @@ function FirstSection(){
   )
 }
 
-function SecondSection(){
+const SecondSection = () => {
   const [isClient, setIsClient] = useState(false); 
 
   const [maskPosition, setMaskPosition] = useState({x:0, y:0}); 
   const [maskSize, setMaskSize] =  useState(0);
-
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const timeline = useRef<GSAPTimeline>(
-    gsap.timeline({
-      defaults: {
-        ease: 'back.out',
-      },
-    })
-  );
 
   //
   const updateMaskPosition = useCallback((e : React.MouseEvent<HTMLDivElement, MouseEvent> ) =>{
@@ -251,64 +284,32 @@ function SecondSection(){
  
   useEffect(() => {
     hideMask();
+    window.addEventListener('scroll', hideMask);
+
+    return () => {
+      window.removeEventListener('scroll', hideMask)
+    }
   },[hideMask, updateMaskPosition])
   
   useEffect(() => {
     setIsClient(true);
   },[])
 
-
-  
-  useIsomorphicLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context((self : any) => {
-        
-      const elements = self.selector('.el');
-      const trigger = self.selector('.trigger');
-
-      const markers = false;
-
-      gsap.fromTo(elements[0], {
-        y: '-60%',
-        opacity: 0,
-        },
-        {
-          y: '0px',
-          opacity: 1,
-          scrollTrigger: {
-            trigger: trigger,
-            markers: markers,
-            start: 'top 100%',
-            end: 'center 50%',
-            scrub: 0.1,
-          }
-        },
-      );   
-  
-    }, sectionRef);
-    
-    return () => ctx.revert();
-  }, []);
-
-
-
   return (
-    <section      
-    ref={sectionRef}
-    >
+    <section>
       <div 
-      className={`h-screen relative text-left trigger
-      lg:center lg:mb-10 lg:pt-0
+      className={`relative text-left collab-trigger
+      lg:center lg:mb-10 lg:pt-0 h-screen
       md
-      sm:flex sm:flex-col sm:pt-20 sm:justify-center
+      sm:flex sm:flex-col sm:justify-center sm:h-[89vh]
       `}
     >     
         <div 
-        className={`el something relative leading-[1] text-center select-none h-full
+        className={`${'collab'} something relative leading-[1] text-center select-none h-full
         lg:mx-[10%] lg:mt-[7rem] 
         sm:mx-[10%] sm:mt-[3rem] sm:mb-[var(--header-height)] ease-out will-change-transform
         `}>
+          
           <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
             <div 
             className='float-bg-gradient h-[18%] w-[69%] rounded-[69%] opacity-70'/>
@@ -318,13 +319,9 @@ function SecondSection(){
           lg:py-[3.8rem]
           sm:py-[1.5rem]
           '>
-            <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1 -mt-2'>
-              <div 
-              className='bg-black dark:bg-white h-[1px] w-[100%] rounded-[69%] opacity-20'/>
-            </div>
-          
+           
             <div 
-            className={`font-b lg:tracking-[-0.15rem] sm:leading-normal md:leading-none relative
+            className={`lg:tracking-[-0.15rem] sm:leading-normal md:leading-none relative
             lg:text-[110px]
             md:text-[3rem]
             sm:text-[1.7rem]
@@ -333,39 +330,42 @@ function SecondSection(){
                 <span className={`text-6xl sm:hidden xl:block duration-500 floating
                 `}>&#128640;</span>
               </div>
-              <div className='absolute bottom-full left-5 mb-1 text-[60px] tracking-[0] opacity-80 font-telegraf-ultrab'>LET&apos;S</div>
-              <span>CRAFTING</span>
+              <div className={`${NeueMachinaUltraBold.className} absolute bottom-full left-5 lg:mb-3 sm:mb-1 lg:text-[60px] sm:text-[1rem] tracking-[0] opacity-80 `}>LET&apos;S</div>
+              <span className={`${InterBold.className}`}>CRAFTING</span>
               </div>
 
-            <div className={`relative font-telegraf-ultrab sm:py-5 sm:px-5  z-1 pointer-events-none select-none
+            <div className={`relative z-1 pointer-events-none select-none
             lg:text-[130px] 
-            md:text-[4.2rem]
-            sm:text-[2.2rem]
+            md:text-[4.2rem] md:py-5
+            sm:text-[2.2rem] sm:py-3 sm:px-5
             `}>
-              <div className='z-3 text-gradient opacity-90'>EXCEPTIONAL</div>
-              <span className='absolute xl:-right-[35px] sm:right-3 top-[60%] rotate-[-15deg] rounded-md border-4 border-double border-black -z-1
-              bg-[#ffe600] text-black font-telegraf-ultrab
-              lg:text-[33px] lg:px-5 lg:pt-3 lg:pb-2
-              md:text-[1.8rem]
-              sm:text-[1rem] sm:p-2 sm:pb-1
-              '>No Bullsh!t</span>
+              <div className={`${NeueMachinaUltraBold.className} z-3 text-gradient opacity-90`}>EXCEPTIONAL</div>
+              <span className={`absolute xl:-right-[35px] sm:right-3 rotate-[-15deg] rounded-md border-4 border-double border-black -z-1
+              bg-[#ffe600] text-black ${InterBold.className}
+              lg:text-[30px] lg:px-5 lg:py-3 lg:top-[72%]
+              md:text-[1.8rem] 
+              sm:text-[0.8rem] sm:p-2 sm:pb-1 sm:top-[60%]
+              `}>No Bullsh!t</span>
             </div>
 
-            <div className={`relative font-b lg:tracking-[-0.15rem] sm:leading-normal md:leading-none lg:-mt-3 flex
+            <div className={`relative font-b lg:tracking-[-0.15rem] sm:leading-normal md:leading-none flex
             lg:text-[110px]
             md:text-[3rem]
             sm:text-[1.7rem]
             `}>
-            <div className='relative font-l3'>
-              <span style={{textShadow: '0 0 2px var(--theme-color)'}} className=''>DIGITAL</span>
-              <ul className='absolute w-full whitespace-nowrap font-telegraf-rg opacity-90 lg:text-[23px] sm:text-[0.8rem] text-left leading-[1.5] tracking-[0rem] top-full left-1/3 mt-5'>
+            <div className={`${LibraryRegular.className} relative `}>
+              <span className=''>DIGITAL</span>
+              <ul className={`${InterSemiBold.className} absolute w-full whitespace-nowrap opacity-90 text-left leading-[1.75] tracking-[0.1rem] top-full
+                lg:text-[23px] lg:left-1/3  lg:mt-5 
+                sm:text-[0.69rem] sm:left-[10%] sm:mt-2
+                `}>
                 <li>+ Website</li>
                 <li>+ Web Application</li>
               </ul>
               </div>
             <div className='relative'>
-              <span>&nbsp;PRODUCTS</span>
-              <div className='absolute top-full right-0 mt-3 text-[50px] tracking-[0] opacity-80 font-telegraf-ultrab'>TOGETHER !</div>
+              <span className={`${InterBold.className}`}>&nbsp;PRODUCTS</span>
+              <div className={`${NeueMachinaUltraBold.className} absolute top-full right-0 lg:mt-3 sm:mt-1 lg:text-[60px] sm:text-[1rem] tracking-[0] opacity-80 `}>TOGETHER !</div>
             </div>
             </div>
           </div>
@@ -383,28 +383,28 @@ function SecondSection(){
           xl:flex
           sm:hidden
           `}>
-            <div className={`relative font-b tracking-[-0.15rem] 
+            <div className={`relative tracking-[-0.15rem] 
             lg:text-[110px]
             `}>
-              <span>CRAFTING</span>
+              <span className={`${InterBold.className}`}>CRAFTING</span>
             </div>
 
-            <div className={`relative font-telegraf-ultrab sm:px-5 sm:py-5 rounded-md 
+            <div className={`relative sm:px-5 sm:py-5 rounded-md 
             lg:text-[130px]
             `}>
-              <div style={{textShadow: '0 0 15px var(--theme-color)'}} className='opacity-80'>EXCEPTIONAL</div>
-              <span className='absolute -right-[35px] top-[60%] rotate-[-15deg] rounded-md border-4 border-double border-black opacity-80 
-              bg-[#ffe600] text-black font-telegraf-ultrab
-              lg:text-[33px] lg:px-5 lg:pt-3 lg:pb-2
-              '>No Bullsh!t</span>
+              <div style={{textShadow: '0 0 15px var(--theme-color)'}} className={`opacity-80 ${NeueMachinaUltraBold.className}`}>EXCEPTIONAL</div>
+              <span className={`absolute -right-[35px] top-[72%] rotate-[-15deg] rounded-md border-4 border-double border-black opacity-80 
+              bg-[#ffe600] text-black ${InterBold.className}
+              lg:text-[30px] lg:px-5 lg:py-3
+              `}>No Bullsh!t</span>
             </div>
 
-            <div className={`relative font-b tracking-[-0.15rem] lg:-mt-3 flex  z-2
+            <div className={`relative font-b tracking-[-0.15rem] flex  z-2
             lg:text-[110px]
             `}>
-            <div className='mask-text font-l3'>DIGITAL</div>
+            <div className={`mask-text ${LibraryRegular.className}`}>DIGITAL</div>
             <div className='relative'>
-              <span>&nbsp;PRODUCTS</span>
+              <span className={`${InterBold.className}`}>&nbsp;PRODUCTS</span>
             </div>
             </div>
           </motion.div>
@@ -416,44 +416,45 @@ function SecondSection(){
   )
 }
 
-function ThirdSection(){
+const ThirdSection = () => {
+  const dispatch = useDispatch();
 
-  const main = useRef<HTMLDivElement>(null);
   const pathSVG = useRef<any>();
   const pathLength = useRef(0);
-  
-  useIsomorphicLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context((self : any) => {
-        
-      const elements = self.selector('.el');
-      
-      const markers = false;
+  const [ servicesTitle, setServicesTitle ] = useState([])
+  const servicesContentRef = useRef<Array<HTMLDivElement | null>>([]);
+  const services = [
+    {
+      title : 'ANALYSIS',
+      description : ['I have the ability to analyzing your project by using different techniques to understand its needs and identify the best solutions for you .']
+    },
+    {
+      title : 'UI/UX DESIGN',
+      description : ["I deliver strong and user-friendly designs.","Minialist yet unforgetable!"]
+    },
+    {
+      title : 'DEVELOPMENT',
+      description : ["Each unique requirement need an unique solution stack!","I'm here to crafting your perfect match."]
+    },
+    {
+      title : 'FULL PROCESS',
+      description : ["From concept to reality."]
+    },
+  ]
 
-      elements.forEach((el, i : number) => {
-        gsap.fromTo(el, {
-          x: i % 2 === 0 ? '-10%' : '50%',
-          opacity: 0,
-          },
-          {
-            x: '20%',
-            opacity: 1,
-            scrollTrigger: {
-              trigger: el,
-              markers: markers,
-              start: '20% 100%',
-              end: '1% 50%',
-              scrub: 0.89,
-            }
-          },
-        );
-        }         
-      )
+  function toggleService(index : number){
+    servicesContentRef.current.forEach((ref, i) => {
+      if(i === index){
+        ref!.style.transitionDuration = '500ms';
+        ref!.style.height = '100%';
 
-    }, main);
-    return () => ctx.revert();
-  }, []);
+      }else{
+        ref!.style.transitionDuration = '0ms';
+        ref!.style.height = '0';
+      }
+    })
+  }
 
   useEffect(() => {
     pathLength.current = pathSVG.current.getTotalLength();
@@ -462,10 +463,10 @@ function ThirdSection(){
   return (
     <>
       <section 
-      className=' my-10 relative 
+      className='my-20 relative 
       '
       >
-        <div className='absolute top-[6.9%] h-auto -z-1 sm:hidden xl:block w-full overflow-hidden opacity-40 select-none pointer-events-none'>
+        <div className='absolute top-20 h-auto -z-1 sm:hidden xl:block w-full overflow-hidden opacity-40 select-none pointer-events-none'>
         <svg width="1920" height="604" viewBox="0 0 1920 604" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
            ref={pathSVG}
@@ -482,107 +483,71 @@ function ThirdSection(){
 
         <div className='absolute w-full h-full'>
           <div className='w-full h-full overflow-hidden'>
-            <div className='absolute w-[50%] h-[40%] flex justify-center items-start pointer-events-none select-none top-per40 right-0 translate-x-[50%]  opacity-20'>
+            <div className='absolute w-[44rem] h-[44rem] flex justify-center items-start pointer-events-none select-none top-per40 right-0 translate-x-[50%]  opacity-20'>
               <div 
-              className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] mist '/>
+              className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] mist'/>
             </div>
           </div>    
         </div>
         
-        <div className=' tracking-[-0.05rem] sticky mt-5 mb-16 h-[var(--header-height)] flex items-center justify-center glassmorphism z-3
-        lg:top-[0px] 
-        sm:mx-[10.05%] sm:top-[var(--header-height)] sm:px-5 
-        '>
-          <DynamicRevealedText className={`xl:text-[39px] sm:text-xl font-semib py-3 tracking-[0.01rem]`} text={`I can help you with ...`} />
+        <div className={`relative tracking-[0.1rem] my-5 z-3 flex flex-col justify-center items-center      
+        sm:mx-[10.05%] sm:text-base 
+        `}>
+          <RevealedTextParagraph delay={0} text={['I CAN HELP YOU']}
+          className={`${InterSemiBold.className} lg:text-[66px] sm:text-[1.5rem] leading-[1.25] text-stroke`} />
+          <RevealedTextParagraph delay={0.1}  text={['WITH']} 
+          className={` ${InterBold.className} lg:text-[58px] sm:text-[1.35rem] leading-[1.25]`} />
+          <RevealedText delay={0.2} wrapper={'absolute top-[100%] mt-2'}
+          text={<Icon icon={`gg:arrow-up-o`} vFlip={true} className='lg:text-[44px] sm:text-[1.25rem]'/>}/>    
         </div>    
 
         <div 
-        ref={main} 
-        className='flex flex-col items-start py-2 '>
-
-          <div className='w-5 lg:h-56 sm:h-24'/>
-
-          <div className="el w-full">
-            <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-3'>01.</div>
-              <div>
-                <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} 
-                text={<h3 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'>
-                        <EncryptText target_text='ANALYSIS'/></h3>} />
-              </div> 
-              <div className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md mt-5 '>
-                <div className='inline-block'>
-                  <div>
-                    <RevealedTextParagraph
-                    className='leading-[1.5]'
-                    text={["I have the ability to perform some analysis techniques for your business's digital transformation."]}
-                    />
-                    <div className='pl-5 mt-2 leading-[1.7] lg:text-lg sm:text-sm'>
-                      <RevealedTextParagraph
-                      className=''
-                      text={["- Use-Case Modeling",
-                      "- SWOT (Strengths, Weaknesses, Opportunities, Threats) ",
-                      "- CATWOE (Clients, Agents, Transformation, World view, Owners, Environment)"
-                      ]}
-                      />
-                    </div>
-                  </div>
-                </div>    
-              </div>
-            </div>
+        className='flex flex-col items-start py-2 
+        lg:mt-44  
+        sm:mb-10 sm:mt-16
+        '>
+          <div className='lg:mx-per20 sm:mx-per10 my-10 border-l border-themeColor glassmorphism px-2 py-1 rounded-r-md'>
+            <RevealedText 
+            className={`${NeueMachinaBold.className} lg:text-[1.2rem] sm:text-[0.78rem] flex items-center`}
+            text={<div>TARGET : WEBSTE / WEB APPLICATION</div>}/>
           </div>
 
-          <div className='w-5 lg:h-48 sm:h-24'/>
-
-          <div className="el w-full">
-            <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-3'>02.</div>
-              <div>
-                <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} 
-                text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'><EncryptText target_text='DESIGN'/></h4>} />
-              </div>
-              <div className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md leading-[1.5] mt-5'>
-                <div className='inline-block'>
-                <RevealedTextParagraph
-                text={["I deliver strong and user-friendly designs.","Minialist yet unforgetable!"]}
+          {services.map((s, index) => {
+          return (
+          <div key={s.title} className='service-box w-full my-8'>
+            <div className='lg:w-[60%] sm:w-per80 mx-auto'>
+              <div 
+              onClick={() => {toggleService(index)}}
+              onMouseMove={() => {dispatch(hoverOn('Click!'))}}
+              onMouseLeave={() => {dispatch(hoverOff())}}
+              className='relative overflow-hidden flex duration-500 py-2 px-4 items-center justify-between
+              hover:glassmorphism hover:rounded-t-lg hover:text-themeColor 
+              before:content-[""] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-themeColor
+              before:-translate-x-per100 before:duration-500 before:opacity-0 before:select-none before:pointer-events-none
+              hover:before:translate-x-0 hover:before:opacity-100 
+              '>
+                <RevealedText 
+                wrapper={``}
+                className={`${NeueMachinaBold.className} xl:text-[38px] sm:text-[1.2rem]`}
+                text={index.toString().length < 2 ? `0${index + 1}.` : `${index + 1}.`}
                 />
-                </div>    
-              </div>
-            </div>
-          </div>
-
-          <div className='w-5 lg:h-48 sm:h-24'/>
-
-          <div className="el w-full">
-            <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-3'>03.</div>
-              <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'><EncryptText target_text='DEVELOPMENT'/></h4>} />
-              <div className='lg:text-2xl sm:text-base leading-[1.5] px-6 py-3 glassmorphism rounded-md mt-5'>
-              <div className='inline-block'>
-              <RevealedTextParagraph
-                text={["Each unique requirement need an unique solution stack!","I'm here to crafting your perfect match."]}
+                  
+                <StaggeredText once={true}
+                className={`${NeueMachinaUltraBold.className} xl:text-[69px] sm:text-[1.5rem] inline-block leading-[1.2] mb-2`} 
+                text={s.title}
                 />
-              </div>    
               </div>
+              
+              <div ref={(el) => servicesContentRef.current[index] = el} 
+                className='glassmorphism overflow-hidden h-[0] rounded-b-md border-t border-[#00000020] dark:border-[#ffffff20]'>
+                <div className='lg:p-6 sm:p-3 '>
+                  <RevealedTextParagraph once={false} className={`lg:text-2xl sm:text-base leading-relaxed `} text={s.description}/>
+                </div>          
+              </div>
+
             </div>
           </div>
-
-          <div className='w-5 lg:h-48 sm:h-24'/>
-
-          <div className="el w-full">
-            <div className='w-[60%]'>
-              <div className='font-telegraf-ultrab text-xl mb-3'>04.</div>
-              <RevealedText className={`xl:text-[38px] sm:text-xl font-md py-3`} text={<h4 className='xl:text-[78px] sm:text-3xl mt-2 font-telegraf-ultrab inline-block duration-300'>THE FULL PROCESS</h4>} />
-              <div className='lg:text-2xl sm:text-base px-6 py-3 glassmorphism rounded-md mt-5'>
-                <div className='inline-block'>
-                <RevealedTextParagraph
-                text={["A complete website from concept to implementation."]}
-                />
-                </div>    
-              </div>
-            </div>
-          </div>
-
+          )})}
         </div>
        
       </section>
@@ -590,10 +555,43 @@ function ThirdSection(){
   )
 }
 
-function FourthSection(){
-  return (
-    <main>
+const FourthSection = () => {
 
+  const navigate = usePageNavigate();
+  const dispatch = useDispatch();
+
+  return (
+    <main className='px-per10 my-20'>
+
+        <div className='flex justify-center sm:py-5'>
+          <StaggeredText text={'RECENT WORK'} once={false} repeatDelay={2500}
+          className={`${NeueMachinaUltraBold.className} lg:text-[60px] sm:text-[1.55rem]`} />
+        </div>
+
+        <DynamicRevealedText once={false} delay={0.2} className='' 
+        text={ <div className='h-[1px] lg:w-[50%] sm:w-[75%] mx-auto border-black dark:border-white border border-solid opacity-20 sm:my-1 rounded-r-full'/> }/>
+
+        <div className='flex justify-center py-10'>
+          <Magnetic>
+            <span 
+            onMouseEnter={() => {dispatch(hoverOn(''))}}
+            onMouseLeave={() => {dispatch(hoverOff())}}
+            onClick={() => {navigate('/work')}}
+            className='relative flex items-center justify-center rounded-md overflow-hidden text-center origin-center duration-[500ms] glassmorphism
+            border-themeColor border-1 border-solid 
+            bg-[#ffffff78] dark:bg-[#00000078]  dark:shadow-[#ffffff81] shadow-[#00000050]
+            
+            lg:text-[1rem] 
+            sm:text-[0.8rem]
+            hover:text-white hover:dark:text-black hover:shadow-md
+            before:content-[""] before:absolute before:left-0 before:top-0 before:h-0 before:w-full before:duration-[500ms] before:z-2 before:rounded-md
+            before:bg-themeColor before:opacity-80
+            hover:before:h-full hover:before:top-[unset] hover:before:bottom-0
+            '>
+              <span className={`${NeueMachinaUltraBold.className} inline-block lg:p-5 sm:p-3 z-3 lg:text-[1.3rem] w-full h-full`}>MORE WORK..</span>
+            </span>
+          </Magnetic>
+        </div>
     </main>
   )
 }

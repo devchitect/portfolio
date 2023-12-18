@@ -3,16 +3,19 @@
 import Nav from './navbar';
 
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 import { clickSound } from './navbar';
 import EncryptText from '../utils/encrypted-text';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
+import { LanguageContext } from '../context/providers';
+import { LibraryRegular } from './fonts';
 
+export const nickname = 'Dan';
 
-function Header({lang}){
-
+function Header(){
+    const language = useContext(LanguageContext);
     const path = usePathname();
     const navigate = usePageNavigate();
     const dispatch = useDispatch();
@@ -27,7 +30,7 @@ function Header({lang}){
             header.current.style.backgroundColor = "transparent";
             header.current.style.backdropFilter = 'none';
         }else{
-            header.current.style.backgroundColor = "var(--header-bg)";
+            header.current.style.backgroundColor = "var(--glassmorphism-bg)";
             header.current.style.backdropFilter = 'blur(var(--blur))';
         }
         
@@ -45,7 +48,7 @@ function Header({lang}){
     },[scrollPos])
 
     function closeNavbar(){      
-        if(path === `/${lang}`){
+        if(path === `/${language}`){
             return;
         }
 
@@ -75,14 +78,17 @@ function Header({lang}){
         xl:px-per10
         sm:px-per10 xm:py-3
         ">
-            <span
-            className={`logo font-l3 select-none lg:text-[1.35rem] ml-[2px] ${path === '/' && 'text-themeColor'}`}
+            <div
+            className={`${LibraryRegular.className} ${(path === `/${language}`) && 'text-themeColor'}
+            inline-block select-none lg:text-[1.35rem] ml-[2px] duration-500
+            hover:tracking-[0.25rem] 
+            `}
             onClick={closeNavbar}
             onMouseEnter={() => {dispatch(hoverOn(''))}}
             onMouseLeave={() => {dispatch(hoverOff())}}
-            ><EncryptText target_text={'Devchitect'} /></span>   
+            ><EncryptText target_text={`${nickname}.`} /></div>   
             
-            <Nav toggleNav={toggleNavState} setToggleNav={setToggleNav}/>
+            <Nav toggleNav={toggleNavState} setToggleNav={setToggleNav} lang={language}/>
             <ScrollProgress/>
         </header>
 

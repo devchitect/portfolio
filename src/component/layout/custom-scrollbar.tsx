@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useRef, useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
 
 export default function CustomScrollbar(){
-
+    const dispatch = useDispatch();
     const content = typeof window !== 'undefined' ? document.documentElement : null;
 
     const scrollTrackRef = useRef<HTMLDivElement | any>(null);
@@ -37,7 +39,7 @@ export default function CustomScrollbar(){
             clearTimeout(timer.current);
         }
 
-        timer.current = setTimeout( deactiveScrollbar, 1250);
+        timer.current = setTimeout( deactiveScrollbar, 2000);
     },[]);
 
     const activeScrollbarExtend = () => {
@@ -95,8 +97,8 @@ export default function CustomScrollbar(){
     }, [content, thumbHeight]);
 
     const handleThumbMousedown = useCallback((e : React.MouseEvent<HTMLElement>) => {
-        // e.preventDefault();
-        // e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
         setIsDragging(true);
         setScrollStartPosition(e.clientY);
         if (content){
@@ -105,19 +107,18 @@ export default function CustomScrollbar(){
       }, [content]);
     
       const handleThumbMouseup = useCallback((e : MouseEvent) => {
-        //   e.preventDefault();
-        //   e.stopPropagation();
+          e.preventDefault();
+          e.stopPropagation();
         setIsDragging(false);
         },[]);
     
       const handleThumbMousemove = useCallback((e : MouseEvent) => {
-        //   e.preventDefault();
-        //   e.stopPropagation();
+          e.preventDefault();
+          e.stopPropagation();
           if (isDragging && content) {
             const { clientHeight: trackHeight } = scrollTrackRef.current;
             const {
               scrollHeight: contentScrollHeight,
-              offsetHeight: contentOffsetHeight,
             } = content;
             const ratioContentTrack = (contentScrollHeight) / (trackHeight);
 
@@ -150,7 +151,6 @@ export default function CustomScrollbar(){
 
     // Listen for mouse events to handle scrolling by dragging the thumb
     useEffect(() => {
-
       window.addEventListener('mousemove', handleThumbMousemove);
       window.addEventListener('mouseup', handleThumbMouseup);
       window.addEventListener('mouseleave', handleThumbMouseup);
@@ -170,20 +170,22 @@ export default function CustomScrollbar(){
             <main 
             onMouseOver={activeScrollbarExtend}
             onMouseOut={activeScrollbar}
-            className="scrollbar-wrapper fixed items-center h-[100vh] right-[15px] w-[15px] top-0 z-20 select-none 
+            className="scrollbar-wrapper fixed items-center h-[100vh] right-[25px] w-[15px] top-0 z-20 select-none 
             xl:flex sm:hidden">
                 <div className="scrollbar relative h-[69%] duration-[1s] ease-in-out mx-auto" ref={scrollBarRef}>
                     <div
                     ref={scrollTrackRef}
                     onClick={handleTrackClick}
-                    className="track absolute h-full w-[10px] dark:bg-[white] bg-[black] rounded-full opacity-20 
-                    shadow-md shadow-black dark:shadow-white"></div>
+                    className="track absolute h-full w-[10px] dark:bg-[#ffffff36] bg-[#00000060] rounded-md glassmorphism
+                    "></div>
               
                     <div 
                     ref={scrollThumbRef}
+                    onMouseMove={() => {dispatch(hoverOn('Hold'))}}
+                    onMouseLeave={() => {dispatch(hoverOff())}}
                     onMouseDown={handleThumbMousedown}
-                    style={{height: `${thumbHeight}px`, boxShadow: '0 0 3px var(--theme-color)'}}
-                    className={`thumb absolute w-[10px] bg-bgGradient rounded-full opacity-90`}></div>
+                    style={{height: `${thumbHeight}px`, boxShadow: '0 0 8px var(--theme-color)'}}
+                    className={`thumb absolute w-[10px] bg-bgGradient rounded-md opacity-90`}></div>
                 </div>
                
             </main>

@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
-import '@/styles/root-layout.scss'
+import '@/styles/layout.scss'
 import '@/styles/globals.scss'
 
-import { Providers } from '@/component/layout/providers'
+import { Providers } from '@/component/context/providers'
 import { Suspense } from "react";
 import Header from '@/component/layout/header'
+import Footer from '@/component/layout/footer'
+
 import Loading from './loading';
 import PageWrapper from "@/component/layout/page-wrapper";
-
-import Footer from '@/component/layout/footer';
+import { InterRegular } from '@/component/layout/fonts'
 
 export const metadata: Metadata = {
   title: 'Dzung Nguyen',
@@ -18,17 +19,12 @@ export const metadata: Metadata = {
 }
 
 //Code Splitting & Lazy Loading
-const DynamicParticles = dynamic(() => import('../../component/layout/particles-container'), {
-  loading: () => null,
-  ssr: false 
-})
-
-const DynamicCursor = dynamic(() => import('../../component/utils/cursor'), {
+const DynamicCursor = dynamic(() => import('../../component/layout/cursor'), {
   loading: () => null,
   ssr: false
 })
 
-const DynamicScrollbar = dynamic(() => import('../../component/utils/custom-scrollbar'), {
+const DynamicScrollbar = dynamic(() => import('../../component/layout/custom-scrollbar'), {
   loading: () => null,
   ssr: false
 })
@@ -37,7 +33,6 @@ const DynamicFooter = dynamic(() => import('../../component/layout/footer'), {
   loading: () => null,
   ssr: false
 })
-
 
 function initializeThemeBeforeRender() {
   return {
@@ -64,14 +59,14 @@ export default function Root({
         <script 
         dangerouslySetInnerHTML={initializeThemeBeforeRender()}/>
       </head>
-      <body className=''>
-        <Providers>
+      <body className={`${InterRegular.className}`}>
+        <Providers lang={params.language}>
           <>
           <div 
           className='root-layout relative flex flex-col justify-between 
           '>   
             <>
-            <Header lang={params.language}/> 
+            <Header/> 
             <PageWrapper>
               <Suspense fallback={<Loading/>}>
               {children}
@@ -84,7 +79,6 @@ export default function Root({
 
           <DynamicScrollbar/>
           <DynamicCursor/>
-          <DynamicParticles/> 
 
         </Providers>
         <Background/>
@@ -99,19 +93,19 @@ function Background(){
 
   return(
     <>
-      <div className="overlay-background sm:opacity-20"/>
-      <div className='-z-30 opacity-[0.05]'>
-                {grid.map((x) => {
-                    return (
-                        <div key={x}
-                            style={{left: `${x*10}%`}}
-                            className='fixed top-0 right-0 h-screen w-[10%] select-none pointer-events-none
-                            border-x border-black dark:border-white'
-                            
-                        />
-                    )
-                })}          
-            </div>
+      <div className="overlay-background sm:opacity-[0.35] dark:sm:opacity-10"/>
+      <div className='-z-30 opacity-[0.069]'>
+        {grid.map((x) => {
+            return (
+                <div key={x}
+                  style={{left: `${x*10}%`}}
+                  className='fixed top-0 right-0 h-screen w-[10%] select-none pointer-events-none
+                  border-x border-black dark:border-white'
+                    
+                />
+            )
+        })}          
+      </div>
             
     </>
   )

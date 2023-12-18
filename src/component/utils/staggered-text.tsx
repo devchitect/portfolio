@@ -39,21 +39,20 @@ const StaggeredText = ({
   const controls = useAnimation();
   const textArray = Array.isArray(text) ? text : [text];
   const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.5, once });
+  const isInView = useInView(ref, { amount: 1, once });
+  const timoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    const show = () => {
+   
+    function show(){
       controls.start("visible");
-      
       if (repeatDelay) {
-        timeout = setTimeout(async () => {
+        timoutRef.current = setTimeout(async () => {
           await controls.start("hidden");
           controls.start("visible");
         }, repeatDelay);
       }
     };
-
 
     if (isInView) {
       show();
@@ -62,7 +61,7 @@ const StaggeredText = ({
     }
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(timoutRef.current);
     }
     
   }, [isInView, controls, repeatDelay]);

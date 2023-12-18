@@ -12,6 +12,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+
 //Scroll-bar
 ::-webkit-scrollbar{
   background: transparent;
@@ -59,7 +60,6 @@ html{
 body {
   overflow-x: hidden;
   overflow-y: scroll;
-  font-family: Inter-Regular;
 
  
   @include responsive(phone){
@@ -92,6 +92,7 @@ html, body{
 
   //Overlay Background
   .overlay-background{
+    
     display: inline-block;
     pointer-events: none;
     user-select: none;
@@ -123,7 +124,7 @@ html, body{
   
 
   @include color-scheme(dark){
-    background-color: rgb(6, 6, 6);
+    background-color: #070707;
 
     .overlay-background{
       background-image: url("../assets/images/background/blockchain-shubham_dhage.jpg");
@@ -132,164 +133,14 @@ html, body{
   }
 
   @include color-scheme(light){
-    background-color: rgb(244, 244, 244);
+    background-color: #eeeeee;
 
     .overlay-background{
       background-image: url("../assets/images/background/white-pattern.jpg");
     }
   }
   
-
-@font-face {
-  font-family: Inter-Regular;
-  src: local('Inter'),
-  url("../assets/fonts/Inter-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: Inter-Medium;
-  src: local('Inter'),
-  url("../assets/fonts/Inter-Medium.ttf") format("truetype");
-
-}
-@font-face {
-  font-family: Inter-SemiBold;
-  src: local('Inter'),
-  url("../assets/fonts/Inter-SemiBold.ttf") format("truetype");
-}
-@font-face {
-  font-family: Inter-Bold;
-  src: local('Inter'),
-  url("../assets/fonts/Inter-Bold.ttf") format("truetype");
   
-}
-@font-face {
-  font-family: Inter-ExtraBold;
-  src: local('Inter'),
-  url("../assets/fonts/Inter-ExtraBold.ttf") format("truetype");
-  
-}
-@font-face {
-  font-family: Inter-Black;
-  src: local('Inter'),
-  url("../assets/fonts/Inter-Black.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: L3-Soft;
-  src: local('L3'),
-  url("../assets/fonts/library-3am-soft.otf") format("opentype");
-}
-
-@font-face {
-  font-family: L3;
-  src: local('L3'),
-  url("../assets/fonts/library-3am.otf") format("opentype");
-}
-
-@font-face {
-  font-family: PPTelegraf-Ultrabold;
-  src: local('PPTelegraf'),
-  url("../assets/fonts/PPTelegraf-Ultrabold.otf") format("opentype");
-}
-
-@font-face {
-  font-family: PPTelegraf-Regular;
-  src: local('PPTelegraf'),
-  url("../assets/fonts/PPTelegraf-Regular.otf") format("opentype");
-}
-.font-l3{
-  font-family: L3;
-}
-.font-l3-soft{
-  font-family: L3-Soft;
-}
-.font-rg{
-  font-family: Inter-Regular;
-}
-.font-md{
-  font-family: Inter-Medium;
-}
-.font-semib{
-  font-family: Inter-SemiBold;
-}
-.font-b{
-  font-family: Inter-Bold;
-}
-.font-extrab{
-  font-family: Inter-ExtraBold;
-}
-.font-blk{
-  font-family: Inter-Black;
-}
-.font-telegraf-rg{
-  font-family: PPTelegraf-Regular;
-}
-.font-telegraf-ultrab{
-  font-family: PPTelegraf-UltraBold;
-}
-.cursor-none{
-  cursor: none;
-}
-
-
-.glassmorphism{
-  background-color: var(--glassmorphism-bg);
-  -webkit-backdrop-filter: blur(var(--blur));
-  backdrop-filter: blur(var(--blur));
-  box-shadow: 0 0 3px var(--marque-default-bg);
-}
-
-//Logo
-.logo{
-  display: inline-block;
-  font-weight: normal;
-  background: transparent;
-  border-radius: 10px;
-  transform-origin: left;
-  transition: 300ms ease-out;
-  letter-spacing: 1px;
-
-  &:hover{
-    color: var(--theme-color);
-  }
-
-  @include responsive (laptop){
-    &:hover{
-      transform: scale(1.09);
-      letter-spacing: 3px;
-      text-shadow: 0 0 5px var(--theme-color);
-      ;
-    }
-  }
-}
-
-  
-.text-gradient{
-  background: var(--bg-gradient);
-  background-size: 200%;
-  background-position: left top;
-  background-clip: text;
-  --webkit-background-clip : text;
-  color: transparent;
-  animation: animate-gradient 5000ms linear infinite alternate-reverse;
-  
-  @keyframes animate-gradient {
-    35% {background-position: right top;}
-    65%{background-position: right bottom;}
-    100%{background-position: left bottom;}
-  }
-}
-
-.trans-bg{
-  border: none;
-  box-shadow: none;
-  background-size: 100%;
-  background-clip: text;
-  --webkit-background-clip : text;
-  color: transparent;
-  transition: 300ms;
-}
-
 .float-bg-gradient{
   background: var(--bg-gradient);
   background-size: 100%;

@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
-import useIsomorphicLayoutEffect  from "./gsap-helper/isomorphic-effect"
+import useIsomorphicLayoutEffect  from "./custom-hook/isomorphic-effect"
 
 export default function HorizontalSection(){
 

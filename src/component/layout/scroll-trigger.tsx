@@ -14,9 +14,17 @@ export default function ScrollTrigger(){
 
     function scrollNow(){
       if(pos! > 0){
-        window.scrollTo(0,0);
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
       }else{
-        window.scrollTo(0,document.documentElement.scrollHeight);
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          left: 0,
+          behavior: 'smooth'
+        });
       }
     }
 
@@ -47,7 +55,7 @@ export default function ScrollTrigger(){
         onClick={() => {scrollNow()}}
         className='fixed opacity-40 hover:opacity-100 z-10 
         text-white bg-black rounded-full dark:text-black dark:bg-white dark:hover:bg-darkTheme
-        xl:right-[4%] xl:bottom-[160px]
+        xl:right-[2.5%] xl:bottom-[160px]
         md:right-10 md:bottom-36  md:text-3xl
         sm:right-5 sm:bottom-28 sm:text-2xl
         '>

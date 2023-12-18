@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import useIsomorphicLayoutEffect from '../gsap-helper/isomorphic-effect';
+import useIsomorphicLayoutEffect from './isomorphic-effect';
 
 export const useWindowSize = () => {
   

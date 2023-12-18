@@ -1,4 +1,4 @@
-@import './partials/mixins';
+@import '@/styles/partials/mixins';
 
 
 .home-intro{
@@ -42,8 +42,8 @@
 }
 
 .mask{
-    -webkit-mask-image: url('../assets/images/background/octagon.svg');
-    mask-image: url('../assets/images/background/octagon.svg');
+    -webkit-mask-image: url('../../assets/images/background/octagon.svg');
+    mask-image: url('../../assets/images/background/octagon.svg');
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 0px;
