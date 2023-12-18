@@ -5,10 +5,6 @@ import Image from 'next/image';
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { gsap } from 'gsap/dist/gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
@@ -27,32 +23,12 @@ const DynamicStaggeredText = dynamic(() => import('../utils/staggered-text'), {
   ssr: false
 })
 export default function Footer(){
-  const pathname = usePathname();
+
   const navigate = usePageNavigate();
   const dispatch = useDispatch();
   const sectionRef = useRef<HTMLDivElement>(null);
-  
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
 
-    gsap.fromTo('.footer-contact', {
-      y: '100%',
-      opacity: 0,
-      },
-      {
-        y: '0px',
-        opacity: 1,
-        scrollTrigger: {
-          trigger: '.footer-contact-trigger',
-          markers: true,
-          start: `center 100%`,
-          end: `bottom 100%`,
-          scrub: true,
-        }
-      },
-    );
-  }, {scope : sectionRef, dependencies: [pathname]})
- 
+
   return(
       <footer ref={sectionRef}
       className='footer'
