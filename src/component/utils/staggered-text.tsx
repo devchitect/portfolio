@@ -64,7 +64,7 @@ const StaggeredText = ({
       clearTimeout(timoutRef.current);
     }
     
-  }, [isInView, controls, repeatDelay]);
+  }, [isInView, controls, repeatDelay, text]);
 
   return (
     <Wrapper className={className}>

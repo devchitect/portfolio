@@ -49,7 +49,7 @@ export function ThemeSwitcher(){
                 onMouseEnter={() => {dispatch(hoverOn(''))}}
                 onMouseLeave={() => {dispatch(hoverOff())}}
                 onClick={() => {switchTheme(); clickSound();}}
-                className={`glassmorphism text-2xl sm:text-xl text-themeColor rounded-lg p-[0.7rem] `}
+                className={`glassmorphism lg:text-2xl sm:text-xl text-themeColor rounded-lg p-[0.7rem] `}
                 >
                     {theme === 'light' && <Icon icon='line-md:sunny-outline-loop'/>}           
                     {theme === 'dark' && <Icon icon='line-md:moon-loop' hFlip={true} />}

@@ -53,9 +53,7 @@ html{
   @include responsive(laptop){
 
   }
-
 }
-
 
 body {
   overflow-x: hidden;
@@ -89,57 +87,6 @@ html, body{
 
 }
 
-
-  //Overlay Background
-  .overlay-background{
-    
-    display: inline-block;
-    pointer-events: none;
-    user-select: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vH;
-    width: 100vW;
-    z-index: -10;
-    
-    -webkit-opacity: var(--bg-opacity); /* WebKit browser e.g. Safari */
-    -moz-opacity: var(--bg-opacity); /* Firefox and Mozilla browsers */
-    opacity: var(--bg-opacity);
-
-    @include responsive(phone){
-      background-attachment: scroll;
-   }
-    @include responsive(tablet){
-       background-attachment: fixed;
-    }
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-  }
-  
-
-  @include color-scheme(dark){
-    background-color: #070707;
-
-    .overlay-background{
-      background-image: url("../assets/images/background/blockchain-shubham_dhage.jpg");
-
-    }
-  }
-
-  @include color-scheme(light){
-    background-color: #eeeeee;
-
-    .overlay-background{
-      background-image: url("../assets/images/background/white-pattern.jpg");
-    }
-  }
-  
   
 .float-bg-gradient{
   background: var(--bg-gradient);

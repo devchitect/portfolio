@@ -5,7 +5,7 @@ import '@/styles/pages/home.scss'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
+import { hoverOn, hoverOff, hoverTitle } from '@/app/redux/slices/cursorSlice';
 
 import gsap from "gsap";
 import { useGSAP } from '@gsap/react';
@@ -21,7 +21,7 @@ import EncryptText from '@/component/utils/encrypted-text'
 import { usePageNavigate } from '@/component/custom-hook/use-page_navigate'
 import { desktop } from '@/component/layout/responsive-media_queries';
 import { RevealedText, RevealedTextParagraph } from '@/component/utils/revealed-text';
-import { InterBold, InterMedium, InterSemiBold, LibraryRegular, LibrarySoft, NeueMachinaBold, NeueMachinaUltraBold } from '@/component/layout/fonts';
+import { InterBold, InterMedium, InterSemiBold, LibraryRegular, LibrarySoft, NeueMachinaBlack, NeueMachinaBold, NeueMachinaUltraBold } from '@/component/layout/fonts';
 import StaggeredText from '@/component/utils/staggered-text';
 
 
@@ -44,7 +44,8 @@ export default function LandingHomepage ({params: {language}}) {
 
   const GSAPContext = useRef<HTMLElement>(null);
   const collabTimeline = useRef<GSAPTimeline>();
-  
+  const aboutButtonTimeline = useRef<GSAPTimeline>();
+
   useGSAP(() => {
 
     gsap.registerPlugin(ScrollTrigger);
@@ -53,24 +54,19 @@ export default function LandingHomepage ({params: {language}}) {
 
       const serviceBoxs = gsap.utils.toArray('.service-box');
 
-      gsap.fromTo('.about-btn', {
-        y: '0px',
-        rotate:'0deg',
-        opacity: 1,
-        },
-        {
-          y: '300px',
-          rotate:'360deg',
-          opacity: 1,
-          scrollTrigger: {
-            trigger: '.about-btn',
+    aboutButtonTimeline.current = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.about-btn',
             markers: false,
             start: 'top 50%',
             end: 'bottom 0%',
             scrub: 0.69,
-          }
-        },
-      );
+      }
+    })
+    .to('.about-btn', {
+      y: '300px',
+      rotate:'360deg',
+    })
 
       collabTimeline.current = gsap.timeline(
         {
@@ -84,7 +80,7 @@ export default function LandingHomepage ({params: {language}}) {
         }
       ).from('.collab', { yPercent:-60, opacity:0, })
       .to('.collab', { yPercent:0, opacity:1, })
-      .to('.collab', { yPercent:40, opacity:0, })
+      .to('.collab', { yPercent:30, opacity:0, })
 
       serviceBoxs.forEach((el : any) => {
         gsap.fromTo(el, {
@@ -127,10 +123,10 @@ const  FirstSection = () => {
   return(
   <>
     <div 
-    className='relative w-full home-intro z-1 
+    className={`relative w-full z-1 ${'home-intro'}
     lg:pt-0  
     sm:pt-32 sm:flex sm:flex-col sm:items-start sm:px-[10%]
-    '>
+    `}>
       <div 
         className='absolute flex items-center dark:text-gray-200 opacity-50 hover:opacity-100 z-1
         md:bottom-auto md:top-10 md:right-auto md:px-0 
@@ -155,8 +151,8 @@ const  FirstSection = () => {
       lg:
       sm:bottom-10
       '>
-        <span className='tracking-[0.15rem] lg:text-[0.78rem] sm:text-[0.69rem] border-l border-themeColor border-dashed'>
-        SCROLL DOWN
+        <span className='tracking-[0.1rem] lg:text-[0.78rem] sm:text-[0.69rem] border-l border-themeColor border-dashed'>
+        SCROLL TO DISCOVER
         <Icon icon='solar:arrow-up-broken' vFlip={true}  className='sm:text-[0.9rem] absolute bottom-0 right-full mr-1'/>
         </span>
         
@@ -181,7 +177,7 @@ const  FirstSection = () => {
         </div>
 
         <DynamicRevealedText delay={0.4} className='' 
-        text={ <div className='h-[1px] lg:w-per50 sm:w-per60 ml-[5%] border-black dark:border-white border border-solid opacity-40 sm:my-1 rounded-r-full'/> }/>
+        text={ <div className='h-[1px] md:w-per50 sm:w-per60 ml-[5%] border-black dark:border-white border border-solid opacity-30 sm:my-1 rounded-r-full'/> }/>
 
         <div className='relative self-start flex lg:ml-8 sm:ml-6 opacity-90'>
           <RevealedText
@@ -202,7 +198,7 @@ const  FirstSection = () => {
         </div>
 
         <DynamicRevealedText delay={0.8} className='' 
-        text={ <div className='h-[1px] lg:w-per25 sm:w-per30 ml-[15%] border-black dark:border-white border border-dashed opacity-40 lg:my-3 sm:my-2 rounded-r-full'/> }/>
+        text={ <div className='h-[1px] md:w-per25 sm:w-per30 ml-[15%] border-black dark:border-white border border-dashed opacity-30 lg:my-3 sm:my-2 rounded-r-full'/> }/>
 
         <div className='relative flex self-start lg:ml-36 sm:ml-12 opacity-80'>
           <RevealedText
@@ -223,17 +219,17 @@ const  FirstSection = () => {
         </div>
       </article>
       
-      <div 
-      onMouseMove={() => {dispatch(hoverOn('Click!'))}}
-      onMouseLeave={() => {dispatch(hoverOff())}}
-      className={` ${'about-btn'} origin-center will-change-transform flex justify-center w-[20%] rounded-full
+      <div   
+      className={`${'about-btn'} origin-center will-change-transform flex justify-center w-[20%] rounded-full
       lg:mx-per10 lg:mt-10 lg:py-0 lg:absolute lg:bottom-28 lg:right-0
       sm:ml-auto sm:py-5 sm:relative sm:right-per10 
       `}>
         <Magnetic>
         <span 
+        onMouseMove={() => {dispatch(hoverOn())}}
+        onMouseLeave={() => {dispatch(hoverOff())}}
         onClick={() => {navigate('/about')}}
-        className={` ${NeueMachinaUltraBold.className} glassmorphism
+        className={` ${NeueMachinaBlack.className} glassmorphism 
         relative flex items-center justify-center rounded-full overflow-hidden text-center origin-center duration-[500ms] 
         border-[var(--font-color)] border-[2px] border-solid 
         bg-[#ffffff00] dark:bg-[#00000000]  dark:shadow-[#ffffff81] shadow-[#00000050]
@@ -241,13 +237,13 @@ const  FirstSection = () => {
         xl:w-[200px] xl:h-[200px] xl:text-[20px] 
         lg:w-[180px] lg:h-[180px] lg:text-[1.0rem] 
         sm:w-[130px] sm:h-[130px] sm:text-md 
-        hover:text-white hover:dark:text-black hover:border-transparent hover:shadow-2xl  hover:tracking-[0.25rem]
+        hover:text-white hover:dark:text-black hover:border-transparent hover:shadow-2xl  
         before:content-[""] before:absolute before:right-0 before:top-0 before:left-0 before:bottom-0 before:m-auto before:h-0 before:w-0 before:duration-[500ms] before:z-2 before:rounded-full
         before:bg-white hover:before:bg-[var(--font-color)] before:opacity-0 hover:before:opacity-100 before:ease-in-out
         hover:before:w-full hover:before:h-full 
         `}
         >
-         <span className='block z-3 w-full h-full '><EncryptText target_text='ABOUT ME'/></span>
+         <span className='block z-3 w-full h-full tracking-wide '><EncryptText target_text='ABOUT ME'/></span>
         </span>
         </Magnetic>
       </div>
@@ -296,10 +292,10 @@ const SecondSection = () => {
   },[])
 
   return (
-    <section>
+    <section className='home-section2'>
       <div 
       className={`relative text-left collab-trigger
-      lg:center lg:mb-10 lg:pt-0 h-screen
+      lg:center lg:mb-10 lg:pt-0 lg:h-screen
       md
       sm:flex sm:flex-col sm:justify-center sm:h-[89vh]
       `}
@@ -463,7 +459,7 @@ const ThirdSection = () => {
   return (
     <>
       <section 
-      className='my-20 relative 
+      className='my-20 relative w-full
       '
       >
         <div className='absolute top-20 h-auto -z-1 sm:hidden xl:block w-full overflow-hidden opacity-40 select-none pointer-events-none'>
@@ -479,15 +475,6 @@ const ThirdSection = () => {
            d="M0 170.14H243.172V2L320.643 79.4376L398.114 2V170.14H390.224V23.8689L320.643 93.4193L293.744 66.5313H410.309V170.14H516.473V66.5313L451.913 2H464.467L516.473 53.9835L568.478 2H580.314L510.017 72.2674V90.5513H524.722V170.14H696.521V338.28H605.421V326.449H795.511V262.276H605.421V180.895H795.511V193.801H615.463V273.748H804.836V338.28H828.867V273.748H932.52V262.276H828.867V193.801H932.52V180.895H842.496V338.28H968.745V180.895H985.96H1085.31V273.748H998.872V262.276H1072.04V193.801H985.96V338.28H998.872V282.734H1072.04V338.28H1168.3L1109.79 180.895H1122.29L1161.8 282.734L1199.81 180.895H1212.82L1161.8 306.253H1141.3V326.449H1242.32V338.28H1257.33V180.895H1242.32V306.253H1272.83V338.28H1456.38V326.449H1336.85V193.801H1456.38V180.895H1324.84V314.26H1484.89V180.895H1592.41V193.801H1504.39V262.276H1592.41V273.748H1504.39V326.449H1592.41V338.28H1524.9V314.26H1694.94V338.28H1637.43V326.449H1765.46V273.748H1637.43V180.895H1765.46V193.801H1627.42V262.276H1754.46V314.26H1845.48V548.455H1920V519.931H1876.49V603H1810.47V404.835H510.017V436.862H541.141V240.198H230.06V2H214.056V157.629H0" stroke="black"/>
           </svg>
 
-        </div>
-
-        <div className='absolute w-full h-full'>
-          <div className='w-full h-full overflow-hidden'>
-            <div className='absolute w-[44rem] h-[44rem] flex justify-center items-start pointer-events-none select-none top-per40 right-0 translate-x-[50%]  opacity-20'>
-              <div 
-              className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] mist'/>
-            </div>
-          </div>    
         </div>
         
         <div className={`relative tracking-[0.1rem] my-5 z-3 flex flex-col justify-center items-center      
@@ -518,9 +505,9 @@ const ThirdSection = () => {
             <div className='lg:w-[60%] sm:w-per80 mx-auto'>
               <div 
               onClick={() => {toggleService(index)}}
-              onMouseMove={() => {dispatch(hoverOn('Click!'))}}
+              onMouseMove={() => {dispatch(hoverTitle('View'))}}
               onMouseLeave={() => {dispatch(hoverOff())}}
-              className='relative overflow-hidden flex duration-500 py-2 px-4 items-center justify-between
+              className='relative overflow-hidden flex duration-500 py-3 px-4 items-center justify-between 
               hover:glassmorphism hover:rounded-t-lg hover:text-themeColor 
               before:content-[""] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-themeColor
               before:-translate-x-per100 before:duration-500 before:opacity-0 before:select-none before:pointer-events-none
@@ -574,7 +561,7 @@ const FourthSection = () => {
         <div className='flex justify-center py-10'>
           <Magnetic>
             <span 
-            onMouseEnter={() => {dispatch(hoverOn(''))}}
+            onMouseEnter={() => {dispatch(hoverOn())}}
             onMouseLeave={() => {dispatch(hoverOff())}}
             onClick={() => {navigate('/work')}}
             className='relative flex items-center justify-center rounded-md overflow-hidden text-center origin-center duration-[500ms] glassmorphism

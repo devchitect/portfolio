@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { animate, motion, useAnimate } from "framer-motion";
 import { desktop } from "../layout/responsive-media_queries";
 
-export default function Magnetic({children} : {children : React.ReactNode}){
+export default function Magnetic({children, className} : {children:React.ReactNode, className?:string}){
     
     //const ref = useRef<any>(null);
     const [ref, animate] = useAnimate();
@@ -28,7 +28,7 @@ export default function Magnetic({children} : {children : React.ReactNode}){
     return(
         <>
             <motion.div ref={ref}
-            className="inline-block"
+            className={`inline-block ${className}`}
             onMouseMove={mouseMove}
             onMouseLeave={mouseLeave}
             animate={{x: x,y: y}}

@@ -17,26 +17,3 @@
 .floating{
   animation: float 6s ease-in-out infinite;
 }
-
-//
-@keyframes mist {
-	0% {
-		transform: translate(30%, 0px) rotate(0deg);
-	}
-	20% {
-		transform: translate(-50%, -80%) rotate(180deg);
-	}
-	50% {
-		transform: translate(-120%, 45%) rotate(360deg);
-	}
-	60%{
-		transform: translate(-200%, 0px) rotate(180deg);
-	}
-	100% {
-		transform: translate(-160%, 20%) rotate(0deg);
-	}
-}
-
-.mist{
-  animation: mist 15s ease-out infinite alternate;
-}

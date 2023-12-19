@@ -35,7 +35,7 @@ export default function About({params: {language}}) {
             <div className='relative w-[35%] mx-auto corner-border floating'>
             <Image
             priority={true}
-            src={`/images/me.jpg`}
+            src={`/assets/images/me.jpg`}
             alt="Picture of the author"
             width={500}
             height={500}

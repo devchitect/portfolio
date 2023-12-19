@@ -7,16 +7,14 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff } from '@/app/redux/slices/cursorSlice';
+import { hoverOn, hoverOff, hoverTitle } from '@/app/redux/slices/cursorSlice';
 import Magnetic from '../utils/magnetic';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 import EncryptText from '../utils/encrypted-text';
-import { InterExtraBold, NeueMachinaUltraBold, LibrarySoft, InterMedium } from './fonts';
+import { InterExtraBold, NeueMachinaUltraBold, LibrarySoft, InterMedium, NeueMachinaBlack } from './fonts';
 import Marquee from '../utils/marquee-regular';
 
-import { desktop, maxMedium } from './responsive-media_queries';
 import { nickname } from './header';
-import { usePathname } from 'next/navigation';
 
 const DynamicStaggeredText = dynamic(() => import('../utils/staggered-text'), {
   loading: () => null,
@@ -43,17 +41,13 @@ export default function Footer(){
           <div
           className='relative overflow-hidden mt-3'>
             <Marquee marqueedirec={'forward'}
-            text1={{label:'PASSIONATE', color:'linear-gradient(90deg, #fc4a1a, #f7b733)'}} 
-            text2={{label:'INNOVATIVE',color:'linear-gradient(90deg, #1A2980, #26D0CE)'}} 
-            text3={{label:'OPEN MINDED',color:'linear-gradient(90deg, #333399, #ff00cc)'}}
+            text={['PASSIONATE', 'INNOVATIVE', 'OPEN MINDED']}
             /> 
           </div>
           <div
           className='relative overflow-hidden mt-6 '>
             <Marquee  marqueedirec={'backward'}
-            text1={{label:'MULTIDISCIPLINARY', color:'var(--gradient-colorful)'}} 
-            text2={{label:'INTEGRITY', color:'linear-gradient(90deg, #FF416C, #FF4B2B)'}} 
-            text3={{label:'RESPONSIBLE', color:'linear-gradient(90deg, #B3FFAB, #12FFF7)'}}
+            text={['MULTIDISCIPLINARY', 'INTEGRITY', 'RESPONSIBLE']}
             /> 
           </div>
 
@@ -80,7 +74,7 @@ export default function Footer(){
                   '>
                     <Image
                     priority={true}
-                    src={`/images/me.jpg`}
+                    src={`/assets/images/me.jpg`}
                     alt="Picture of the author"
                     width={500}
                     height={500}
@@ -94,7 +88,7 @@ export default function Footer(){
                   <span
                   className='text-gradient lg:text-[110px] sm:text-[3rem]'
                   >CONNECT</span>
-                  <DynamicStaggeredText text={['& COLLABORATE !']} className={`${NeueMachinaUltraBold.className} absolute top-full right-0 mt-[1.2rem] lg:text-[38px] sm:text-[1.1rem] tracking-wide`}/>
+                  <DynamicStaggeredText text={['& COLLABORATE !']} className={`${NeueMachinaUltraBold.className} absolute top-full right-0 mt-[1.2rem] lg:text-[44px] sm:text-[1.1rem] `}/>
                 </div>
               </div>
               
@@ -109,7 +103,7 @@ export default function Footer(){
           '>
 
             <div
-            className='absolute w-full overflow-hidden opacity-40'
+            className='absolute w-full overflow-hidden opacity-50'
             >
               <div 
               className='h-[1px] left-0 w-full top-0 bottom-0 my-auto border border-solid border-y-[1px] border-x-0 border-[var(--font-color)] 
@@ -119,48 +113,49 @@ export default function Footer(){
             <div></div>
 
             <div 
-            onMouseMove={() => {dispatch(hoverOn('Now!'))}}
+            onMouseMove={() => {dispatch(hoverTitle('Now!'))}}
             onMouseLeave={() => {dispatch(hoverOff())}}
             className={` 
-            lg:mx-auto lg:py-0 origin-center will-change-[transform] 
+            lg:mx-auto lg:p-1 origin-center will-change-[transform] rounded-full glassmorphism
+            outline-2 outline outline-[var(--font-color)]
             sm:ml-auto sm:mx-per10 sm:py-10 
             
             `}>
               <Magnetic>
               <span 
               onClick={() => {navigate('/contact')}}
-              className={`relative flex items-center justify-center rounded-full overflow-hidden text-center ${NeueMachinaUltraBold.className} origin-center duration-[500ms]  
-              bg-[#ffffff00] dark:bg-[#00000000] glassmorphism
-              hover:bg-[#000000cc] hover:dark:bg-[#ffffffcc]  dark:shadow-[#ffffff81] shadow-[#00000081]
-              text-[var(--font-color)]
-              xl:w-[230px] xl:h-[230px] xl:text-[20px] 
+              className={`relative flex items-center justify-center rounded-full overflow-hidden text-center ${NeueMachinaBlack.className} origin-center duration-[500ms]  
+              bg-[#ffffff00] dark:bg-[#00000000] dark:border-[#ffffff50] hover:border-[#000000c1] border-[2px] border-solid border-transparent
+              hover:bg-[#ffffff] hover:dark:bg-[#ffffff]  dark:shadow-[#ffffff81] shadow-[#00000081]
+              text-white hover:text-black hover:shadow-md 
+              xl:w-[215px] xl:h-[215px] xl:text-[18px] 
               lg:w-[180px] lg:h-[180px] lg:text-[1.1rem] 
-              sm:w-[144px] sm:h-[144px] sm:text-sm
-              hover:text-white hover:dark:text-black hover:shadow-2xl hover:tracking-[0.05rem] before:glassmorphism before:duration-[500ms] before:rounded-full
+              sm:w-[144px] sm:h-[144px] sm:text-sm           
+              before:duration-[500ms] before:rounded-full
               before:content-[""] before:absolute before:right-0 before:top-0 before:left-0 before:bottom-0 before:m-auto before:h-full before:w-full 
-              before:z-2 before:dark:bg-black hover:before:bg-[var(--font-color)] before:opacity-100 hover:before:opacity-0 before:ease-in-out 
-              before:dark:border-[#ffffff50] before:border-[#111111c1] before:border-[2px] before:border-solid 
+              before:z-2 before:bg-[#000000] before:dark:bg-[#000000] hover:before:bg-[var(--font-color)] beforedark:glassmorphism before:opacity-100 hover:before:opacity-0 before:ease-in-out 
               hover:before:w-0 hover:before:h-0 hover:before:border-transparent
               `}
               >
-              <span className='block z-3 w-full h-full'><EncryptText target_text='GET IN TOUCH'/></span>
+              <span className='block z-3 w-full h-full tracking-wide'><EncryptText target_text='GET IN TOUCH'/></span>
               </span>
               </Magnetic>
             </div>
           </div>
 
-          <div className={`flex ${InterMedium.className} px-per10 `}>
-            <div className='flex items-center glassmorphism p-3 rounded-sm'>
+          <div className={`flex ${InterMedium.className} mx-per10 my-2 `}>
+            <div className='flex items-center glassmorphism p-2 rounded-md'>
               <Icon icon={`tabler:mail-pin`} className='mr-2 text-2xl'/> 
-              <a href="mailto:dzungnguyen.2k@gmail.com" className=''>dzungnguyen.2k@gmail.com</a>
+              <a 
+              href="mailto:dzungnguyen.2k@gmail.com" className=''>dzungnguyen.2k@gmail.com</a>
             </div>
-            
           </div>
+          
         </div>
 
         <div
-          className='flex items-center mt-10 glassmorphism
-          lg:px-per10 lg:justify-between lg:py-5
+          className='flex items-center mt-5 glassmorphism
+          lg:px-per10 lg:justify-between md:py-8
           sm:px-per10 sm:justify-between sm:py-10 
           '>
             <div className={`md:text-base sm:text-sm ${NeueMachinaUltraBold.className} 
@@ -193,7 +188,7 @@ function Socials(){
                     <a 
                     className='block opacity-100 hover:text-themeColor mx-3'
                     key={s.icon} href={s.href}
-                    onMouseEnter={() => {dispatch(hoverOn(s.title))}}
+                    onMouseEnter={() => {dispatch(hoverTitle(s.title))}}
                     onMouseLeave={() => {dispatch(hoverOff())}}
                     >
                         <Icon icon={s.icon} className='block hover:scale-150 duration-150 lg:text-xl sm:text-lg'/>

@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { LibrarySoft } from "./fonts"
 import { useEffect } from 'react';
 
-export const navigateDelay = 1250;
+export const navigateDelay = 1500;
 
 const grid = [0,1,2,3,4,5,6,7,8,9];
 const gridWidth = '10.15%';
@@ -66,7 +66,7 @@ function TransitionAnimation(){
                         variants={transition === 'enter' ? enter : exit}
                         initial='initial'
                         animate='animate'
-                        transition={{delay: delay * x, duration: duration - (delay * x) + delay, ease: ease}}
+                        transition={{delay: delay * x, duration: duration - (delay * x), ease: ease}}
                         />
                     )
                 })}

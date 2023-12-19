@@ -11,7 +11,7 @@ import { InterSemiBold } from './fonts';
 import { maxMedium, minLarge } from './responsive-media_queries';
 
 export function clickSound(){
-    const audio = new Audio('/sound/high-pitch-click.mp3');
+    const audio = new Audio('/assets/sound/high-pitch-click.mp3');
     audio.volume = 0.4;
     audio.play();
 }
@@ -111,7 +111,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
                     lg:w-auto
                     sm:w-screen
                     `}
-                    onMouseEnter={() => {dispatch(hoverOn('')); }}
+                    onMouseEnter={() => {dispatch(hoverOn()); }}
                     onMouseLeave={() => {dispatch(hoverOff()); }}
                     > 
                         <Magnetic>
@@ -225,7 +225,7 @@ function Dropdown({label, links, navigate}){
                             >
                                 <span
                                 onClick={() => {navigate(sl.href)}}
-                                onMouseEnter={() => dispatch(hoverOn(''))}
+                                onMouseEnter={() => dispatch(hoverOn())}
                                 onMouseLeave={() => dispatch(hoverOff())}
                                 className="
                                 lg:py-3  

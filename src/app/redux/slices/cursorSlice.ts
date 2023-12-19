@@ -2,15 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
-  cursorEffect: boolean,
-  title: string,
-  blend : boolean
+  cursorHover: boolean,
+  cursorTitle: boolean,
+  title: string
 }
 
 const initialState: CounterState = {
-    cursorEffect: false,
-    title: '',
-    blend : true
+  cursorHover: false,
+  cursorTitle: false,
+  title: ''
 
 }
 
@@ -18,22 +18,26 @@ export const cursorSlice = createSlice({
   name: 'cursor',
   initialState,
   reducers: {
-    hoverOn: (state, {payload} : PayloadAction<string>) => {
-      state.cursorEffect = true;
-      state.title = payload;
+    hoverOn: (state) => {
+      state.cursorHover = true;
     },
     hoverOff: (state) => {
-      state.cursorEffect = false;
+      state.cursorHover = false;
+      state.cursorTitle = false;
       state.title = '';
 
-
     },
+    hoverTitle: (state, {payload} : PayloadAction<string>) => {
+      state.cursorTitle = true;
+      state.title = payload;
+
+    }
   
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { hoverOn, hoverOff } = cursorSlice.actions
+export const { hoverOn, hoverOff, hoverTitle } = cursorSlice.actions
 
 export default cursorSlice.reducer
 

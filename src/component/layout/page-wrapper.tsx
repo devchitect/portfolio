@@ -20,6 +20,32 @@ export default function PageWrapper({children} : {children: React.ReactNode}){
             {children}
         </div>
         <DynamicScrollTrigger/>
+        <OverlayGrid/>
         </>
     )
 }
+
+
+function OverlayGrid(){
+    const grid = [0,1,2,3,4,5,6,7,8,9];
+  
+    return(
+      <>
+        <div className='-z-10 opacity-[0.08] select-none pointer-events-none'>
+          {grid.map((x) => {
+              return (
+                  <div key={x}
+                    style={{left: `${x*(100/grid.length)}%`}}
+                    className='fixed top-0 right-0 h-screen w-[10%] 
+                    border-x border-themeColor'
+                      
+                  />
+              )
+          })}          
+        </div>
+              
+      </>
+    )
+  }
+  
+  

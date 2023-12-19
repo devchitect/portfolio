@@ -49,6 +49,11 @@
     calc(-1 * $thick) calc(-1 * $thick) $thick $color,
     $thick calc(-1 * $thick) $thick $color;
   }
+  .text-nonstroke{
+    color: unset;
+    text-shadow: none;
+  }
+
 }
 
 //Custom Cursor
@@ -89,23 +94,14 @@
   }
 
   .cursor-title{ 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    transform: translate(-50%,-50%);
-    pointer-events: none;
-    user-select: none;
-    transition: 500ms;
-    transform-origin: center;
-    animation: title 500ms linear forwards;
+    width: auto !important;
+    height: auto !important;
     color: var(--font-color);
-    z-index: 40;
-
-    @keyframes title {
-      from{opacity: 0;}
-      to{opacity: 1;}
-    }
+    white-space: nowrap;
+    padding: 0.69rem;
+    border-radius: 10px;
+    mix-blend-mode: normal !important;
+    transition: 150ms !important;
   }
   
   @include color-scheme(dark){
@@ -114,25 +110,30 @@
     }
     .cursor-dot-hover{
       background: rgba(0, 255, 30, 0.9) !important; 
-
+    }
+    .cursor-title{
+      background: rgba(0, 255, 255, 0.9) !important;
     }
   }
   @include color-scheme(light){
-    .cursor-outline-hover{
+    .cursor-outline-hover, .cursor-title{
       background: rgba(255, 0, 55, 0.9) !important;
     }
     .cursor-dot-hover{
       background: rgba(175, 0, 255, 0.9) !important;
     }
+    .cursor-title{
+      background: rgba(140, 0, 255, 0.9) !important;
+    }
   }
 
   .cursor-outline-hover{
-    transform: translate(-50%, -50%) scale(2.39);
+    transform: translate(-50%, -50%) scale(2.5);
     border: none;
   }
 
   .cursor-dot-hover{
-    transform:  translate(-50%, -50%) scale(13);
+    transform:  translate(-50%, -50%) scale(13.5);
     mix-blend-mode: exclusion !important;
 
   }
@@ -145,7 +146,7 @@
   .cursor-dot-press{  
     opacity: 0 !important;
   }
-    
+  
 
 //Preloader
 .loader-text {

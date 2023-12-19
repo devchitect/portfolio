@@ -11,6 +11,7 @@ import EncryptText from '../utils/encrypted-text';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 import { LanguageContext } from '../context/providers';
 import { LibraryRegular } from './fonts';
+import { maxMedium, minLarge } from './responsive-media_queries';
 
 export const nickname = 'Dan';
 
@@ -24,17 +25,14 @@ function Header(){
     const scrollPos = useRef(typeof window !== 'undefined' ? window.scrollY : 0);
 
     const scrolledHeader = useCallback(() => {
-        const r = document.querySelector(':root') as HTMLElement;
 
         if(document.documentElement.scrollTop === 0){
-            header.current.style.backgroundColor = "transparent";
-            header.current.style.backdropFilter = 'none';
+            header.current.classList.remove("glassmorphism");
         }else{
-            header.current.style.backgroundColor = "var(--glassmorphism-bg)";
-            header.current.style.backdropFilter = 'blur(var(--blur))';
+            header.current.classList.add("glassmorphism");
         }
         
-        if(window.innerWidth > 1000){
+        if(minLarge){
             if(scrollPos.current < window.scrollY){
                 header.current.style.transform = 'var(--header-scroll-transform)';    
             
@@ -55,7 +53,7 @@ function Header(){
         clickSound();
         navigate('/');
 
-        if(window.innerWidth < 1000){
+        if(maxMedium){
             if(toggleNavState){
                 setToggleNav(!toggleNavState);    
             }
@@ -74,7 +72,7 @@ function Header(){
     <>
         <header 
         ref = {header}
-        className="header sticky top-0 flex items-center justify-between z-20 duration-500 border-none transition-transform w-full
+        className="header sticky top-0 flex items-center justify-between z-20 duration-500 border-none w-full
         xl:px-per10
         sm:px-per10 xm:py-3
         ">
@@ -89,7 +87,6 @@ function Header(){
             ><EncryptText target_text={`${nickname}.`} /></div>   
             
             <Nav toggleNav={toggleNavState} setToggleNav={setToggleNav} lang={language}/>
-            <ScrollProgress/>
         </header>
 
     </>
@@ -97,43 +94,3 @@ function Header(){
 }
 
 export default Header;
-
-function ScrollProgress(){
-
-    const progressLine = useRef<any>(null);
-    const path = usePathname();
-
-    function resetProgress(){
-        progressLine.current.style.transform = `translateX(-100%)`;
-    }
-
-    useEffect(() => {
-        resetProgress()
-    },[path])
-
-    useEffect(() => {
-
-        const  scrollProgress =() => {
-            const { scrollTop , scrollHeight} = document.documentElement;
-            const scrolled = (scrollTop / (scrollHeight - window.innerHeight)) * 100;
-
-            progressLine.current.style.transform = `translateX(${-(100-scrolled)}%)`;
-        }
-
-        window.addEventListener('scroll', scrollProgress);
-        return () => {
-            window.removeEventListener('scroll', scrollProgress);
-        }
-    },[])
-
- 
-    return(
-        <>
-            <div className="absolute w-full h-[0.5rem] left-0 top-full z-5 pointer-events-none opacity-[0.8] overflow-hidden flex items-center">
-                <div 
-                ref={progressLine}
-                className="scroll-progress h-1/2 w-full bg-themeColor rounded-r-lg ease-out duration-300 translate-x-[-100%] "/>
-            </div>
-        </>
-    )
-}

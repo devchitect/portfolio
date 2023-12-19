@@ -7,7 +7,7 @@ import '@/styles/globals.scss'
 import { Providers } from '@/component/context/providers'
 import { Suspense } from "react";
 import Header from '@/component/layout/header'
-import Footer from '@/component/layout/footer'
+//import Footer from '@/component/layout/footer'
 
 import Loading from './loading';
 import PageWrapper from "@/component/layout/page-wrapper";
@@ -32,6 +32,11 @@ const DynamicScrollbar = dynamic(() => import('../../component/layout/custom-scr
 const DynamicFooter = dynamic(() => import('../../component/layout/footer'), {
   loading: () => null,
   ssr: false
+})
+
+const DynamicScrollProgress = dynamic(() => import('../../component/layout/scroll-progress'), {
+  loading: () => null,
+  ssr: false 
 })
 
 function initializeThemeBeforeRender() {
@@ -61,11 +66,10 @@ export default function Root({
       </head>
       <body className={`${InterRegular.className}`}>
         <Providers lang={params.language}>
-          <>
+
           <div 
           className='root-layout relative flex flex-col justify-between 
           '>   
-            <>
             <Header/> 
             <PageWrapper>
               <Suspense fallback={<Loading/>}>
@@ -73,41 +77,15 @@ export default function Root({
               </Suspense>
             </PageWrapper>   
             <DynamicFooter/>    
-            </>     
           </div>
-          </>
 
+          <DynamicScrollProgress/>
           <DynamicScrollbar/>
           <DynamicCursor/>
 
         </Providers>
-        <Background/>
       </body>
     </html>
-  )
-}
-
-
-function Background(){
-  const grid = [0,1,2,3,4,5,6,7,8,9];
-
-  return(
-    <>
-      <div className="overlay-background sm:opacity-[0.35] dark:sm:opacity-10"/>
-      <div className='-z-30 opacity-[0.069]'>
-        {grid.map((x) => {
-            return (
-                <div key={x}
-                  style={{left: `${x*10}%`}}
-                  className='fixed top-0 right-0 h-screen w-[10%] select-none pointer-events-none
-                  border-x border-black dark:border-white'
-                    
-                />
-            )
-        })}          
-      </div>
-            
-    </>
   )
 }
 

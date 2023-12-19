@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 
 const CHARS = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890!@#$%^&*.,`<>/?+-=_~"; //()[]{}:;|,
 
-const EncryptText = ({target_text, classname} : {target_text: string, classname? : string}) => {
+const EncryptText = ({target_text, className} : {target_text: string, className? : string}) => {
     
     const intervalRef = useRef<any>(null);
     const intervalRef2 = useRef<any>(null);
@@ -83,7 +83,7 @@ const EncryptText = ({target_text, classname} : {target_text: string, classname?
     <span
       onMouseEnter={() => {stopScrambleReverse(); scramble()}}
       onMouseLeave={() => {stopScramble(); scrambleReverse()}}
-      className={`relative flex items-center justify-center w-full h-full z-3 select-none ${classname}`}
+      className={`relative flex items-center justify-center w-full h-full z-3 select-none ${className}`}
     >
         {text}
     </span>

@@ -50,12 +50,12 @@ export default function ScrollTrigger(){
     return(
       <>   
         <div 
-        onMouseEnter={() => {dispatch(hoverOn(''))}}
+        onMouseEnter={() => {dispatch(hoverOn())}}
         onMouseLeave={() => {dispatch(hoverOff())}}
         onClick={() => {scrollNow()}}
         className='fixed opacity-40 hover:opacity-100 z-10 
-        text-white bg-black rounded-full dark:text-black dark:bg-white dark:hover:bg-darkTheme
-        xl:right-[2.5%] xl:bottom-[160px]
+        text-white bg-black rounded-full dark:text-black dark:bg-white 
+        xl:right-[3.5%] xl:bottom-[155px]
         md:right-10 md:bottom-36  md:text-3xl
         sm:right-5 sm:bottom-28 sm:text-2xl
         '>
