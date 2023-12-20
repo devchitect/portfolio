@@ -15,7 +15,7 @@
     @include responsive(phone){
       --header-height: 65px;
       --footer-height: 200px;
-      --blur: 30px;
+      --blur: 28px;
       --logo-size: 1.5rem;
       --font-size: initial;
     }
@@ -34,7 +34,7 @@
       --logo-size: 1.65rem;
       --nav-resHeightOff: auto;
       --nav-resHeightOn: auto;
-      --blur: 10px;
+      --blur: 8px;
     }
 
         //Laptop - min 1380
@@ -47,13 +47,13 @@
 //Root Dark-Theme
 @include color-scheme(dark){
   --font-color: white;
-  --bg-color: #070707;
+  --bg-color: black;
   --bg-gradient: linear-gradient(45deg, #1fa2ffee,#00ffffee, #92FE9Dee);
   --theme-color: rgba(0,255,255);
+  --secondary-color: rgb(125, 255, 255);
   --cursor-color: white;
-  --cursor-blend: exclusion;
-  --cursor-outline: rgba(255, 255, 255, 0.5);
   --glassmorphism-bg:rgba(0, 0, 0, 0.3);
+  --glassmorphism-shadow:rgba(255, 255, 255, 0.39);
   --mask-bg: rgba(16, 16, 16,0.65);
 
   //Responsive must go in correct order
@@ -87,14 +87,14 @@
 
   //Root Light-Theme
 @include color-scheme(light){
-  --font-color: #000000;
-  --bg-color: #ffffff;
+  --font-color: black;
+  --bg-color: white;
   --bg-gradient: linear-gradient(45deg,#0033ffee, #8E2DE2ee, #4A00E0ee);
-  --theme-color: rgb(111, 0, 255);
+  --theme-color: rgb(100, 0, 255);
+  --secondary-color: rgb(0, 50, 255);
   --cursor-color: white;
-  --cursor-blend: normal;
-  --cursor-outline: rgba(0, 0, 0, 0.69);
   --glassmorphism-bg:rgba(255, 255, 255, 0.3);
+  --glassmorphism-shadow:rgba(0, 0, 0, 0.3);
   --mask-bg: rgba(255, 255, 255, 0.65);
 
   //Responsive must go in correct order

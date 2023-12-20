@@ -7,7 +7,7 @@
     background-color: var(--glassmorphism-bg);
     -webkit-backdrop-filter: blur(var(--blur));
     backdrop-filter: blur(var(--blur));
-    box-shadow: 0 0 3px var(--marque-default-bg);
+    box-shadow: 0 0 3px 1px var(--glassmorphism-shadow);
   }
 
   .bg-clip-text{
@@ -40,20 +40,26 @@
   }
 
   .text-stroke{
-    $thick: 0.1rem;
-    $color: var(--font-color);
-    color: var(--bg-color);
-    text-shadow:
-    $thick $thick $thick $color,
-    calc(-1 * $thick) $thick $thick $color,
-    calc(-1 * $thick) calc(-1 * $thick) $thick $color,
-    $thick calc(-1 * $thick) $thick $color;
+    // $thick: 0.13rem;
+    // $shadow: 0.07rem;
+    // $color: var(--font-color);
+    // color: var(--bg-color);
+    // text-shadow:
+    // $thick $thick $shadow $color,
+    // calc(-1 * $thick) $thick $shadow $color,
+    // calc(-1 * $thick) calc(-1 * $thick) $shadow $color,
+    // $thick calc(-1 * $thick) $shadow $color;
+
+    -webkit-text-fill-color: var(--bg-color); /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: var(--font-color);
   }
   .text-nonstroke{
     color: unset;
     text-shadow: none;
   }
 
+  
 }
 
 //Custom Cursor
@@ -98,10 +104,11 @@
     height: auto !important;
     color: var(--font-color);
     white-space: nowrap;
-    padding: 0.69rem;
+    padding: 0.5rem;
     border-radius: 10px;
     mix-blend-mode: normal !important;
-    transition: 150ms !important;
+    box-shadow: 0 0 5px var(--theme-color);
+    transform: translate(-50%,-50%) scale(1.1);
   }
   
   @include color-scheme(dark){
@@ -123,7 +130,7 @@
       background: rgba(175, 0, 255, 0.9) !important;
     }
     .cursor-title{
-      background: rgba(140, 0, 255, 0.9) !important;
+      background: rgba(100, 0, 255, 0.9) !important;
     }
   }
 
@@ -139,12 +146,14 @@
   }
 
   .cursor-outline-press{
+    transform: translate(-50%, -50%) scale(1) !important;
     border-color: var(--theme-color) !important;
-    box-shadow: 0 0 10px 1px var(--theme-color);
+
   } 
 
   .cursor-dot-press{  
     opacity: 0 !important;
+    transform: translate(-50%, -50%) scale(0) !important;
   }
   
 
@@ -241,5 +250,3 @@
     transform: rotate(-360deg);
   }
 }
-
-

@@ -17,3 +17,37 @@
 .floating{
   animation: float 6s ease-in-out infinite;
 }
+
+.mist-1{
+	animation: mist-1 15s linear infinite alternate;
+}
+.mist-2{
+	animation: mist-2 10s ease-in-out infinite alternate;
+}
+
+@keyframes mist-1 {
+	$first: translate(100%, 300px);
+	$second: translate(150%, 600px) rotate(180deg);
+	$third: translate(20%, 1000px);
+	$fourth: translate(200%, 450px);
+
+	0% { opacity: 0.3; }
+	25% { transform: $first; }
+	50%{ transform: $second; opacity: 0.1;}
+	75% { transform: $third; }
+	100% { opacity: 0.5; transform: $fourth;}
+
+}
+
+@keyframes mist-2 {
+	$first: translate(300px, -300px);
+	$second: translate(1000px, -500px);
+	$third: translate(600px, -100px);
+
+	0% { opacity: 0.1;}
+	25% { transform: $first; }
+	50%{transform: $second; opacity: 0.6; }
+	75% { }
+	100% {transform: $third; opacity: 0.3; }
+
+}

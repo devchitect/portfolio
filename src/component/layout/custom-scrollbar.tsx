@@ -48,8 +48,7 @@ const CustomScrollbar = () => {
         if(timer.current !== null){
             clearTimeout(timer.current);
         }
-
-        timer.current = setTimeout( deactiveScrollbar, 2000);
+        timer.current = setTimeout( deactiveScrollbar, 1500);
     },[]);
 
     const activeScrollbarExtend = () => {
@@ -176,11 +175,11 @@ const CustomScrollbar = () => {
             onMouseOut={activeScrollbar}
             className="scrollbar-wrapper fixed items-center h-[100vh] right-[30px] top-0 z-20 select-none 
             xl:flex sm:hidden">
-                <div className="scrollbar relative h-[69%] duration-[1s] w-[13px] ease-in-out mx-auto" ref={scrollBarRef}>
+                <div className="scrollbar relative h-[69%] duration-[500ms] w-[13px] ease-in-out mx-auto glassmorphism rounded-md" ref={scrollBarRef}>
                     <div
                     ref={scrollTrackRef}
                     onClick={handleTrackClick}
-                    className="track absolute h-full w-full dark:bg-[#ffffff36] bg-[#00000060] rounded-md glassmorphism
+                    className="track absolute h-full w-full rounded-md  
                     "></div>
               
                     <div 
@@ -189,7 +188,7 @@ const CustomScrollbar = () => {
                     onMouseDown={(e) => {dispatch(hoverTitle('Drag')); handleThumbMousedown(e)}}
                     onMouseLeave={() => dispatch(hoverOff())}
                     style={{height: `${thumbHeight}px`, boxShadow: '0 0 8px var(--theme-color)'}}
-                    className={`thumb absolute w-full bg-bgGradient rounded-md opacity-90`}></div>
+                    className={`thumb absolute w-[90%] left-0 right-0 mx-auto bg-bgGradient rounded-md opacity-80 hover:opacity-100 transition-[opacity]`}></div>
                 </div>
                
             </main>

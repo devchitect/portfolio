@@ -36,9 +36,9 @@ export default function ScrollProgress(){
         <>
             <div 
             className="fixed flex flex-col items-center w-full 
-            h-[0.5rem] left-0 bottom-0 z-5 pointer-events-none opacity-[0.8] overflow-hidden ">
+            h-[0.69rem] left-0 bottom-0 z-5 pointer-events-none opacity-[0.9] overflow-hidden ">
                 <div ref={progressLine}
-                className="scroll-progress h-1/2 w-full bg-themeColor rounded-r-lg ease-out duration-300 translate-x-[-100%] "/>
+                className="scroll-progress h-1/2 my-auto w-full bg-themeColor ease-out duration-300  "/>
             </div>
         </>
     )

@@ -2,12 +2,14 @@
 
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-
+import { Suspense } from 'react'
+import Loading from '../../loading'
 import '@/styles/pages/about.scss'
 
-import { LibraryRegular, NeueMachinaUltraBold } from '@/component/layout/fonts'
+import { LibraryRegular, NeueMachinaBold, NeueMachinaUltraBold } from '@/component/layout/fonts'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import MarqueeMotion from '@/component/utils/marquee-motion'
+
 
 const DynamicStaggeredText = dynamic(() => import('../../../../component/utils/staggered-text'), {
   loading: () => null,
@@ -31,16 +33,21 @@ export default function About({params: {language}}) {
     return (
       <>
         <div className=' min-h-[95vh]'>
+        <div className={`absolute w-full flex flex-col overflow-hidden -z-2 opacity-[0.07] ${NeueMachinaBold.className}`}>
+          <div className='-tracking-[0.8rem] text-[40rem] -translate-x-[10rem] -translate-y-[10rem]'>ABOUT</div>
+        </div>
           <div className='my-20 relative'>
             <div className='relative w-[35%] mx-auto corner-border floating'>
-            <Image
-            priority={true}
-            src={`/assets/images/me.jpg`}
-            alt="Picture of the author"
-            width={500}
-            height={500}
-            className='w-full h-auto'
-            />                
+            <Suspense fallback={<Loading/>}>
+              <Image
+              priority={true}
+              src={`/assets/images/me.jpg`}
+              alt="Picture of the author"
+              width={500}
+              height={500}
+              className='w-full h-auto'
+              />     
+            </Suspense>           
             </div>
 
             <div

@@ -30,7 +30,7 @@ const Cursor = () => {
 
     },[])
     const mouseOnDesc = useCallback(() => {
-        setLatency(0);
+        setLatency(l*2);
         outline.current.classList.add('cursor-title')
     },[])
 

@@ -89,7 +89,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
         className={`nav z-20 duration-500 ease-out glassmorphism ${InterSemiBold.className}
         lg:rounded-md
         lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:bg-transparent lg:dark:bg-transparent lg:h-auto lg:w-auto lg:overflow-visible
-        sm:absolute sm:right-0  sm:left-0 sm:top-full  sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
+        sm:absolute sm:right-0 sm:left-0 sm:top-full  sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
         `}> 
             <ul 
             className='z-10

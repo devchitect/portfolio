@@ -3,11 +3,11 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useDispatch } from 'react-redux'
-import { hoverOn, hoverOff, hoverTitle } from '@/app/redux/slices/cursorSlice';
+import { hoverOff, hoverTitle } from '@/app/redux/slices/cursorSlice';
 import Magnetic from '../utils/magnetic';
 import { usePageNavigate } from '../custom-hook/use-page_navigate';
 import EncryptText from '../utils/encrypted-text';
@@ -16,57 +16,55 @@ import Marquee from '../utils/marquee-regular';
 
 import { nickname } from './header';
 
+//import StaggeredText from '../utils/staggered-text';
 const DynamicStaggeredText = dynamic(() => import('../utils/staggered-text'), {
   loading: () => null,
   ssr: false
 })
-export default function Footer(){
 
+export default function Footer(){
   const navigate = usePageNavigate();
   const dispatch = useDispatch();
-  const sectionRef = useRef<HTMLDivElement>(null);
-
+  const sectionRef = useRef<HTMLElement>(null);
 
   return(
+    <>
       <footer ref={sectionRef}
-      className='footer'
+      className='footer relative overflow-hidden'
       >
+ 
         <div
-        className={` footer-contact-trigger
+        className={`
         ${InterExtraBold}
         flex flex-col w-full min-h-screen relative overflow-hidden
         
         `}>
-
           <div
-          className='relative overflow-hidden mt-3'>
-            <Marquee marqueedirec={'forward'}
+          className='relative mt-3 opacity-80 hover:opacity-100 duration-300'>
+            <Marquee direction={'forward'}
             text={['PASSIONATE', 'INNOVATIVE', 'OPEN MINDED']}
             /> 
           </div>
           <div
-          className='relative overflow-hidden mt-6 '>
-            <Marquee  marqueedirec={'backward'}
+          className='relative  mt-6 opacity-80 hover:opacity-100 duration-300'>
+            <Marquee  direction={'backward'} 
             text={['MULTIDISCIPLINARY', 'INTEGRITY', 'RESPONSIBLE']}
             /> 
           </div>
 
           <div 
-          className='footer-contact relative
+          className='relative
           lg:px-per10
           sm:px-per10 sm:mt-20
           '>
-            <div className={`${LibrarySoft.className} 
+            <div className={`${LibrarySoft.className} footer-contact
             inline-block
             `}>
+              <div className='relative leading-[1.05] ml-1 '>
 
-               
-
-              <div className='relative leading-[1.05] ml-1'>
-
-                <div className='absolute w-[100%] h-[40%] flex justify-center items-center pointer-events-none select-none bottom-10 left-per5 opacity-60 -z-2'>
+                <div className='absolute w-[100%] h-[40%] flex justify-center items-center pointer-events-none select-none bottom-10 left-per5 opacity-100 -z-5'>
                   <div 
-                  className='float-bg-gradient h-[100%] w-[100%] rounded-[50%] '/>
+                  className='gradient-mist h-[100%] w-[100%] rounded-[50%] '/>
                 </div>    
 
                 <div className='flex items-center justify-start'>
@@ -103,7 +101,7 @@ export default function Footer(){
           '>
 
             <div
-            className='absolute w-full overflow-hidden opacity-50'
+            className='absolute w-full overflow-hidden opacity-50 '
             >
               <div 
               className='h-[1px] left-0 w-full top-0 bottom-0 my-auto border border-solid border-y-[1px] border-x-0 border-[var(--font-color)] 
@@ -118,7 +116,7 @@ export default function Footer(){
             className={` 
             lg:mx-auto lg:p-1 origin-center will-change-[transform] rounded-full glassmorphism
             outline-2 outline outline-[var(--font-color)]
-            sm:ml-auto sm:mx-per10 sm:py-10 
+            sm:ml-auto sm:my-5 
             
             `}>
               <Magnetic>
@@ -165,6 +163,7 @@ export default function Footer(){
             <Socials/>
           </div>
       </footer>
+      </>
   )
 }
 
@@ -176,9 +175,6 @@ const socials = [
 ];
 
 function Socials(){
-
-    const dispatch = useDispatch();
-
     return(
         <>
             <div className={` z-10 
@@ -186,12 +182,10 @@ function Socials(){
             `}>
                 {socials.map((s) => ( 
                     <a 
-                    className='block opacity-100 hover:text-themeColor mx-3'
-                    key={s.icon} href={s.href}
-                    onMouseEnter={() => {dispatch(hoverTitle(s.title))}}
-                    onMouseLeave={() => {dispatch(hoverOff())}}
+                    className='block opacity-100 mx-3'
+                    key={s.icon} href={s.href} target='_blank' title={s.title}
                     >
-                        <Icon icon={s.icon} className='block hover:scale-150 duration-150 lg:text-xl sm:text-lg'/>
+                        <Icon icon={s.icon} className='block hover:scale-[1.75] duration-300 lg:text-xl sm:text-lg'/>
                     </a>     
                 ))}
             </div>

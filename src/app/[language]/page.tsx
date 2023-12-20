@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { hoverOn, hoverOff, hoverTitle } from '@/app/redux/slices/cursorSlice';
-
+//GSAP have its bugs on SPA Framework, not workin on every case
 import gsap from "gsap";
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -21,7 +21,7 @@ import EncryptText from '@/component/utils/encrypted-text'
 import { usePageNavigate } from '@/component/custom-hook/use-page_navigate'
 import { desktop } from '@/component/layout/responsive-media_queries';
 import { RevealedText, RevealedTextParagraph } from '@/component/utils/revealed-text';
-import { InterBold, InterMedium, InterSemiBold, LibraryRegular, LibrarySoft, NeueMachinaBlack, NeueMachinaBold, NeueMachinaUltraBold } from '@/component/layout/fonts';
+import { InterBlack, InterBold, InterMedium, InterSemiBold, LibraryRegular, LibrarySoft, NeueMachinaBlack, NeueMachinaBold, NeueMachinaUltraBold } from '@/component/layout/fonts';
 import StaggeredText from '@/component/utils/staggered-text';
 
 
@@ -52,14 +52,14 @@ export default function LandingHomepage ({params: {language}}) {
 
     if(desktop){
 
-      const serviceBoxs = gsap.utils.toArray('.service-box');
+    const serviceBoxs = gsap.utils.toArray('.service-box');
 
     aboutButtonTimeline.current = gsap.timeline({
       scrollTrigger: {
         trigger: '.about-btn',
             markers: false,
-            start: 'top 50%',
-            end: 'bottom 0%',
+            start: 'top center',
+            end: 'bottom top',
             scrub: 0.69,
       }
     })
@@ -73,8 +73,8 @@ export default function LandingHomepage ({params: {language}}) {
           scrollTrigger: {
             trigger: '.collab-trigger',
             markers: false,
-            start: 'top 100%',
-            end: '100% 0%',
+            start: 'top bottom',
+            end: 'bottom top',
             scrub: true,
           }
         }
@@ -91,7 +91,7 @@ export default function LandingHomepage ({params: {language}}) {
             scrollTrigger: {
               trigger: el,
               markers: false,
-              start: 'center 100%',
+              start: 'bottom 100%',
               end: 'bottom 50%',
               scrub: 0.3,
             }
@@ -121,12 +121,17 @@ const  FirstSection = () => {
   const navigate = usePageNavigate();
 
   return(
+
   <>
     <div 
     className={`relative w-full z-1 ${'home-intro'}
     lg:pt-0  
     sm:pt-32 sm:flex sm:flex-col sm:items-start sm:px-[10%]
     `}>
+      <div className="absolute w-screen h-screen -z-1">
+        <div className='w-[650px] h-[650px] gradient-mist mist-1 rounded-full'/>
+        <div className='w-[380px] h-[380px] gradient-mist mist-2 rounded-full'/>
+      </div>
       <div 
         className='absolute flex items-center dark:text-gray-200 opacity-50 hover:opacity-100 z-1
         md:bottom-auto md:top-10 md:right-auto md:px-0 
@@ -247,52 +252,23 @@ const  FirstSection = () => {
         </span>
         </Magnetic>
       </div>
-      
+
     </div>
   </>
   )
 }
 
 const SecondSection = () => {
-  const [isClient, setIsClient] = useState(false); 
-
-  const [maskPosition, setMaskPosition] = useState({x:0, y:0}); 
-  const [maskSize, setMaskSize] =  useState(0);
-
-  //
-  const updateMaskPosition = useCallback((e : React.MouseEvent<HTMLDivElement, MouseEvent> ) =>{
-    showMask();
-    const target =  e.currentTarget as HTMLElement;
-    const rect  = target.getBoundingClientRect()
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    setMaskPosition({x:x, y: y});
-  },[]);
-
-  function showMask(){
-    setMaskSize(500);
-  }
-  const hideMask = useCallback(() => {
-    setMaskSize(0);
-  },[])
-
  
-  useEffect(() => {
-    hideMask();
-    window.addEventListener('scroll', hideMask);
-
-    return () => {
-      window.removeEventListener('scroll', hideMask)
-    }
-  },[hideMask, updateMaskPosition])
-  
-  useEffect(() => {
-    setIsClient(true);
-  },[])
-
   return (
     <section className='home-section2'>
+      
+      <div className={`absolute h-full w-full flex -z-1 opacity-[0.69] justify-center items-center overflow-hidden ${NeueMachinaBlack.className} text-stroke`}>
+        <div className='tracking-[24px] mb-[15px]'>
+          <span className='lg:text-[230px]'>EXCEPTIONAL</span>
+        </div>
+      </div>
+
       <div 
       className={`relative text-left collab-trigger
       lg:center lg:mb-10 lg:pt-0 lg:h-screen
@@ -301,14 +277,14 @@ const SecondSection = () => {
       `}
     >     
         <div 
-        className={`${'collab'} something relative leading-[1] text-center select-none h-full
+        className={`${'collab'} relative leading-[1] text-center select-none h-full
         lg:mx-[10%] lg:mt-[7rem] 
         sm:mx-[10%] sm:mt-[3rem] sm:mb-[var(--header-height)] ease-out will-change-transform
         `}>
           
-          <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-1'>
+          <div className='absolute w-full h-full flex justify-center items-center pointer-events-none select-none -z-5'>
             <div 
-            className='float-bg-gradient h-[18%] w-[69%] rounded-[69%] opacity-70'/>
+            className='gradient-mist h-[18%] w-[69%] rounded-[69%] opacity-90'/>
           </div>
 
           <div className='px-6 flex flex-col items-center justify-center h-full
@@ -333,14 +309,14 @@ const SecondSection = () => {
             <div className={`relative z-1 pointer-events-none select-none
             lg:text-[130px] 
             md:text-[4.2rem] md:py-5
-            sm:text-[2.2rem] sm:py-3 sm:px-5
+            sm:text-[2.1rem] sm:py-3 sm:px-5
             `}>
-              <div className={`${NeueMachinaUltraBold.className} z-3 text-gradient opacity-90`}>EXCEPTIONAL</div>
+              <div className={`${NeueMachinaBlack.className} z-3 text-gradient opacity-90 tracking-[0.1rem]`}>EXCEPTIONAL</div>
               <span className={`absolute xl:-right-[35px] sm:right-3 rotate-[-15deg] rounded-md border-4 border-double border-black -z-1
               bg-[#ffe600] text-black ${InterBold.className}
               lg:text-[30px] lg:px-5 lg:py-3 lg:top-[72%]
               md:text-[1.8rem] 
-              sm:text-[0.8rem] sm:p-2 sm:pb-1 sm:top-[60%]
+              sm:text-[0.78rem] sm:p-2 sm:pb-1 sm:top-[60%]
               `}>No Bullsh!t</span>
             </div>
 
@@ -351,8 +327,8 @@ const SecondSection = () => {
             `}>
             <div className={`${LibraryRegular.className} relative `}>
               <span className=''>DIGITAL</span>
-              <ul className={`${InterSemiBold.className} absolute w-full whitespace-nowrap opacity-90 text-left leading-[1.75] tracking-[0.1rem] top-full
-                lg:text-[23px] lg:left-1/3  lg:mt-5 
+              <ul className={`${InterSemiBold.className} absolute w-full whitespace-nowrap opacity-90 text-left leading-[1.75] tracking-[-0.01rem] top-full
+                lg:text-[20px] lg:left-1/3  lg:mt-5 
                 sm:text-[0.69rem] sm:left-[10%] sm:mt-2
                 `}>
                 <li>+ Website</li>
@@ -366,46 +342,6 @@ const SecondSection = () => {
             </div>
           </div>
 
-          {(isClient && desktop) && 
-          <motion.div 
-          onMouseLeave={() => {hideMask()}}
-          onMouseMove={(e) => {updateMaskPosition(e)}}
-          animate={{
-            WebkitMaskPosition: `${maskPosition.x - maskSize/2}px ${maskPosition.y - maskSize/2}px`,
-            WebkitMaskSize: `${maskSize}px`, 
-          }}
-          transition={{type:'tween', ease:'backOut'}}
-          className={`mask px-6 py-[3.8rem] flex-col items-center absolute h-full w-full justify-center top-0 left-0 select-none z-2 
-          xl:flex
-          sm:hidden
-          `}>
-            <div className={`relative tracking-[-0.15rem] 
-            lg:text-[110px]
-            `}>
-              <span className={`${InterBold.className}`}>CRAFTING</span>
-            </div>
-
-            <div className={`relative sm:px-5 sm:py-5 rounded-md 
-            lg:text-[130px]
-            `}>
-              <div style={{textShadow: '0 0 15px var(--theme-color)'}} className={`opacity-80 ${NeueMachinaUltraBold.className}`}>EXCEPTIONAL</div>
-              <span className={`absolute -right-[35px] top-[72%] rotate-[-15deg] rounded-md border-4 border-double border-black opacity-80 
-              bg-[#ffe600] text-black ${InterBold.className}
-              lg:text-[30px] lg:px-5 lg:py-3
-              `}>No Bullsh!t</span>
-            </div>
-
-            <div className={`relative font-b tracking-[-0.15rem] flex  z-2
-            lg:text-[110px]
-            `}>
-            <div className={`mask-text ${LibraryRegular.className}`}>DIGITAL</div>
-            <div className='relative'>
-              <span className={`${InterBold.className}`}>&nbsp;PRODUCTS</span>
-            </div>
-            </div>
-          </motion.div>
-          }
-
         </div>
       </div>
     </section>
@@ -413,13 +349,8 @@ const SecondSection = () => {
 }
 
 const ThirdSection = () => {
-  const dispatch = useDispatch();
+  const [isActive, setIsActive] = useState<number>(); 
 
-  const pathSVG = useRef<any>();
-  const pathLength = useRef(0);
-
-  const [ servicesTitle, setServicesTitle ] = useState([])
-  const servicesContentRef = useRef<Array<HTMLDivElement | null>>([]);
   const services = [
     {
       title : 'ANALYSIS',
@@ -440,21 +371,12 @@ const ThirdSection = () => {
   ]
 
   function toggleService(index : number){
-    servicesContentRef.current.forEach((ref, i) => {
-      if(i === index){
-        ref!.style.transitionDuration = '500ms';
-        ref!.style.height = '100%';
-
-      }else{
-        ref!.style.transitionDuration = '0ms';
-        ref!.style.height = '0';
-      }
-    })
+    if(isActive !== index){
+      setIsActive(index);
+    }else{
+      setIsActive(undefined);
+    }
   }
-
-  useEffect(() => {
-    pathLength.current = pathSVG.current.getTotalLength();
-  },[])
 
   return (
     <>
@@ -462,28 +384,21 @@ const ThirdSection = () => {
       className='my-20 relative w-full
       '
       >
-        <div className='absolute top-20 h-auto -z-1 sm:hidden xl:block w-full overflow-hidden opacity-40 select-none pointer-events-none'>
-        <svg width="1920" height="604" viewBox="0 0 1920 604" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path 
-           ref={pathSVG}
-           style={{
-             strokeDasharray: `${pathLength.current}`,
-             strokeDashoffset: pathLength.current
-           }}
-           className={`fill-transparent stroke-black dark:stroke-white stroke-2 svg-draw
-           `}
-           d="M0 170.14H243.172V2L320.643 79.4376L398.114 2V170.14H390.224V23.8689L320.643 93.4193L293.744 66.5313H410.309V170.14H516.473V66.5313L451.913 2H464.467L516.473 53.9835L568.478 2H580.314L510.017 72.2674V90.5513H524.722V170.14H696.521V338.28H605.421V326.449H795.511V262.276H605.421V180.895H795.511V193.801H615.463V273.748H804.836V338.28H828.867V273.748H932.52V262.276H828.867V193.801H932.52V180.895H842.496V338.28H968.745V180.895H985.96H1085.31V273.748H998.872V262.276H1072.04V193.801H985.96V338.28H998.872V282.734H1072.04V338.28H1168.3L1109.79 180.895H1122.29L1161.8 282.734L1199.81 180.895H1212.82L1161.8 306.253H1141.3V326.449H1242.32V338.28H1257.33V180.895H1242.32V306.253H1272.83V338.28H1456.38V326.449H1336.85V193.801H1456.38V180.895H1324.84V314.26H1484.89V180.895H1592.41V193.801H1504.39V262.276H1592.41V273.748H1504.39V326.449H1592.41V338.28H1524.9V314.26H1694.94V338.28H1637.43V326.449H1765.46V273.748H1637.43V180.895H1765.46V193.801H1627.42V262.276H1754.46V314.26H1845.48V548.455H1920V519.931H1876.49V603H1810.47V404.835H510.017V436.862H541.141V240.198H230.06V2H214.056V157.629H0" stroke="black"/>
-          </svg>
-
+      
+        <div className={`absolute w-full translate-y-[3rem] flex -z-5 opacity-[0.1] justify-center ${NeueMachinaUltraBold.className} overflow-hidden`}>
+          <div className='-tracking-[0.5rem] translate-x-[-17px]'>
+            <span className='text-[465px]'>SERVICE</span>
+          </div>
         </div>
-        
+
+
         <div className={`relative tracking-[0.1rem] my-5 z-3 flex flex-col justify-center items-center      
         sm:mx-[10.05%] sm:text-base 
         `}>
           <RevealedTextParagraph delay={0} text={['I CAN HELP YOU']}
-          className={`${InterSemiBold.className} lg:text-[66px] sm:text-[1.5rem] leading-[1.25] text-stroke`} />
+          className={`${InterBold.className} lg:text-[70px] sm:text-[1.5rem] leading-[1.25] lg:text-stroke`} />
           <RevealedTextParagraph delay={0.1}  text={['WITH']} 
-          className={` ${InterBold.className} lg:text-[58px] sm:text-[1.35rem] leading-[1.25]`} />
+          className={` ${InterBlack.className} lg:text-[63px] sm:text-[1.35rem] leading-[1.25]`} />
           <RevealedText delay={0.2} wrapper={'absolute top-[100%] mt-2'}
           text={<Icon icon={`gg:arrow-up-o`} vFlip={true} className='lg:text-[44px] sm:text-[1.25rem]'/>}/>    
         </div>    
@@ -501,39 +416,9 @@ const ThirdSection = () => {
 
           {services.map((s, index) => {
           return (
-          <div key={s.title} className='service-box w-full my-8'>
-            <div className='lg:w-[60%] sm:w-per80 mx-auto'>
-              <div 
-              onClick={() => {toggleService(index)}}
-              onMouseMove={() => {dispatch(hoverTitle('View'))}}
-              onMouseLeave={() => {dispatch(hoverOff())}}
-              className='relative overflow-hidden flex duration-500 py-3 px-4 items-center justify-between 
-              hover:glassmorphism hover:rounded-t-lg hover:text-themeColor 
-              before:content-[""] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-themeColor
-              before:-translate-x-per100 before:duration-500 before:opacity-0 before:select-none before:pointer-events-none
-              hover:before:translate-x-0 hover:before:opacity-100 
-              '>
-                <RevealedText 
-                wrapper={``}
-                className={`${NeueMachinaBold.className} xl:text-[38px] sm:text-[1.2rem]`}
-                text={index.toString().length < 2 ? `0${index + 1}.` : `${index + 1}.`}
-                />
-                  
-                <StaggeredText once={true}
-                className={`${NeueMachinaUltraBold.className} xl:text-[69px] sm:text-[1.5rem] inline-block leading-[1.2] mb-2`} 
-                text={s.title}
-                />
-              </div>
-              
-              <div ref={(el) => servicesContentRef.current[index] = el} 
-                className='glassmorphism overflow-hidden h-[0] rounded-b-md border-t border-[#00000020] dark:border-[#ffffff20]'>
-                <div className='lg:p-6 sm:p-3 '>
-                  <RevealedTextParagraph once={false} className={`lg:text-2xl sm:text-base leading-relaxed `} text={s.description}/>
-                </div>          
-              </div>
-
-            </div>
-          </div>
+            <ServiceBox key={s.title} 
+            isActive = {isActive === index} setActive={() => toggleService(index)} currentActive = {isActive}
+            s={s} index={index} />
           )})}
         </div>
        
@@ -541,6 +426,53 @@ const ThirdSection = () => {
     </>
   )
 }
+
+const ServiceBox = ({s, index, isActive, setActive, currentActive}) => {
+  const dispatch = useDispatch();
+
+  const { title, description } = s ;
+
+  return (
+    <>
+      <div key={title} className='service-box w-full my-8'>
+        <div className={`lg:w-[60%] sm:w-per80 mx-auto duration-300 ${isActive && 'glassmorphism rounded-lg'}`}>
+          <div 
+          onClick={() => {setActive()}}
+          onMouseMove={() => {currentActive === index ? dispatch(hoverTitle('Close')) : dispatch(hoverTitle('View'));}}
+          onMouseLeave={() => {dispatch(hoverOff())}}
+          className={`relative overflow-hidden flex duration-500 py-3 px-4 items-center justify-between border-b
+          ${!isActive ? 'px-4 border-[#00000030] dark:border-[#ffffff30]' : 'px-8 text-themeColor before:translate-x-0 before:opacity-100 rounded-t-lg border-transparent'}
+          hover:rounded-t-lg hover:text-themeColor hover:px-8
+          before:content-[""] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-themeColor
+          before:-translate-x-per100 before:duration-500 before:opacity-0 before:select-none before:pointer-events-none
+          hover:before:translate-x-0 hover:before:opacity-100 
+          `}>
+            <RevealedText 
+            wrapper={``}
+            className={`${NeueMachinaBold.className} xl:text-[38px] sm:text-[1.2rem]`}
+            text={index.toString().length < 2 ? `0${index + 1}.` : `${index + 1}.`}
+            />
+              
+            <StaggeredText once={true}
+            className={`${NeueMachinaUltraBold.className} xl:text-[69px] sm:text-[1.5rem] inline-block leading-[1.2] mb-2 glowing`} 
+            text={title}
+            />
+          </div>
+          
+          <div 
+            className={`flex w-full ${!isActive ? 'h-[0px]' : 'lg:h-[180px] sm:h-auto'} overflow-hidden items-center
+            duration-300 rounded-b-md`}>
+            <div className='lg:p-5 sm:p-3 '>
+              <DynamicRevealedTextParagraph once={false} className={`${InterMedium.className} lg:text-2xl sm:text-base leading-relaxed `} text={description}/>
+            </div>          
+          </div>
+
+        </div>
+      </div>
+    </>
+  )
+}
+
 
 const FourthSection = () => {
 
@@ -579,7 +511,10 @@ const FourthSection = () => {
             </span>
           </Magnetic>
         </div>
+      
+      
+
+      
     </main>
   )
 }
-

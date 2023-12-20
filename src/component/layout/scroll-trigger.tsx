@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
-import { hoverOn,hoverOff } from "@/app/redux/slices/cursorSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function ScrollTrigger(){
  
     const [pos, setPos] = useState<number>();
-    const dispatch = useDispatch();  
     const path = usePathname();
 
     function scrollNow(){
@@ -50,18 +48,15 @@ export default function ScrollTrigger(){
     return(
       <>   
         <div 
-        onMouseEnter={() => {dispatch(hoverOn())}}
-        onMouseLeave={() => {dispatch(hoverOff())}}
         onClick={() => {scrollNow()}}
-        className='fixed opacity-40 hover:opacity-100 z-10 
+        className='fixed opacity-40 hover:opacity-100 z-10 duration-200 hover:scale-125
         text-white bg-black rounded-full dark:text-black dark:bg-white 
         xl:right-[3.5%] xl:bottom-[155px]
         md:right-10 md:bottom-36  md:text-3xl
         sm:right-5 sm:bottom-28 sm:text-2xl
         '>
           <Icon icon='line-md:chevron-up-circle'
-          className="duration-200 ease-out "
-          style={{transform: `${pos! > 0 ? 'rotate(0deg)' : 'rotate(180deg)'}`}}
+          className={`duration-200 ease-out ${pos! > 0 ? 'rotate-0' : 'rotate-180'}`}
           />
         </div>
         

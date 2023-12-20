@@ -31,13 +31,13 @@ function OverlayGrid(){
   
     return(
       <>
-        <div className='-z-10 opacity-[0.08] select-none pointer-events-none'>
+        <div className='-z-10 opacity-[0.1] select-none pointer-events-none'>
           {grid.map((x) => {
               return (
                   <div key={x}
                     style={{left: `${x*(100/grid.length)}%`}}
                     className='fixed top-0 right-0 h-screen w-[10%] 
-                    border-x border-themeColor'
+                    border-x border-secondaryColor'
                       
                   />
               )

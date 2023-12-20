@@ -16,54 +16,12 @@
     }
 }
 
-.something{
-    --s: 15px; /* the size on the corner */
-    --t: 1px;  /* the thickness of the border */
-    --g: 0px; /* the gap between the border and image */
-    
-    
-    padding: calc(var(--g) + var(--t));
-    outline: var(--t) solid; /* the color here */
-    outline-offset: calc(-1*var(--t));
-
-    mask: 
-    conic-gradient(at var(--s) var(--s),#0000 75%,#000 0)
-      0 0/calc(100% - var(--s)) calc(100% - var(--s)),
-      linear-gradient(#000 0 0) content-box;
-
-    -webkit-mask:
-      conic-gradient(at var(--s) var(--s),#0000 75%,#000 0)
-      0 0/calc(100% - var(--s)) calc(100% - var(--s)),
-      linear-gradient(#000 0 0) content-box;
-
-    &:hover{
-      outline: var(--t) solid var(--theme-color); /* the color here */
-    }
-}
-
-.mask{
-    -webkit-mask-image: url('../../assets/images/background/octagon.svg');
-    mask-image: url('../../assets/images/background/octagon.svg');
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-size: 0px;
-    mask-size: 0px;
-    background: transparent;
-        
-    .mask-text{
-        background: var(--gradient-colorful);
-        background-size: 100%;
-        background-position: center;
-        --webkit-background-clip : text;
-        background-clip: text;
-        color: transparent;
-    }
-}
-
 //SVG Drawing
 .svg-draw{
-    animation: draw forwards 15s ease-in-out infinite alternate;
-  
+    animation: draw forwards 5s ease-in-out infinite alternate-reverse;
+    stroke: var(--font-color);
+    stroke-width: 1px;
+
     @keyframes draw {
       to {
         stroke-dashoffset: 0;
@@ -71,19 +29,17 @@
     }
   }
 
-
 .home-section2{
 position: relative;
 
 &::before{
-content: ' ';
+  content: ' ';
   display: block;
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.5;
   background-repeat: no-repeat;
   background-attachment: fixed ;
   background-size: cover;
@@ -91,10 +47,11 @@ content: ' ';
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  box-shadow: inset 0 0 25px 5px var(--bg-color),
+  box-shadow: 0 0 10px 10px var(--bg-color),
+    inset 0 0 25px 5px var(--bg-color),
     inset 0 0 50px 10px var(--bg-color),
     inset 0 0 75px 15px var(--bg-color),
-    inset 0 0 100px 20px var(--bg-color);
+    inset 0 0 100px 25px var(--bg-color);
 
   }
 }
@@ -102,6 +59,7 @@ content: ' ';
 @include color-scheme(dark){
   .home-section2{
     &::before{
+      opacity: 0.3;
       background-image: url("/assets/images/background/blockchain-shubham_dhage.jpg");
     }
   }
@@ -109,6 +67,7 @@ content: ' ';
 @include color-scheme(light){
   .home-section2{
     &::before{
+      opacity: 0.69;
       background-image: url("/assets/images/background/white-pattern.jpg");
     }
   }  

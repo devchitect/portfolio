@@ -14,10 +14,11 @@ import { wrap } from "@motionone/utils";
 
 interface ParallaxProps {
   children: ReactNode;
-  baseVelocity: number;
+  baseVelocity?: number;
+  className? : string;
 }
 
-export default function MarqueeMotion({ children, baseVelocity = 100 }: ParallaxProps) {
+export default function MarqueeMotion({ children, baseVelocity = 5, className }: ParallaxProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -64,7 +65,7 @@ export default function MarqueeMotion({ children, baseVelocity = 100 }: Parallax
       <motion.div className="" style={{ x }}>
         {[1,2,3,4,5].map((x) => {
           return(
-            <span key={x}>{children}</span>
+            <div key={x} className={`${className}`}>{children}</div>
           )
         })}  
       </motion.div>

@@ -68,6 +68,7 @@ const config: Config = {
       },
       colors: {
         themeColor: 'var(--theme-color)',
+        secondaryColor: 'var(--secondary-color)',
         bgColor: 'var(--bg-color)',
         white: '#FFFFFF',
         black: '#111111',
