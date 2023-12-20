@@ -82,7 +82,7 @@ function Header(){
             hover:tracking-[0.25rem] 
             `}
             onClick={closeNavbar}
-            onMouseEnter={() => {dispatch(hoverOn(''))}}
+            onMouseEnter={() => {dispatch(hoverOn())}}
             onMouseLeave={() => {dispatch(hoverOff())}}
             ><EncryptText target_text={`${nickname}.`} /></div>   
             

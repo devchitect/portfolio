@@ -10,7 +10,7 @@ export default function Marquee({direction = 'forward', text, contrast = false})
         className={`${NeueMachinaUltraBold.className} 
         relative flex select-none border-y-2 border-black dark:border-white dark:text-stroke w-full
         hover:opacity-100 duration-300
-        ${contrast ? 'hover:bg-[var(--bg-color)] hover:text-black bg-[var(--font-color)] text-white' : `hover:bg-[var(--font-color)] hover:text-white text-black dark:text-white` }
+        ${contrast ? 'hover:bg-[var(--bg-color)] hover:text-black bg-[var(--font-color)] text-white' : `hover:bg-[var(--font-color)] hover:text-white text-black dark:text-white hover:dark:text-black` }
         lg:text-[3.8rem] 
         md:text-2xl
         sm:text-lg sm:tracking-wide 
