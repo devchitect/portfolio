@@ -66,7 +66,6 @@ export default function Root({
       </head>
       <body className={`${InterRegular.className}`}>
         <Providers lang={params.language}>
-
           <div 
           className='root-layout relative flex flex-col justify-between 
           '>   

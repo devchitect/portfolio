@@ -50,10 +50,9 @@ html{
 }
 
 body {
-  width: 100vw;
-  position: relative;
-  overflow-x: hidden;
- 
+  overflow-x: clip;
+  overflow-clip-margin: 0;
+
   @include responsive(phone){
     cursor: auto;
 

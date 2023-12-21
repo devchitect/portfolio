@@ -76,7 +76,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
 
     return(
         <>
-        <div className='flex items-center z-1'>
+        <div className='flex items-center z-1 relative'>
             <div 
             onClick={toggleNavbar}
             className="lg:hidden text-2xl glassmorphism p-2">
