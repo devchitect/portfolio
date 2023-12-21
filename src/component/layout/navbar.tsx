@@ -76,7 +76,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
 
     return(
         <>
-        <div className='flex items-center z-1 relative'>
+        <div className='flex items-center z-1'>
             <div 
             onClick={toggleNavbar}
             className="lg:hidden text-2xl glassmorphism p-2">
@@ -85,11 +85,13 @@ export default function Nav({toggleNav, setToggleNav, lang}){
             </div>
 
             <nav ref={navbar}
-            className={`nav duration-500 ease-out ${InterSemiBold.className} glassmorphism
+            className={`nav duration-500 ease-out ${InterSemiBold.className} lg:glasspmorphism sm:glass
             lg:rounded-md
             lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:h-auto lg:w-auto lg:overflow-visible
             sm:absolute sm:right-0 sm:left-0 sm:top-full sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
             `}> 
+                <div>    
+                       
                 <ul 
                 className='
                 lg:grid lg:grid-flow-col lg:gap-2 lg:divide-y-0
@@ -100,7 +102,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
                     <li key={l.label} 
                     className={`grid justify-center relative lg:rounded-md tracking-[0.1rem] 
                     lg:grid-flow-col lg:py-0  lg:mx-[0.55rem] first:lg:mx-0 last:lg:mx-0
-                    sm:grid-flow-row sm:py-2  sm:text-[0.88rem]
+                    sm:grid-flow-row sm:py-2  sm:text-[1.2rem]
                     `}
                     >                    
                         <div 
@@ -137,9 +139,9 @@ export default function Nav({toggleNav, setToggleNav, lang}){
                     <Dropdown key={d.name} navigate={navigate} label={d.name} links={d.links}/>
                 ))}
                 </ul>
-                
-        </nav>    
+            </div>
         <ThemeSwitcher/>
+        </nav>    
       </div>
       </>
     )
@@ -197,7 +199,7 @@ function Dropdown({label, links, navigate}){
                 onClick={(e) => {toggleDropdown(e)}}
                 className={`text-center tracking-[0.1rem]
                 lg:py-0 lg:px-3 lg:w-auto 
-                sm:py-4 sm:w-full sm:text-[0.88rem] 
+                sm:py-4 sm:w-full sm:text-[1.2rem] 
                 `}
                 >{label.toUpperCase()}</span>
 
