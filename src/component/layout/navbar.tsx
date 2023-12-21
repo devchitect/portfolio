@@ -76,7 +76,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
 
     return(
         <>
-        <div className='flex items-center'>
+        <div className='flex items-center z-1'>
             <div 
             onClick={toggleNavbar}
             className="lg:hidden text-2xl glassmorphism p-2">
@@ -85,13 +85,13 @@ export default function Nav({toggleNav, setToggleNav, lang}){
             </div>
 
             <nav ref={navbar}
-            className={`nav z-20 duration-500 ease-out ${InterSemiBold.className} glassmorphism 
+            className={`nav duration-500 ease-out ${InterSemiBold.className} glassmorphism
             lg:rounded-md
             lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:h-auto lg:w-auto lg:overflow-visible
-            sm:absolute sm:right-0 sm:top-full sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
+            sm:absolute sm:right-0 sm:left-0 sm:top-full sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
             `}> 
                 <ul 
-                className='z-10 glass
+                className='
                 lg:grid lg:grid-flow-col lg:gap-2 lg:divide-y-0
                 sm:grid sm:grid-flow-row sm:gap-0 sm:divide-solid sm:dark:divide-neutral-800 sm:divide-neutral-400 sm:divide-inherit sm:divide-y-2
                 '>
