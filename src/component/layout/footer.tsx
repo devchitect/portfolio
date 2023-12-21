@@ -40,13 +40,13 @@ export default function Footer(){
         
         `}>
           <div
-          className='relative mt-3 opacity-80 hover:opacity-100 duration-300'>
-            <Marquee direction={'forward'}
+          className='relative mt-3 '>
+            <Marquee direction={'forward'} contrast={true}
             text={['PASSIONATE', 'INNOVATIVE', 'OPEN MINDED']}
             /> 
           </div>
           <div
-          className='relative  mt-6 opacity-80 hover:opacity-100 duration-300'>
+          className='relative  mt-6 '>
             <Marquee  direction={'backward'} 
             text={['MULTIDISCIPLINARY', 'INTEGRITY', 'RESPONSIBLE']}
             /> 
@@ -114,8 +114,7 @@ export default function Footer(){
             onMouseMove={() => {dispatch(hoverTitle('Now!'))}}
             onMouseLeave={() => {dispatch(hoverOff())}}
             className={` 
-            lg:mx-auto lg:p-1 origin-center will-change-[transform] rounded-full glassmorphism
-            outline-2 outline outline-[var(--font-color)]
+            lg:mx-auto lg:p-1 origin-center rounded-full glassmorphism
             sm:ml-auto sm:my-5 
             
             `}>

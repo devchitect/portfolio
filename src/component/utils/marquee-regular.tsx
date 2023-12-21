@@ -8,9 +8,8 @@ export default function Marquee({direction = 'forward', text, contrast = false})
       <>
         <div      
         className={`${NeueMachinaUltraBold.className} 
-        relative flex select-none border-y-2 border-black dark:border-white dark:text-stroke w-full
-        hover:opacity-100 duration-300
-        ${contrast ? 'hover:bg-[var(--bg-color)] hover:text-black bg-[var(--font-color)] text-white' : `hover:bg-[var(--font-color)] hover:text-white text-black dark:text-white hover:dark:text-black` }
+        relative flex select-none border-y-2 border-black dark:border-white text-stroke  w-full
+        hover:opacity-100 duration-300 hover:bg-[var(--font-color)] hover:text-white
         lg:text-[3.8rem] 
         md:text-2xl
         sm:text-lg sm:tracking-wide 

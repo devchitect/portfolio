@@ -104,7 +104,7 @@ export default function LandingHomepage ({params: {language}}) {
   return (
     <>
       <main ref={GSAPContext} className=''>
-          <FirstSection/>
+          {/* <FirstSection/> */}
           <div className='w-5 h-20'/>
           <SecondSection/>
           <div className='w-5 lg:h-20'/>
@@ -124,7 +124,7 @@ const  FirstSection = () => {
 
   <>
     <div 
-    className={`relative w-full z-1 ${'home-intro'} 
+    className={`relative w-full z-1 ${'home-intro'} overflow-hidden
     lg:pt-0  
     sm:pt-32 sm:flex sm:flex-col sm:items-start sm:px-[10%]
     `}>
@@ -156,9 +156,9 @@ const  FirstSection = () => {
       lg:
       sm:bottom-10
       '>
-        <span className='tracking-[0.1rem] lg:text-[0.78rem] sm:text-[0.69rem] border-l border-themeColor border-dashed'>
-        SCROLL TO DISCOVER
-        <Icon icon='solar:arrow-up-broken' vFlip={true}  className='sm:text-[0.9rem] absolute bottom-0 right-full mr-1'/>
+        <span className={`tracking-[0.1rem] lg:text-[0.78rem] sm:text-[0.69rem] border-l border-themeColor border-dashed ${InterSemiBold.className}`}>
+          <span>SCROLL TO DISCOVER</span>
+          <Icon icon='solar:arrow-up-broken' vFlip={true}  className='sm:text-[0.9rem] absolute bottom-0 right-full mr-1'/>
         </span>
         
       </div>
@@ -198,7 +198,7 @@ const  FirstSection = () => {
                   THE DEVELOPER</div>}
             />
             <div className={`absolute bottom-full lg:right-3 sm:right-1 -mb-2 leading-[1.5rem]`}>
-              <DynamicRevealedText delay={0.6} className={`${InterMedium.className} lg:text-[1rem] sm:text-[0.8rem]`} text={<>MAIN</>}/>
+              <DynamicRevealedText delay={0.6} className={`${InterSemiBold.className} lg:text-[1rem] sm:text-[0.8rem]`} text={<>MAIN</>}/>
             </div>
         </div>
 
@@ -219,7 +219,7 @@ const  FirstSection = () => {
                   DESIGNER</div>}
             />
             <div className={`absolute top-full lg:right-3 sm:left-1 -mb-2 leading-[1.5rem]`}>
-                <DynamicRevealedText delay={0.9} className={`${InterMedium.className} lg:text-[1rem] sm:text-[0.8rem]`} text={<>MAJOR</>}/>
+                <DynamicRevealedText delay={0.9} className={`${InterSemiBold.className} lg:text-[1rem] sm:text-[0.8rem]`} text={<>MAJOR</>}/>
             </div>
         </div>
       </article>
@@ -385,10 +385,11 @@ const ThirdSection = () => {
       '
       >
       
-        <div className={`absolute w-full translate-y-[3rem] flex -z-5 opacity-[0.1] justify-center ${NeueMachinaUltraBold.className} overflow-hidden`}>
-          <div className='-tracking-[0.5rem] translate-x-[-17px]'>
-            <span className='text-[465px]'>SERVICE</span>
+        <div className={`absolute w-full translate-y-[165px] flex flex-col -z-5 items-center justify-center ${NeueMachinaUltraBold.className} leading-none overflow-hidden`}>
+          <div className='-tracking-[0.5rem] translate-x-[-17px] translate-y-[15px]  opacity-[0.1]'>
+            <span className='text-[456px]'>SERVICE</span>
           </div>
+
         </div>
 
 
@@ -408,7 +409,7 @@ const ThirdSection = () => {
         lg:mt-44  
         sm:mb-10 sm:mt-16
         '>
-          <div className='lg:mx-per20 sm:mx-per10 my-10 border-l border-themeColor glassmorphism px-2 py-1 rounded-r-md'>
+          <div className='lg:mx-per20 sm:mx-per10 lmy-10 border-l border-themeColor glassmorphism px-2 py-1 rounded-r-md'>
             <RevealedText 
             className={`${NeueMachinaBold.className} lg:text-[1.2rem] sm:text-[0.78rem] flex items-center`}
             text={<div>TARGET : WEBSTE / WEB APPLICATION</div>}/>
