@@ -36,7 +36,7 @@ export default function Footer(){
         <div
         className={`
         ${InterExtraBold}
-        flex flex-col w-full min-h-screen relative overflow-hidden
+        flex flex-col w-full min-h-screen relative 
         
         `}>
           <div

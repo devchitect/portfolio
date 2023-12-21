@@ -76,7 +76,7 @@ export default function Nav({toggleNav, setToggleNav, lang}){
 
     return(
         <>
-        <div className="flex items-center glassmorphism rounded-lg px-2 py-1">
+        <div className='flex items-center'>
             <div 
             onClick={toggleNavbar}
             className="lg:hidden text-2xl">
@@ -84,15 +84,14 @@ export default function Nav({toggleNav, setToggleNav, lang}){
                 {toggleNav &&  <Icon icon="line-md:menu-to-close-alt-transition"/> }
             </div>
 
-            <nav 
-            ref={navbar}
-            className={`nav z-20 duration-500 ease-out ${InterSemiBold.className}
+            <nav ref={navbar}
+            className={`nav z-20 duration-500 ease-out ${InterSemiBold.className} glassmorphism self-right
             lg:rounded-md
-            lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:bg-transparent lg:dark:bg-transparent lg:h-auto lg:w-auto lg:overflow-visible
-            sm:absolute sm:right-0 sm:left-0 sm:top-full  sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
+            lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:h-auto lg:w-auto lg:overflow-visible
+            sm:absolute sm:right-0 sm:left-0 sm:top-[var(--header-height)] sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
             `}> 
                 <ul 
-                className='z-10
+                className='z-10 
                 lg:grid lg:grid-flow-col lg:gap-2 lg:divide-y-0
                 sm:grid sm:grid-flow-row sm:gap-0 sm:divide-solid sm:dark:divide-neutral-800 sm:divide-neutral-400 sm:divide-inherit sm:divide-y-2
                 '>
