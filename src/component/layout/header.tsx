@@ -27,9 +27,9 @@ function Header(){
     const scrolledHeader = useCallback(() => {
 
         if(document.documentElement.scrollTop === 0){
-            header.current.classList.remove("glassmorphism");
+            header.current.classList.remove("glass");
         }else{
-            header.current.classList.add("glassmorphism");
+            header.current.classList.add("glass");
         }
         
         if(minLarge){

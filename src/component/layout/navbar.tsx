@@ -76,71 +76,71 @@ export default function Nav({toggleNav, setToggleNav, lang}){
 
     return(
         <>
-        <div className="flex items-center">
-        <div 
-        onClick={toggleNavbar}
-        className="lg:hidden text-2xl">
-            {!toggleNav && <Icon icon="line-md:close-to-menu-alt-transition"/>}
-            {toggleNav &&  <Icon icon="line-md:menu-to-close-alt-transition"/> }
-        </div>
+        <div className="flex items-center glassmorphism rounded-lg px-2 py-1">
+            <div 
+            onClick={toggleNavbar}
+            className="lg:hidden text-2xl">
+                {!toggleNav && <Icon icon="line-md:close-to-menu-alt-transition"/>}
+                {toggleNav &&  <Icon icon="line-md:menu-to-close-alt-transition"/> }
+            </div>
 
-        <nav 
-        ref={navbar}
-        className={`nav z-20 duration-500 ease-out glassmorphism ${InterSemiBold.className}
-        lg:rounded-md
-        lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:bg-transparent lg:dark:bg-transparent lg:h-auto lg:w-auto lg:overflow-visible
-        sm:absolute sm:right-0 sm:left-0 sm:top-full  sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
-        `}> 
-            <ul 
-            className='z-10
-            lg:grid lg:grid-flow-col lg:gap-2 lg:divide-y-0
-            sm:grid sm:grid-flow-row sm:gap-0 sm:divide-solid sm:dark:divide-neutral-800 sm:divide-neutral-400 sm:divide-inherit sm:divide-y-2
-            '>
+            <nav 
+            ref={navbar}
+            className={`nav z-20 duration-500 ease-out ${InterSemiBold.className}
+            lg:rounded-md
+            lg:static lg:grid lg:grid-flow-col lg:gap-5 lg:bg-transparent lg:dark:bg-transparent lg:h-auto lg:w-auto lg:overflow-visible
+            sm:absolute sm:right-0 sm:left-0 sm:top-full  sm:w-full sm:h-0 sm:overflow-y-scroll sm:overflow-x-hidden
+            `}> 
+                <ul 
+                className='z-10
+                lg:grid lg:grid-flow-col lg:gap-2 lg:divide-y-0
+                sm:grid sm:grid-flow-row sm:gap-0 sm:divide-solid sm:dark:divide-neutral-800 sm:divide-neutral-400 sm:divide-inherit sm:divide-y-2
+                '>
 
-            {links.map((l) => (     
-                <li key={l.label} 
-                className={`grid justify-center relative lg:rounded-md tracking-[0.1rem] 
-                lg:grid-flow-col lg:py-0  lg:mx-[0.55rem] first:lg:mx-0 last:lg:mx-0
-                sm:grid-flow-row sm:py-2  sm:text-[0.88rem]
-                `}
-                >                    
-                    <div 
-                    
-                    className={`flex flex-col hover:text-themeColor items-center justify-center relative  
-                    ${`/${lang}${l.href}` === path && 'pointer-events-none'}
-                    lg:w-auto
-                    sm:w-screen
+                {links.map((l) => (     
+                    <li key={l.label} 
+                    className={`grid justify-center relative lg:rounded-md tracking-[0.1rem] 
+                    lg:grid-flow-col lg:py-0  lg:mx-[0.55rem] first:lg:mx-0 last:lg:mx-0
+                    sm:grid-flow-row sm:py-2  sm:text-[0.88rem]
                     `}
-                    onMouseEnter={() => {dispatch(hoverOn()); }}
-                    onMouseLeave={() => {dispatch(hoverOff()); }}
-                    > 
-                        <Magnetic>
+                    >                    
                         <div 
-                        onClick={() => {navigate(l.href)}}
-                        className={`nav-link relative flex justify-center items-center overflow-hidden 
-                        ${(`/${lang}${l.href}` === activeNavlink) && `
-                            text-themeColor
-                            ${`before:content-[''] before:absolute before:bg-themeColor before:h-3/5 before:w-per150 before:animate-spin-opacity before:delay-1000`}
-                            ${`after:content-[''] after:absolute after:bg-bgColor after:inset-1 after:rounded-md after:animate-opacity-up`}
+                        
+                        className={`flex flex-col hover:text-themeColor items-center justify-center relative  
+                        ${`/${lang}${l.href}` === path && 'pointer-events-none'}
+                        lg:w-auto
+                        sm:w-screen
                         `}
-                        `}>
-                        <div className={` pointer-events-none
-                        sm:px-3 sm:py-[0.9rem]
-                        relative z-30`}>{l.label.toUpperCase()}</div>
+                        onMouseEnter={() => {dispatch(hoverOn()); }}
+                        onMouseLeave={() => {dispatch(hoverOff()); }}
+                        > 
+                            <Magnetic>
+                            <div 
+                            onClick={() => {navigate(l.href)}}
+                            className={`nav-link relative flex justify-center items-center overflow-hidden 
+                            ${(`/${lang}${l.href}` === activeNavlink) && `
+                                text-themeColor
+                                ${`before:content-[''] before:absolute before:bg-themeColor before:h-3/5 before:w-per150 before:animate-spin-opacity before:delay-1000`}
+                                ${`after:content-[''] after:absolute after:bg-bgColor after:inset-1 after:rounded-md after:animate-opacity-up`}
+                            `}
+                            `}>
+                            <div className={` pointer-events-none
+                            sm:px-3 sm:py-[0.9rem]
+                            relative z-30`}>{l.label.toUpperCase()}</div>
 
+                            </div>
+                            </Magnetic>                                     
                         </div>
-                        </Magnetic>                                     
-                    </div>
+                    
+                    </li>
+                ))}
+                {dropdown.map((d) => (
+                    <Dropdown key={d.name} navigate={navigate} label={d.name} links={d.links}/>
+                ))}
+                </ul>
                 
-                </li>
-            ))}
-            {dropdown.map((d) => (
-                <Dropdown key={d.name} navigate={navigate} label={d.name} links={d.links}/>
-            ))}
-            </ul>
-            
-      </nav>    
-      <ThemeSwitcher/>
+        </nav>    
+        <ThemeSwitcher/>
       </div>
       </>
     )

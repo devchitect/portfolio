@@ -43,13 +43,13 @@ export function ThemeSwitcher(){
 
     return(
         <>
-        <div className='flex items-center justify-center lg:ml-4 sm:ml-2 sm:mr-[2px]'>
+        <div className='flex items-center justify-center sm:mx-3 '>
         <Magnetic>
                 <button
                 onMouseEnter={() => {dispatch(hoverOn())}}
                 onMouseLeave={() => {dispatch(hoverOff())}}
                 onClick={() => {switchTheme(); clickSound();}}
-                className={`glassmorphism lg:text-2xl sm:text-xl text-themeColor rounded-lg p-[0.7rem] `}
+                className={`glassmorphism lg:text-2xl sm:text-xl text-themeColor rounded-full p-[0.5rem] `}
                 >
                     {theme === 'light' && <Icon icon='line-md:sunny-outline-loop'/>}           
                     {theme === 'dark' && <Icon icon='line-md:moon-loop' hFlip={true} />}

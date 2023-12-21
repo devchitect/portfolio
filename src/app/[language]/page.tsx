@@ -103,14 +103,15 @@ export default function LandingHomepage ({params: {language}}) {
 
   return (
     <>
-      <main ref={GSAPContext} className=''>
-          {/* <FirstSection/> */}
-          <div className='w-5 h-20'/>
-          <SecondSection/>
-          <div className='w-5 lg:h-20'/>
-          <ThirdSection/>
-          <div className='w-5 lg:h-20 sm:h-5'/>
-          <FourthSection/> 
+      <main ref={GSAPContext} className='relative'>
+
+        <FirstSection/>
+        <div className='w-5 h-20'/>
+        <SecondSection/>
+        <div className='w-5 lg:h-20'/>
+        <ThirdSection/>
+        <div className='w-5 lg:h-20 sm:h-5'/>
+        <FourthSection/> 
       </main>
     </>
   )
@@ -124,14 +125,15 @@ const  FirstSection = () => {
 
   <>
     <div 
-    className={`relative w-full z-1 ${'home-intro'} overflow-hidden
+    className={`relative w-full z-1 ${'home-intro'} 
     lg:pt-0  
     sm:pt-32 sm:flex sm:flex-col sm:items-start sm:px-[10%]
     `}>
-      <div className="absolute w-screen h-screen -z-1">
+      <div className="absolute w-screen -z-1">
         <div className='w-[600px] h-[600px] gradient-mist mist-1 rounded-full'/>
         <div className='w-[380px] h-[380px] gradient-mist mist-2 rounded-full'/>
       </div>
+
       <div 
         className='absolute flex items-center dark:text-gray-200 opacity-50 hover:opacity-100 z-1
         md:bottom-auto md:top-10 md:right-auto md:px-0 
@@ -441,8 +443,8 @@ const ServiceBox = ({s, index, isActive, setActive, currentActive}) => {
           onClick={() => {setActive()}}
           onMouseMove={() => {currentActive === index ? dispatch(hoverTitle('Close')) : dispatch(hoverTitle('View'));}}
           onMouseLeave={() => {dispatch(hoverOff())}}
-          className={`relative overflow-hidden flex duration-500 py-3 px-4 items-center justify-between border-b
-          ${!isActive ? 'px-4 border-[#00000030] dark:border-[#ffffff30]' : 'px-8 text-themeColor before:translate-x-0 before:opacity-100 rounded-t-lg border-transparent'}
+          className={`relative overflow-hidden flex duration-500 py-3 items-center justify-between border-b
+          ${!isActive ? 'px-2 border-[#00000030] dark:border-[#ffffff30]' : 'lg:px-7 sm:px-5 text-themeColor before:translate-x-0 before:opacity-100 rounded-t-lg border-transparent'}
           hover:rounded-t-lg hover:text-themeColor hover:px-8
           before:content-[""] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-themeColor
           before:-translate-x-per100 before:duration-500 before:opacity-0 before:select-none before:pointer-events-none

@@ -65,6 +65,7 @@ export default function Root({
         dangerouslySetInnerHTML={initializeThemeBeforeRender()}/>
       </head>
       <body className={`${InterRegular.className}`}>
+        <div></div>
         <Providers lang={params.language}>
 
           <div 
