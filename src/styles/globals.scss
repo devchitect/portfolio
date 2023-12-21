@@ -50,8 +50,9 @@ html{
 }
 
 body {
-  
-
+  width: 100vw;
+  overflow-x: hidden !important;
+  overflow-y: scroll;
  
   @include responsive(phone){
     cursor: auto;
@@ -77,8 +78,8 @@ body {
 
 html, body{
   scrollbar-gutter: stable;
-  overflow-x: clip;
-  overflow-y: visible;
+
+
 }
 
   
