@@ -46,7 +46,7 @@ export function ThemeSwitcher(){
         <div className='flex items-center justify-center lg:ml-4 sm:ml-2 sm:mr-[2px]'>
         <Magnetic>
                 <button
-                onMouseEnter={() => {dispatch(hoverOn(''))}}
+                onMouseEnter={() => {dispatch(hoverOn())}}
                 onMouseLeave={() => {dispatch(hoverOff())}}
                 onClick={() => {switchTheme(); clickSound();}}
                 className={`glassmorphism lg:text-2xl sm:text-xl text-themeColor rounded-lg p-[0.7rem] `}

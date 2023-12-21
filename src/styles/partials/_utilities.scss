@@ -10,6 +10,12 @@
     box-shadow: 0 0 3px 1px var(--glassmorphism-shadow);
   }
 
+  .glass{
+    background-color: var(--glassmorphism-bg);
+    -webkit-backdrop-filter: blur(var(--blur));
+    backdrop-filter: blur(var(--blur));
+  }
+
   .bg-clip-text{
     border: none;
     box-shadow: none;
@@ -50,7 +56,7 @@
     // calc(-1 * $thick) calc(-1 * $thick) $shadow $color,
     // $thick calc(-1 * $thick) $shadow $color;
 
-    -webkit-text-fill-color: var(--bg-color); /* Will override color (regardless of order) */
+    -webkit-text-fill-color: var(--glassmorphism-bg); /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: var(--font-color);
   }

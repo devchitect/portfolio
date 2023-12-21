@@ -47,7 +47,8 @@ position: relative;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  box-shadow: 0 0 10px 10px var(--bg-color),
+  box-shadow: 0 0 25px 5px var(--bg-color),
+          0 0 50px 15px var(--bg-color),
     inset 0 0 25px 5px var(--bg-color),
     inset 0 0 50px 10px var(--bg-color),
     inset 0 0 75px 15px var(--bg-color),

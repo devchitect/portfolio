@@ -124,12 +124,12 @@ const  FirstSection = () => {
 
   <>
     <div 
-    className={`relative w-full z-1 ${'home-intro'}
+    className={`relative w-full z-1 ${'home-intro'} 
     lg:pt-0  
     sm:pt-32 sm:flex sm:flex-col sm:items-start sm:px-[10%]
     `}>
       <div className="absolute w-screen h-screen -z-1">
-        <div className='w-[650px] h-[650px] gradient-mist mist-1 rounded-full'/>
+        <div className='w-[600px] h-[600px] gradient-mist mist-1 rounded-full'/>
         <div className='w-[380px] h-[380px] gradient-mist mist-2 rounded-full'/>
       </div>
       <div 
