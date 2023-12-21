@@ -65,8 +65,8 @@ export default function Root({
         dangerouslySetInnerHTML={initializeThemeBeforeRender()}/>
       </head>
       <body className={`${InterRegular.className}`}>
-        <div></div>
-        <Providers lang={params.language}>
+        <div className='overflow-x-clip'>
+          <Providers lang={params.language}>
 
           <div 
           className='root-layout relative flex flex-col justify-between 
@@ -84,7 +84,8 @@ export default function Root({
           <DynamicScrollbar/>
           <DynamicCursor/>
 
-        </Providers>
+          </Providers>
+        </div>
       </body>
     </html>
   )
